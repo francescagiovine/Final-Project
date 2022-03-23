@@ -13,10 +13,32 @@ class User(db.Model):
 class Travel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
-    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
-    Location = db.Column(db.varchar(), unique=False)
-    begin_date = db.Column(db.Data(), unique=False)
-    end_date = db.Column(db.Data(), unique=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    Location = db.Column(db.String(), unique=False)
+    begin_date = db.Column(db.Date(), unique=False)
+    end_date = db.Column(db.Date(), unique=False)
+
+class Activity(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    description = db.Column(db.String())
+    travel_id = db.Column(db.Integer, db.ForeignKey('travel.id'), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('travel.id'), nullable=False)
+    subcategory_id = db.Column(db.Integer, db.ForeignKey('travel.id'), nullable=False)
+    begin_date = db.Column(db.DateTime())
+    end_date = db.Column(db.DateTime())
+    Location = db.Column(db.String())
+    cost = db.Column(db.Float())
+
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)   
+
+class Subcategory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('travel.id'), nullable=False)
+
 
     def __repr__(self):
         return '<User %r>' % self.username
