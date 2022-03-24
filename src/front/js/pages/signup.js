@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import "../../styles/home.css";
 
 export default function SignUp() {
-  // States for registration
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // States for checking the errors
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
 
@@ -33,10 +31,33 @@ export default function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name === "" || email === "" || password === "") {
-      setError(true);
+      setError("Please enter all the fields");
     } else {
-      setSubmitted(true);
-      setError(false);
+      fetch(
+        "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/api/sign-up",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+          }),
+        }
+      )
+        .then((response) => {
+          if (response.ok) {
+            setSubmitted(true);
+            setError(false);
+          } else {
+            return response.json();
+          }
+        })
+        .then((data) => {
+          setError(data.message);
+        });
     }
   };
 
@@ -60,10 +81,10 @@ export default function SignUp() {
       <div
         className="error"
         style={{
-          display: error ? "" : "none",
+          display: error != false ? "" : "none",
         }}
       >
-        <h1>Please enter all the fields</h1>
+        <h1>{error}</h1>
       </div>
     );
   };
