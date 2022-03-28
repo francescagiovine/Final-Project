@@ -18,6 +18,7 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+
 #api 1 - login, here i create the login service
 @api.route('/login', methods=['POST'])
 def login():
@@ -39,8 +40,24 @@ def login():
 
     return jsonify(data_response), 200
 
-
- 
-
 # this way we are sure the data is coming from the api and is the right data
 # end of api 1 - login
+
+#api 2 - signup, here we create the signup service
+
+@api.route('/sign-up', methods=['POST'])
+def sign_up():
+    name = request.json.get('name')
+    email = request.json.get('email')
+    password = request.json.get('password')
+
+    already_used = User.query.filter_by(email=email).first()
+    if already_used: 
+        return jsonify({"message": "El email ya está utilizado"}), 401
+    user = User(name=name, email=email, password=password, is_active=True)
+    db.session.add(user)
+    db.session.commit()
+
+    return jsonify({'response': "Usuario creado con éxito"}), 200
+
+  # end of api 2 - signup
