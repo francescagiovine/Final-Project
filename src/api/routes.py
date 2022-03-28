@@ -45,7 +45,7 @@ def login():
 
 #api 2 - signup, here we create the signup service
 
-@api.route('/sign-up', methods=['POST'])
+@api.route('/signup', methods=['POST'])
 def sign_up():
     name = request.json.get('name')
     email = request.json.get('email')

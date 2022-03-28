@@ -31,7 +31,7 @@ export const Login = () => {
 		setError("Please enter all the fields");
 	  } else {
 		fetch(
-		  "https://3001-francescagiovin-finalpro-9pv5aq5akcb.ws-eu38.gitpod.io/api/login",
+			process.env.BACKEND_URL + "/api/login",
 		  {
 			method: "POST",
 			headers: {

@@ -34,7 +34,7 @@ export default function SignUp() {
       setError("Please enter all the fields");
     } else {
       fetch(
-        "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/api/sign-up",
+        process.env.BACKEND_URL + "/api/signup",
         {
           method: "POST",
           headers: {
