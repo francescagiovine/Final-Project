@@ -8,11 +8,11 @@ export const Navbar = () => {
         <Link to="/home" className="buttons">
           WideTravel
         </Link>
-        <Link to="/">
-          <span className="navbar-brand">WideTravel</span>
+        <Link to="/home">
           <button className="buttons">Nosotros</button>
+        </Link>
+        <Link to="/home">
           <button className="buttons">Reseñas</button>
-          <button className="login">LOG IN</button>
         </Link>
       </div>
     </nav>
