@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import widetravelUrl from "../../img/widetravel.png";
 import "../../styles/home.css";
@@ -18,7 +18,6 @@ import "../../styles/home.css";
 //    </div>
 //  );
 //};
-import React, { useState } from "react";
 
 export default function Home() {
   const [name, setName] = useState("GFG");
