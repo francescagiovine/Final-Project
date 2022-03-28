@@ -8,6 +8,7 @@ import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 import { Login } from "./pages/login";
+import { Private } from "./pages/private";
 
 // import { Navbar } from "./component/navbar";
 // import { Footer } from "./component/footer";
@@ -32,6 +33,9 @@ const Layout = () => {
             </Route>
             <Route exact path="/login">
               <Login />
+            </Route>
+            <Route exact path="/private">
+              <Private />
             </Route>
             <Route exact path="/demo">
               <Demo />
