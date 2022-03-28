@@ -5,3 +5,30 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+body {
+  background-color: rgb(161, 243, 236);
+}
+.navbar {
+  background-color: rgb(192, 248, 88);
+  height: 100px;
+}
+.navbar-brand {
+  font-size: xx-large;
+  color: black;
+}
+.buttons {
+  background-color: transparent;
+  border: none;
+  font-size: xx-large;
+  padding: 20px;
+}
+.login {
+  background-color: transparent;
+  border: none;
+  font-size: xx-large;
+  margin-left: 680px;
+}
+.text-center2 {
+  background-color: bisque;
+  height: 100px;
+}
