@@ -5,6 +5,7 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+<<<<<<< HEAD
 body {
   background-color: rgb(161, 243, 236);
 }
@@ -31,4 +32,57 @@ body {
 .text-center2 {
   background-color: bisque;
   height: 100px;
+=======
+
+.App {
+  text-align: center;
+  background-color: orange;
+  width: 60%;
+  margin: auto;
+}
+
+.label {
+  display: block;
+  font-size: larger;
+  color: white;
+  padding: 5px;
+}
+
+.input {
+  font-size: larger;
+  padding: 5px;
+  margin: 2px;
+}
+.btn {
+  color: white;
+  background-color: red;
+  border-radius: 5px;
+  font-size: larger;
+  display: block;
+  padding: 5px;
+  margin: 10px auto;
+}
+
+.messages {
+  display: flex;
+  justify-content: center;
+}
+
+.error {
+  display: block;
+  background-color: red;
+  color: white;
+  width: fit-content;
+  height: 50px;
+  padding: 5px;
+}
+
+.success {
+  display: block;
+  background-color: lightblue;
+  color: black;
+  width: fit-content;
+  height: 50px;
+  padding: 5px;
+>>>>>>> a77acca715a57600d5da9df6c3a55ba56dd707d5
 }
