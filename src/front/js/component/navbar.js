@@ -9,10 +9,30 @@ export const Navbar = () => {
           WideTravel
         </Link>
         <Link to="/home">
-          <button className="buttons">Nosotros</button>
+          <div className="btn-group">
+            <button
+              className="buttons btn-lg dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Nosotros
+            </button>
+            <ul className="dropdown-menu">BLABLABLABLBABLALBALBA</ul>
+          </div>{" "}
         </Link>
         <Link to="/home">
-          <button className="buttons">Reseñas</button>
+          <div className="btn-group">
+            <button
+              className="buttons btn-lg dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Reseñas
+            </button>
+            <ul className="dropdown-menu">BLABMKSADFNVSKJVNSJKCSNJKSD</ul>
+          </div>
         </Link>
       </div>
     </nav>
