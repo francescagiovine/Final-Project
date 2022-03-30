@@ -3,29 +3,38 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 
+
+
 export const Login = () => {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [submitted, setSubmitted] = useState(false);
+	const [loged, setLoged] = useState(false);
 	const [error, setError] = useState(false);
 	const history = useHistory();
+	
+
+	const handleClick = () => {
+		actions.login(email, password).then(() => {
+			history.push("/private")
+		})
+	}
   
   
 	// Handling the email change
 	const handleEmail = (e) => {
 	  setEmail(e.target.value);
-	  setSubmitted(false);
+	  setLoged(false);
 	};
   
 	// Handling the password change
 	const handlePassword = (e) => {
 	  setPassword(e.target.value);
-	  setSubmitted(false);
+	  setLoged(false);
 	};
   
 	// Handling the form submission
-	const handleSubmit = (e) => {
+	const handleLogin = (e) => {
 	  e.preventDefault();
 	  if (email === "" || password === "") {
 		setError("Please enter all the fields");
@@ -43,18 +52,19 @@ export const Login = () => {
 			}),
 		  }
 		)
+		  .then(
+			  response => response.json()
+		  )
 		  .then((response) => {
-			if (response.ok) {
-			  setSubmitted(true);
+			  setLoged(true);
 			  setError(false);
 			//here we redirect the user to the Private Area
 			history.push("/private");
-			} 
-			 else {
-			  return response.json();
-			}
+			//console.log(response)
+			sessionStorage.setItem("token", response.token)
+
 		  })
-		  .then((data) => {
+		  .catch(data => { //mejorar esto
 			setError(data.message);
 		  });
 	  }
@@ -66,7 +76,7 @@ export const Login = () => {
 		<div
 		  className="success"
 		  style={{
-			display: submitted ? "" : "none",
+			display: loged ? "" : "none",
 		  }}
 		>
 		  <h1>User {name} Successfully registered!!</h1>
@@ -92,40 +102,31 @@ export const Login = () => {
 	};
   
 	return (
-	  <div className="App form">
-		<div>
-		  <h1>Login</h1>
-		</div>
+
+
+		<div className="App form">
+			<div className="messages">
+		  		{errorMessage()}
+		  		{successMessage()}
+			</div>
+			<div>
+		  		<h1>Login</h1>
+
+					  <div>
+						<form>
+							<label className="label">Email</label>
+							<input onChange={handleEmail} className="input" value={email} type="email"/>
+							<label className="label">Password</label>
+							<input onChange={handlePassword} className="input" value={password} type="password"/>
+							<button onClick={handleLogin} className="btn" type="login">Login</button>
+						</form>
+					  </div>
+			</div>
+
   
-		{/* Calling to the methods */}
-		<div className="messages">
-		  {errorMessage()}
-		  {successMessage()}
-		</div>
-  
-		<form>
-		  {/* Labels and inputs for form data */}
-  
-		  <label className="label">Email</label>
-		  <input
-			onChange={handleEmail}
-			className="input"
-			value={email}
-			type="email"
-		  />
-  
-		  <label className="label">Password</label>
-		  <input
-			onChange={handlePassword}
-			className="input"
-			value={password}
-			type="password"
-		  />
-  
-		  <button onClick={handleSubmit} className="btn" type="submit">
-			Submit
-		  </button>
-		</form>
+
 	  </div>
-	);
-  }
+			)
+		}
+	 
+	
