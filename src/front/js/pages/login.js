@@ -1,25 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { Context } from "../store/appContext";
-
-
 
 export const Login = () => {
-	const [name, setName] = useState("");
+
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [loged, setLoged] = useState(false);
-	const [error, setError] = useState(false);
-	const history = useHistory();
-	
-
-	const handleClick = () => {
-		actions.login(email, password).then(() => {
-			history.push("/private")
-		})
-	}
-  
+	const [missingField, setMissingField] = useState(false);
+	const [missingToken, setMissingToken] = useState(false)
   
 	// Handling the email change
 	const handleEmail = (e) => {
@@ -37,8 +26,11 @@ export const Login = () => {
 	const handleLogin = (e) => {
 	  e.preventDefault();
 	  if (email === "" || password === "") {
-		setError("Please enter all the fields");
-	  } else {
+		setMissingField("Please enter all the fields");
+	  } else { 
+		  //if(token === undefined) {
+			  //setMissingToken("no token here");
+		  //} else
 		fetch(
 			process.env.BACKEND_URL + "/api/login",
 		  {
@@ -57,11 +49,9 @@ export const Login = () => {
 		  )
 		  .then((response) => {
 			  setLoged(true);
-			  setError(false);
-			//here we redirect the user to the Private Area
-			history.push("/private");
-			//console.log(response)
-			sessionStorage.setItem("token", response.token)
+			  setMissingField(false);
+			console.log(response)
+			//sessionStorage.setItem("token", response.token)
 
 		  })
 		  .catch(data => { //mejorar esto
@@ -71,6 +61,8 @@ export const Login = () => {
 	};
   
 	// Showing success message
+			//here we redirect the user to the Private Area
+			//history.push("/private");
 	const successMessage = () => {
 	  return (
 		<div
@@ -79,7 +71,7 @@ export const Login = () => {
 			display: loged ? "" : "none",
 		  }}
 		>
-		  <h1>User {name} Successfully registered!!</h1>
+		  <h1>User Loged</h1>
 		  <Link to="/private">
           <button className="login">LOG IN</button>
         </Link>
@@ -88,15 +80,15 @@ export const Login = () => {
 	};
   
 	// Showing error message if error is true
-	const errorMessage = () => {
+	const MessageMisingField = () => {
 	  return (
 		<div
 		  className="error"
 		  style={{
-			display: error != false ? "" : "none",
+			display: missingField != false ? "" : "none",
 		  }}
 		>
-		  <h1>{error}</h1>
+		  <h1>{missingField}</h1>
 		</div>
 	  );
 	};
@@ -106,7 +98,7 @@ export const Login = () => {
 
 		<div className="App form">
 			<div className="messages">
-		  		{errorMessage()}
+		  		{MessageMisingField()}
 		  		{successMessage()}
 			</div>
 			<div>
@@ -128,5 +120,3 @@ export const Login = () => {
 	  </div>
 			)
 		}
-	 
-	
