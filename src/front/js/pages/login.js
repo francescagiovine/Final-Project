@@ -8,29 +8,24 @@ export const Login = () => {
 	const [password, setPassword] = useState("");
 	const [loged, setLoged] = useState(false);
 	const [missingField, setMissingField] = useState(false);
-	const [missingToken, setMissingToken] = useState(false)
+	const history = useHistory();
   
 	// Handling the email change
 	const handleEmail = (e) => {
 	  setEmail(e.target.value);
-	  setLoged(false);
 	};
   
 	// Handling the password change
 	const handlePassword = (e) => {
 	  setPassword(e.target.value);
-	  setLoged(false);
 	};
   
-	// Handling the form submission
+	// Handling the login form
 	const handleLogin = (e) => {
 	  e.preventDefault();
 	  if (email === "" || password === "") {
 		setMissingField("Please enter all the fields");
 	  } else { 
-		  //if(token === undefined) {
-			  //setMissingToken("no token here");
-		  //} else
 		fetch(
 			process.env.BACKEND_URL + "/api/login",
 		  {
@@ -44,40 +39,31 @@ export const Login = () => {
 			}),
 		  }
 		)
-		  .then(
-			  response => response.json()
-		  )
-		  .then((response) => {
-			  setLoged(true);
-			  setMissingField(false);
-			console.log(response)
-			//sessionStorage.setItem("token", response.token)
 
-		  })
-		  .catch(data => { //mejorar esto
-			setError(data.message);
-		  });
+				//console.log(response);
+				//sessionStorage.setItem("token", response.token)
+		//setLoged(true)
+		  .then(
+			  response => {
+				  if(response.status != 200) 
+				  	throw alert ("usuario o contraseña inválidos");				  
+				return response.json(); //puedo cambiar la alerta por una funcion que suelte un html y así homogeneizar las alertas
+			}) 
+		  .then(responseFromApi => {
+			// Do stuff with the JSONified response
+			 sessionStorage.setItem("token", responseFromApi.token),
+			 console.log("from a galaxy far, far away...", responseFromApi);
+			 })
+
+		  //here we redirect the user to the Private Area		 
+		  .catch(error => {	console.log("ups! there is some error", error)});
 	  }
 	};
   
-	// Showing success message
-			//here we redirect the user to the Private Area
-			//history.push("/private");
-	const successMessage = () => {
-	  return (
-		<div
-		  className="success"
-		  style={{
-			display: loged ? "" : "none",
-		  }}
-		>
-		  <h1>User Loged</h1>
-		  <Link to="/private">
-          <button className="login">LOG IN</button>
-        </Link>
-		</div>
-	  );
-	};
+			//console.log(response)
+			//sessionStorage.setItem("token", response.token)
+			//history.push("/private"); o window.location("/private")
+
   
 	// Showing error message if error is true
 	const MessageMisingField = () => {
@@ -99,7 +85,6 @@ export const Login = () => {
 		<div className="App form">
 			<div className="messages">
 		  		{MessageMisingField()}
-		  		{successMessage()}
 			</div>
 			<div>
 		  		<h1>Login</h1>
@@ -114,9 +99,4 @@ export const Login = () => {
 						</form>
 					  </div>
 			</div>
-
-  
-
-	  </div>
-			)
-		}
+	  </div>)}

@@ -45,7 +45,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ demo: demo });
 			},
 
-			
+			//traer el fetch del login aqui (como hice antes)
 			
 
 		}
