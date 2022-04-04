@@ -48,7 +48,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			syncTokenSessionStore: () => {
 				const token = sessionStorage.getItem("token");
+				console.log("token stored");
 				if(token && token != "" && token != undefined) setStore({token: token});
+			},
+
+			logout: () => {
+				sessionStorage.removeItem("token");
+				console.log("log out");
+				setStore({token: null});
 			},
 
 			//traer el fetch del login aqui (como hice antes)
@@ -69,10 +76,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return false;
 					}				  
 					const responseFromApi = await response.json(); //puedo cambiar la alerta por una funcion que suelte un html y así homogeneizar las alertas
-					console.log("from a galaxy far, far away...", responseFromApi)
+					console.log("response from API", responseFromApi)
 					sessionStorage.setItem("token", responseFromApi.token);	
 					setStore({token: responseFromApi.token})
-					history.push("/private");
 				};
 				}
 				catch(error){

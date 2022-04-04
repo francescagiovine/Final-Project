@@ -1,20 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Navbar } from "../component/navbar";
 
 export const Private = () => {
   return (
-   <div> <nav className="navbar">
-      <div className="container">
-        <Link to="/home" className="buttons">
-          WideTravel
-        </Link>
-        <Link to="/login" className="buttons">
-          Login
-        </Link>
-        
-      </div>
-      
-    </nav>
+   <div>  
     <h1>Bienvenido a su area privada</h1>
     <div className="row row-cols-1 row-cols-md-3 g-4">
   <div className="col">
