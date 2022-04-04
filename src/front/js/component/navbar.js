@@ -9,7 +9,7 @@ export const Navbar = () => {
     <nav className="navbar">
       <div className="container">
         <Link to="/home" className="buttons">
-          WideTravelo
+          inicio
         </Link>
         <div>
           {!store.token ? (
