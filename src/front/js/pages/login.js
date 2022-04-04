@@ -1,91 +1,38 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import {Context} from "../store/appContext";
 
 export const Login = () => {
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [loged, setLoged] = useState(false);
-	const [missingField, setMissingField] = useState(false);
 	const history = useHistory();
+	const {store, actions} = useContext(Context)
   
 	// Handling the email change
-	const handleEmail = (e) => {
-	  setEmail(e.target.value);
-	};
+	const handleEmail = (e) => {setEmail(e.target.value)};
   
 	// Handling the password change
-	const handlePassword = (e) => {
-	  setPassword(e.target.value);
-	};
+	const handlePassword = (e) => {setPassword(e.target.value);};
   
 	// Handling the login form
 	const handleLogin = (e) => {
-	  e.preventDefault();
-	  if (email === "" || password === "") {
-		setMissingField("Please enter all the fields");
-	  } else { 
-		fetch(
-			process.env.BACKEND_URL + "/api/login",
-		  {
-			method: "POST",
-			headers: {
-			  "Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-			  email: email,
-			  password: password,
-			}),
-		  }
-		)
+		e.preventDefault();
+				if (email === "" || password === "") {
+				  alert("Please enter all the fields");
+				} else { 
+					actions.login(email, password)
+			//here we redirect the user to the Private Area: history.push("/private"); o window.location("/private")
+		}};
 
-				//console.log(response);
-				//sessionStorage.setItem("token", response.token)
-		//setLoged(true)
-		  .then(
-			  response => {
-				  if(response.status != 200) 
-				  	throw alert ("usuario o contraseña inválidos");				  
-				return response.json(); //puedo cambiar la alerta por una funcion que suelte un html y así homogeneizar las alertas
-			}) 
-		  .then(responseFromApi => {
-			// Do stuff with the JSONified response
-			 sessionStorage.setItem("token", responseFromApi.token),
-			 console.log("from a galaxy far, far away...", responseFromApi);
-			 })
+	if(store.token && store.token != "" && store.token != undefined) history.push("/private");
 
-		  //here we redirect the user to the Private Area		 
-		  .catch(error => {	console.log("ups! there is some error", error)});
-	  }
-	};
-  
-			//console.log(response)
-			//sessionStorage.setItem("token", response.token)
-			//history.push("/private"); o window.location("/private")
-
-  
-	// Showing error message if error is true
-	const MessageMisingField = () => {
-	  return (
-		<div
-		  className="error"
-		  style={{
-			display: missingField != false ? "" : "none",
-		  }}
-		>
-		  <h1>{missingField}</h1>
-		</div>
-	  );
-	};
   
 	return (
 
 
 		<div className="App form">
-			<div className="messages">
-		  		{MessageMisingField()}
-			</div>
 			<div>
 		  		<h1>Login</h1>
 
@@ -99,4 +46,5 @@ export const Login = () => {
 						</form>
 					  </div>
 			</div>
-	  </div>)}
+	  </div>)
+	}

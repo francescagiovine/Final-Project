@@ -1,3 +1,4 @@
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -45,8 +46,40 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ demo: demo });
 			},
 
+			syncTokenSessionStore: () => {
+				const token = sessionStorage.getItem("token");
+				if(token && token != "" && token != undefined) setStore({token: token});
+			},
+
 			//traer el fetch del login aqui (como hice antes)
-			
+			login: async (email, password) => {
+				try{
+					if (email === "" || password === "") {
+						setMissingField("Please enter all the fields");
+					  } else { 
+						  const response = await fetch(
+						process.env.BACKEND_URL + "/api/login",
+					{method: "POST",
+					headers: {"Content-Type": "application/json"},
+					body: JSON.stringify({email: email, password: password,}),
+					})
+	
+					if(response.status != 200){
+						alert ("invalid user or password");
+						return false;
+					}				  
+					const responseFromApi = await response.json(); //puedo cambiar la alerta por una funcion que suelte un html y así homogeneizar las alertas
+					console.log("from a galaxy far, far away...", responseFromApi)
+					sessionStorage.setItem("token", responseFromApi.token);	
+					setStore({token: responseFromApi.token})
+					history.push("/private");
+				};
+				}
+				catch(error){
+					console.log("There is an error in login process")
+				}
+		
+			},
 
 		}
 	};
