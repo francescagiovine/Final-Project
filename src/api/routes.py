@@ -52,5 +52,30 @@ def create_trip():
 @api.route('/users', methods=['GET'])
 def list_users():
     users = User.query.all()
+    usersResponse = []
+    for user in users:
+        usersResponse.append(user.serialize())
 
-# NO MUESTRA LOS USUARIOS EN EL NAVEGADOR (LA RESPUESTA)
+    return jsonify(usersResponse), 200
+
+@api.route('/getTrips', methods=['GET'])
+def list_trips():
+    travels = Travel.query.all()
+    response = []
+    for travel in travels:
+        response.append(travel.serialize()) 
+        
+    return jsonify(response), 200
+
+@api.route('/delete-trip', methods=['POST'])
+def delete_trip():
+    id = request.json.get('id')
+    travel = Travel.query.get(id)
+    db.session.delete(travel)
+    db.session.commit()
+
+    response_body = {
+        "message": "Viaje eliminado"
+    }
+
+    return jsonify(response_body), 200
