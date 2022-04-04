@@ -4,8 +4,8 @@ import "../../styles/home.css";
 export default function CreateTrip() {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
-  const [beginDate, setBeginDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [begin_date, setBeginDate] = useState("");
+  const [end_date, setEndDate] = useState("");
   //   OJO FALTA EL USER ID QUE MARCOS ME DIJO LO COLOCARA MANUAL
 
   const [submitted, setSubmitted] = useState(false);
@@ -39,7 +39,12 @@ export default function CreateTrip() {
   // Handling the form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (name === "" || location === "" || beginDate === "" || endDate === "") {
+    if (
+      name === "" ||
+      location === "" ||
+      begin_date === "" ||
+      end_date === ""
+    ) {
       setError("Please enter all the trip fields");
     } else {
       fetch(
@@ -52,8 +57,8 @@ export default function CreateTrip() {
           body: JSON.stringify({
             name: name,
             location: location,
-            beginDate: beginDate,
-            endDate: endDate,
+            begin_date: begin_date,
+            end_date: end_date,
           }),
         }
       )
@@ -63,7 +68,8 @@ export default function CreateTrip() {
           setError(false);
         })
         .catch((error) => {
-          setError(data.response);
+          // setError(error);
+          console.log(error);
         });
     }
   };
@@ -130,7 +136,7 @@ export default function CreateTrip() {
         <input
           onChange={handleBeginDate}
           className="input"
-          value={beginDate}
+          value={begin_date}
           type="datetime"
         />
 
@@ -138,7 +144,7 @@ export default function CreateTrip() {
         <input
           onChange={handleEndDate}
           className="input"
-          value={endDate}
+          value={end_date}
           type="datetime"
         />
 

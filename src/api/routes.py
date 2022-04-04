@@ -40,10 +40,10 @@ def sign_up():
 def create_trip():
     name = request.json.get('name')
     location = request.json.get('location')
-    endDate = datetime.strptime(request.json.get('endDate'), '%d/%m/%Y')
-    beginDate = datetime.strptime(request.json.get('beginDate'), '%d/%m/%Y')
+    endDate = datetime.strptime(request.json.get('end_date'), '%d/%m/%Y')
+    beginDate = datetime.strptime(request.json.get('begin_date'), '%d/%m/%Y')
 
-    travel = Travel(name=name, user_id=2, Location=location, begin_date=beginDate, end_date=endDate)
+    travel = Travel(name=name, user_id=2, location=location, begin_date=beginDate, end_date=endDate)
     db.session.add(travel)
     db.session.commit()
 
