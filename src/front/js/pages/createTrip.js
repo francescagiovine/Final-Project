@@ -131,7 +131,7 @@ export default function CreateTrip() {
           onChange={handleBeginDate}
           className="input"
           value={beginDate}
-          type="datetime"
+          type="datetime-local"
         />
 
         <label className="label">End Date</label>
@@ -139,7 +139,7 @@ export default function CreateTrip() {
           onChange={handleEndDate}
           className="input"
           value={endDate}
-          type="datetime"
+          type="datetime-local"
         />
 
         <button onClick={handleSubmit} className="btn" type="submit">
