@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import MapRender from "../component/maprender";
+import {Navbar} from "../component/navbar";
 
 import { Context } from "../store/appContext";
 
@@ -28,6 +30,9 @@ export const Demo = () => {
 							<button className="btn btn-success" onClick={() => actions.changeColor(index, "orange")}>
 								Change Color
 							</button>
+							<Navbar/>
+							<MapRender/>
+
 						</li>
 					);
 				})}
