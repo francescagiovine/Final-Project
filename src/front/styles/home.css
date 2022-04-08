@@ -8,30 +8,28 @@
 body {
   background-color: rgb(161, 243, 236);
 }
-.navbar {
-  background-color: rgb(192, 248, 88);
-  height: 100px;
+h1 {
+  text-align: center;
+  padding: 20px;
 }
+
 .navbar-brand {
   font-size: xx-large;
   color: black;
 }
+
 .buttons {
   background-color: transparent;
   border: none;
   font-size: xx-large;
   padding: 20px;
 }
-.login {
-  background-color: transparent;
-  border: none;
-  font-size: xx-large;
-  margin-left: 680px;
-}
+
 .text-center2 {
   background-color: bisque;
   height: 100px;
 }
+
 .App {
   text-align: center;
   background-color: orange;
@@ -51,6 +49,7 @@ body {
   padding: 5px;
   margin: 2px;
 }
+
 .btn {
   color: white;
   background-color: red;
@@ -82,4 +81,25 @@ body {
   width: fit-content;
   height: 50px;
   padding: 5px;
+}
+
+.col {
+  display: inline-block;
+  margin: auto;
+  padding: 20px;
+}
+
+.card {
+  width: 150px;
+  height: 150px;
+  background-color: transparent;
+}
+
+.plusbutton {
+  background-color: aquamarine;
+}
+
+.collapse {
+  margin-left: 75%;
+  padding: 20px;
 }
