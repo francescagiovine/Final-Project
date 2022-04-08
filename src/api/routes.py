@@ -67,12 +67,15 @@ def sign_up():
   
 @api.route('/create-trip', methods=['POST'])
 def create_trip():
+    id = request.json.get('id')
     name = request.json.get('name')
     location = request.json.get('location')
-    endDate = datetime.strptime(request.json.get('endDate'), '%d/%m/%Y')
-    beginDate = datetime.strptime(request.json.get('beginDate'), '%d/%m/%Y')
+    endDate = datetime.strptime(request.json.get('end_date'), '%d/%m/%Y')
+    beginDate = datetime.strptime(request.json.get('begin_date'), '%d/%m/%Y')
+    # category = request.json.get('category')
 
-    travel = Travel(name=name, user_id=2, Location=location, begin_date=beginDate, end_date=endDate)
+    travel = Travel(name=name, user_id=2, location=location, begin_date=beginDate, end_date=endDate)
+    # travel = Travel(name=name, user_id=2, location=location, begin_date=beginDate, end_date=endDate, category_id=category)
     db.session.add(travel)
     db.session.commit()
 
@@ -81,5 +84,38 @@ def create_trip():
 @api.route('/users', methods=['GET'])
 def list_users():
     users = User.query.all()
+    usersResponse = []
+    for user in users:
+        usersResponse.append(user.serialize())
 
-# NO MUESTRA LOS USUARIOS EN EL NAVEGADOR (LA RESPUESTA)
+    return jsonify(usersResponse), 200
+
+@api.route('/getTrips', methods=['GET'])
+def list_trips():
+    travels = Travel.query.all()
+    response = []
+    for travel in travels:
+        response.append(travel.serialize()) 
+        
+    return jsonify(response), 200
+
+@api.route('/delete-trip', methods=['POST'])
+def delete_trip():
+    id = request.json.get('id')
+    travel = Travel.query.get(id)
+    db.session.delete(travel)
+    db.session.commit()
+
+    response_body = {
+        "message": "Viaje eliminado"
+    }
+
+    return jsonify(response_body), 200
+
+@api.route('/trip/<int:id>', methods=['GET'])
+def get_trip(id):
+    trip = Travel.get_by_id(id)
+    if trip: 
+        return jsonify(trip.serialize()), 200
+    return ({'error': 'Trip Not found'}), 404
+    

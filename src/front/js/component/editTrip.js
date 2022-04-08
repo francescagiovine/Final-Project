@@ -1,21 +1,41 @@
 import React, { useState } from "react";
 import "../../styles/home.css";
+import { useParams } from "react-router-dom";
 
-export default function CreateTrip() {
+export default function EditTrip() {
+  const { id } = useParams();
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [begin_date, setBeginDate] = useState("");
   const [end_date, setEndDate] = useState("");
-  //   OJO FALTA EL USER ID QUE MARCOS ME DIJO LO COLOCARA MANUAL
+  // const id = queryParams.get("id");
+  // console.log(id);
+
+  const getSingleTrip = (id) => {
+    fetch(
+      "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/api/trip/".concat(
+        id
+      )
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        // console.log(response);
+        setName(response.name);
+        setLocation(response.location);
+        setBeginDate(response.begin_date);
+        setEndDate(response.end_date);
+      });
+  };
+  getSingleTrip(id);
 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
-  //   EN PRINCIPIO NO NECESITAMOS NINGUN ERROR EN TEMA REGISTRO VIAJE
 
   // Handling the name change
   const handleName = (e) => {
+    console.log(e.target.value);
     setName(e.target.value);
-    setSubmitted(false);
+    // setSubmitted(false);
   };
 
   // Handling the location change
@@ -48,13 +68,14 @@ export default function CreateTrip() {
       setError("Please enter all the trip fields");
     } else {
       fetch(
-        "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/api/create-trip",
+        "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/api/edit-trip",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            id: id,
             name: name,
             location: location,
             begin_date: begin_date,
@@ -105,7 +126,7 @@ export default function CreateTrip() {
   return (
     <div className="App form">
       <div>
-        <h1>Create your trip</h1>
+        <h1>Edit your trip</h1>
       </div>
 
       {/* Calling to the methods */}
@@ -136,19 +157,19 @@ export default function CreateTrip() {
         <input
           onChange={handleBeginDate}
           className="input"
-          value={beginDate}
-          type="datetime-local"
+          value={begin_date}
+          type="datetime"
         />
 
         <label className="label">End Date</label>
         <input
           onChange={handleEndDate}
           className="input"
-          value={endDate}
-          type="datetime-local"
+          value={end_date}
+          type="datetime"
         />
 
-        <button onClick={handleSubmit} className="btn" type="submit">
+        <button onClick={handleSubmit} className="btn">
           Submit
         </button>
       </form>
