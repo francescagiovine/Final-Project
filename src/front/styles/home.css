@@ -5,6 +5,30 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+body {
+  background-color: rgb(161, 243, 236);
+}
+h1 {
+  text-align: center;
+  padding: 20px;
+}
+
+.navbar-brand {
+  font-size: xx-large;
+  color: black;
+}
+
+.buttons {
+  background-color: transparent;
+  border: none;
+  font-size: xx-large;
+  padding: 20px;
+}
+
+.text-center2 {
+  background-color: bisque;
+  height: 100px;
+}
 
 .App {
   text-align: center;
@@ -25,6 +49,7 @@
   padding: 5px;
   margin: 2px;
 }
+
 .btn {
   color: white;
   background-color: red;
@@ -56,4 +81,25 @@
   width: fit-content;
   height: 50px;
   padding: 5px;
+}
+
+.col {
+  display: inline-block;
+  margin: auto;
+  padding: 20px;
+}
+
+.card {
+  width: 150px;
+  height: 150px;
+  background-color: transparent;
+}
+
+.plusbutton {
+  background-color: aquamarine;
+}
+
+.collapse {
+  margin-left: 75%;
+  padding: 20px;
 }

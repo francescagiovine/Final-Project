@@ -1,6 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
+      token: null,
       message: null,
       demo: [
         {
@@ -30,6 +31,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("Error loading message from backend", error)
           );
       },
+
       changeColor: (index, color) => {
         //get the store
         const store = getStore();
@@ -46,16 +48,58 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getSingleTrip: (id) => {
         fetch(
-          "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/trip/"
-            .concat(id)
-            .then((response) => {
-              if (response.ok) {
-                return response.json();
-              } else {
-                console.log(error);
+          "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/trip/".concat(
+            id
+          )
+        ).then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            console.log(error);
+          }
+        });
+      },
+
+      syncTokenSessionStore: () => {
+        const token = sessionStorage.getItem("token");
+        console.log("token stored");
+        if (token && token != "" && token != undefined)
+          setStore({ token: token });
+      },
+
+      logout: () => {
+        sessionStorage.removeItem("token");
+        console.log("log out");
+        setStore({ token: null });
+      },
+
+      //traer el fetch del login aqui (como hice antes)
+      login: async (email, password) => {
+        try {
+          if (email === "" || password === "") {
+            setMissingField("Please enter all the fields");
+          } else {
+            const response = await fetch(
+              process.env.BACKEND_URL + "/api/login",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: email, password: password }),
               }
-            })
-        );
+            );
+
+            if (response.status != 200) {
+              alert("invalid user or password");
+              return false;
+            }
+            const responseFromApi = await response.json(); //puedo cambiar la alerta por una funcion que suelte un html y así homogeneizar las alertas
+            console.log("response from API", responseFromApi);
+            sessionStorage.setItem("token", responseFromApi.token);
+            setStore({ token: responseFromApi.token });
+          }
+        } catch (error) {
+          console.log("There is an error in login process");
+        }
       },
     },
   };
