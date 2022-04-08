@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import SignUp from "./pages/signup";
 import CreateTrip from "./pages/createTrip";
+import Trips from "./pages/trips";
+import EditTrip from "./component/editTrip";
 
 import Home from "./pages/home";
 import { Demo } from "./pages/demo";
@@ -40,6 +42,12 @@ const Layout = () => {
             </Route>
             <Route exact path="/create-trip">
               <CreateTrip />
+            </Route>
+            <Route exact path="/trips">
+              <Trips />
+            </Route>
+            <Route exact path="/edit-trip/:id">
+              <EditTrip />
             </Route>
             <Route exact path="/demo">
               <Demo />
