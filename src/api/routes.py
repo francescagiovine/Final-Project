@@ -38,6 +38,7 @@ def sign_up():
 
 @api.route('/create-trip', methods=['POST'])
 def create_trip():
+    id = request.json.get('id')
     name = request.json.get('name')
     location = request.json.get('location')
     endDate = datetime.strptime(request.json.get('end_date'), '%d/%m/%Y')
@@ -79,3 +80,11 @@ def delete_trip():
     }
 
     return jsonify(response_body), 200
+
+@api.route('/trip/<int:id>', methods=['GET'])
+def get_trip(id):
+    trip = Travel.get_by_id(id)
+    if trip: 
+        return jsonify(trip.serialize()), 200
+    return ({'error': 'Trip Not found'}), 404
+    

@@ -35,7 +35,7 @@ export default function Trips() {
           </tr>
         </thead>
         {trips.map((value, index) => {
-          return <CardTrip key={index} trip={value} />;
+          return <CardTrip key={index.toString()} trip={value} />;
         })}
       </table>
     </div>

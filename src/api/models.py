@@ -32,6 +32,10 @@ class Travel(db.Model):
             "end_date": self.end_date.strftime("%d/%m/%Y"),
             "id": self.id
         }
+    @classmethod
+    def get_by_id(cls, id):
+        trip = cls.query.get(id)
+        return trip
 
 class Activity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
