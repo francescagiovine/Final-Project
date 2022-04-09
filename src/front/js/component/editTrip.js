@@ -141,7 +141,7 @@ export default function EditTrip() {
         <input
           onChange={handleName}
           className="input"
-          value={name}
+          placeholder={name}
           type="text"
         />
 
@@ -149,7 +149,7 @@ export default function EditTrip() {
         <input
           onChange={handleLocation}
           className="input"
-          value={location}
+          placeholder={location}
           type="text"
         />
 
@@ -157,7 +157,7 @@ export default function EditTrip() {
         <input
           onChange={handleBeginDate}
           className="input"
-          value={begin_date}
+          placeholder={begin_date}
           type="datetime"
         />
 
@@ -165,7 +165,7 @@ export default function EditTrip() {
         <input
           onChange={handleEndDate}
           className="input"
-          value={end_date}
+          placeholder={end_date}
           type="datetime"
         />
 
