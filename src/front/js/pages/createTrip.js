@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/home.css";
 
 export default function CreateTrip() {
@@ -15,7 +15,7 @@ export default function CreateTrip() {
 
   const getCategory = () => {
     fetch(
-      "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu39.gitpod.io/api/getCategories"
+      "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/api/getCategories"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -24,7 +24,10 @@ export default function CreateTrip() {
         // this.setState({ totalReactPackages: data.total })
       });
   };
-  getCategory();
+
+  useEffect(() => {
+    getCategory();
+  }, []);
 
   // Handling the name change
   const handleName = (e) => {
@@ -160,7 +163,7 @@ export default function CreateTrip() {
           onChange={handleBeginDate}
           className="input"
           value={begin_date}
-          type="datetime"
+          type="datetime-local"
         />
 
         <label className="label">End Date</label>
@@ -168,7 +171,7 @@ export default function CreateTrip() {
           onChange={handleEndDate}
           className="input"
           value={end_date}
-          type="datetime"
+          type="datetime-local"
         />
         <label className="label">Category</label>
         {/* {category.map((value, index) => {
