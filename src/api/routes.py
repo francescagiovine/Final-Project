@@ -12,15 +12,6 @@ from datetime import datetime
 api = Blueprint('api', __name__)
 
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
-
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200
-
 
 #api 1 - login, here i create the login service
 @api.route('/login', methods=['POST'])
@@ -33,7 +24,7 @@ def login():
     if not user:
         return jsonify({"message":"El usuario o contraseña incorrectos"}), 401
 
-    token = create_access_token(identity = user.id)
+    token = create_access_token(identity = user.email)
 
     data_response = {
         "token" : token,
@@ -45,6 +36,20 @@ def login():
 
 # this way we are sure the data is coming from the api and is the right data
 # end of api 1 - login
+
+
+@api.route('/hello', methods=['GET'])
+@jwt_required()
+def get_hello():
+
+    email = get_jwt_identity()
+    response_body = {
+        'message': email
+
+    }
+
+    return jsonify(response_body), 200
+
 
 #api 2 - signup, here we create the signup service
 
