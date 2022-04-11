@@ -70,7 +70,7 @@ export default function CreateTrip() {
       setError("Please enter all the trip fields");
     } else {
       fetch(
-        "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu39.gitpod.io/api/create-trip",
+        "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/api/createTrip",
         {
           method: "POST",
           headers: {
@@ -95,7 +95,7 @@ export default function CreateTrip() {
         })
         .catch((error) => {
           // setError(error);
-          console.log(error);
+          // console.log(error);
         });
     }
   };
@@ -163,7 +163,7 @@ export default function CreateTrip() {
           onChange={handleBeginDate}
           className="input"
           value={begin_date}
-          type="datetime-local"
+          type="date"
         />
 
         <label className="label">End Date</label>
@@ -171,7 +171,7 @@ export default function CreateTrip() {
           onChange={handleEndDate}
           className="input"
           value={end_date}
-          type="datetime-local"
+          type="date"
         />
         <label className="label">Category</label>
         {/* {category.map((value, index) => {

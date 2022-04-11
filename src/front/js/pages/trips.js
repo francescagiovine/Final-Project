@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardTrip from "../component/cardTrip";
 
 export default function Trips() {
@@ -15,7 +15,10 @@ export default function Trips() {
         // this.setState({ totalReactPackages: data.total })
       });
   };
-  listTrips();
+
+  useEffect(() => {
+    listTrips();
+  }, []);
 
   //! Hacia arriba es la logica del front --> REACT
 

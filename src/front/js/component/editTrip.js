@@ -158,7 +158,7 @@ export default function EditTrip() {
           onChange={handleBeginDate}
           className="input"
           placeholder={begin_date}
-          type="datetime"
+          type="datetime-local"
         />
 
         <label className="label">End Date</label>
@@ -166,7 +166,7 @@ export default function EditTrip() {
           onChange={handleEndDate}
           className="input"
           placeholder={end_date}
-          type="datetime"
+          type="datetime-local"
         />
 
         <button onClick={handleSubmit} className="btn">
