@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Travel
+from api.models import db, User, Travel, Category
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 import json
@@ -77,10 +77,12 @@ def create_trip():
     location = request.json.get('location')
     endDate = datetime.strptime(request.json.get('end_date'), '%d/%m/%Y')
     beginDate = datetime.strptime(request.json.get('begin_date'), '%d/%m/%Y')
-    # category = request.json.get('category')
+    category_id = request.json.get('category_id')
+    latitude = request.json.get('latitude')
+    longitude = request.json.get('longitude')
+    user_id = request.json.get('user_id')
 
-    travel = Travel(name=name, user_id=2, location=location, begin_date=beginDate, end_date=endDate)
-    # travel = Travel(name=name, user_id=2, location=location, begin_date=beginDate, end_date=endDate, category_id=category)
+    travel = Travel(name=name, user_id=user_id, location=location, begin_date=beginDate, end_date=endDate, category_id=category_id)
     db.session.add(travel)
     db.session.commit()
 
@@ -124,3 +126,12 @@ def get_trip(id):
         return jsonify(trip.serialize()), 200
     return ({'error': 'Trip Not found'}), 404
     
+
+@api.route('/getCategories', methods=['GET'])
+def get_categories():
+    categories = Category.query.all()
+    categoriesResponse = []
+    for category in categories:
+        categoriesResponse.append(category.serialize())
+
+    return jsonify(categoriesResponse), 200
