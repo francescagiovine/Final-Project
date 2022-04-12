@@ -70,13 +70,14 @@ def sign_up():
 
   # end of api 2 - signup
   
-@api.route('/create-trip', methods=['POST'])
+@api.route('/createTrip', methods=['POST'])
 def create_trip():
+    print("hola")
     id = request.json.get('id')
     name = request.json.get('name')
     location = request.json.get('location')
-    endDate = datetime.strptime(request.json.get('end_date'), '%d/%m/%Y')
-    beginDate = datetime.strptime(request.json.get('begin_date'), '%d/%m/%Y')
+    endDate = datetime.strptime(request.json.get('end_date'), '%Y-%m-%d')
+    beginDate = datetime.strptime(request.json.get('begin_date'), '%Y-%m-%d')
     category_id = request.json.get('category_id')
     latitude = request.json.get('latitude')
     longitude = request.json.get('longitude')
