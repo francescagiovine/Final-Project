@@ -87,7 +87,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             setMissingField("Please enter all the fields");
           } else {
             const response = await fetch(
-              "https://3001-francescagiovin-finalpro-k48xhblu4u0.ws-eu38.gitpod.io/api/login",
+              process.env.BACKEND_URL + "/api/login",
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

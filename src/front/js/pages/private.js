@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import plusUrl from "../../img/plus.png";
 import {Context} from "../store/appContext";
+import listTrips from "../component/trips.js";
 
 export const Private = () => {
 
@@ -37,7 +38,12 @@ export const Private = () => {
                     <Link to="/create-trip"> Create new trip</Link>
                     <img src={plusUrl} className="card-img-top" alt="..." />
                   </button>
+                  <button className="plusbutton">
+                    <Link to="/trips">My trips</Link>
+                    <img src={plusUrl} className="card-img-top" alt="..." />
+                  </button>
                 </div>
+                <listTrips />
               </div>
             </div>
             </div>

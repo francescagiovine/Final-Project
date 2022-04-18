@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import widetravelUrl from "../../img/widetravel.png";
 import roadtripUrl from "../../img/roadtrip.png";
 
+
 import "../../styles/home.css";
 
 const Home = () => {

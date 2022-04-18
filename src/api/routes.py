@@ -24,7 +24,7 @@ def login():
     if not user:
         return jsonify({"message":"El usuario o contraseña incorrectos"}), 401
 
-    token = create_access_token(identity = user.email)
+    token = create_access_token(identity = user.id)
 
     data_response = {
         "token" : token,
@@ -71,7 +71,9 @@ def sign_up():
   # end of api 2 - signup
   
 @api.route('/createTrip', methods=['POST'])
+@jwt_required()
 def create_trip():
+
     print("hola")
     id = request.json.get('id')
     name = request.json.get('name')
@@ -81,7 +83,7 @@ def create_trip():
     category_id = request.json.get('category_id')
     latitude = request.json.get('latitude')
     longitude = request.json.get('longitude')
-    user_id = request.json.get('user_id')
+    user_id = get_jwt_identity()
 
     travel = Travel(name=name, user_id=user_id, location=location, begin_date=beginDate, end_date=endDate, category_id=category_id)
     db.session.add(travel)
@@ -99,6 +101,7 @@ def list_users():
     return jsonify(usersResponse), 200
 
 @api.route('/getTrips', methods=['GET'])
+
 def list_trips():
     travels = Travel.query.all()
     response = []
