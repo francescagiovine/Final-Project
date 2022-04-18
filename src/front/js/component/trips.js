@@ -1,21 +1,24 @@
-import React, { useState } from "react";
-import CardTrip from "../component/cardTrip";
+import React, { useEffect, useState } from "react";
+import CardTrip from "./cardTrip";
 
 export default function Trips() {
   const [trips, setTrips] = useState([]);
 
   const listTrips = () => {
     fetch(
-      "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/api/getTrips"
+      "https://3001-francescagiovin-finalpro-k48xhblu4u0.ws-eu40.gitpod.io/api/getTrips"
     )
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         setTrips(data);
-        // this.setState({ totalReactPackages: data.total })
+        //this.setState({ totalReactPackages: data.total })
       });
   };
-  listTrips();
+
+  useEffect(() => {
+    listTrips();
+  }, []);
 
   //! Hacia arriba es la logica del front --> REACT
 

@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import widetravelUrl from "../../img/widetravel.png";
 import roadtripUrl from "../../img/roadtrip.png";
 
+
 import "../../styles/home.css";
 
 const Home = () => {
@@ -12,7 +13,7 @@ const Home = () => {
     <div className="text-center mt-5">
       <h1>HAVE ALL YOUR TRIP IN YOUR HANDS!!!</h1>
       <p>
-        <img src={widetravelUrl} class="img-fluid" />
+        <img src={widetravelUrl} className="img-fluid" />
       </p>
     </div>
   );

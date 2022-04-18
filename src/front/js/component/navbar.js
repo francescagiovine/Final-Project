@@ -26,10 +26,11 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <div className="ml-auto">
           {!store.token ?
-            <div><Link to="/login"><button className="login btn btn-primary">login</button></Link>
+            <div><Link to="/login"><button className="login btn btn-primary">Login</button></Link>
             <Link to="/signup" className="signup btn btn-secundary">Sign Up</Link></div>          
             :
-            <Link to="/"><button onClick={() => actions.logout() } className="login btn btn-primary">logout</button></Link>
+            <div><Link to="/private"><button className="login btn btn-success">Home</button></Link>
+            <Link to="/"><button onClick={() => actions.logout() } className="login btn btn-primary">Log out</button></Link></div>
         }
         </div>
       </div>
