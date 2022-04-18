@@ -5,18 +5,17 @@ export default function Trips() {
   const [trips, setTrips] = useState([]);
 
   const listTrips = () => {
-    fetch(
-      "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/api/getTrips"
-    )
+    fetch(process.env.BACKEND_URL + "/api/getTrips")
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
+        console.log("listTrips", data);
         setTrips(data);
         // this.setState({ totalReactPackages: data.total })
       });
   };
 
   useEffect(() => {
+    console.log(process.env.BACKEND_URL);
     listTrips();
   }, []);
 

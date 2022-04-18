@@ -23,18 +23,15 @@ import propTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const eliminarViaje = (id) => {
-  fetch(
-    "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/api/delete-trip",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: id,
-      }),
-    }
-  )
+  fetch(process.env.BACKEND_URL + "/api/delete-trip", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: id,
+    }),
+  })
     .then((resp) => resp.json())
     .then((res) => {
       console.log(res);
@@ -42,22 +39,19 @@ const eliminarViaje = (id) => {
 };
 
 const editarViaje = (id) => {
-  fetch(
-    "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/api/edit-trip",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: id,
-        name: name,
-        location: location,
-        begin_date: begin_date,
-        end_date: end_date,
-      }),
-    }
-  )
+  fetch(process.env.BACKEND_URL + "/api/edit-trip", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: id,
+      name: name,
+      location: location,
+      begin_date: begin_date,
+      end_date: end_date,
+    }),
+  })
     .then((resp) => resp.json())
     .then((res) => {
       console.log(res);

@@ -14,9 +14,7 @@ export default function CreateTrip() {
   //   EN PRINCIPIO NO NECESITAMOS NINGUN ERROR EN TEMA REGISTRO VIAJE
 
   const getCategory = () => {
-    fetch(
-      "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/api/getCategories"
-    )
+    fetch(process.env.BACKEND_URL + "/api/getCategories")
       .then((response) => response.json())
       .then((data) => {
         // console.log(data);
@@ -69,25 +67,22 @@ export default function CreateTrip() {
     ) {
       setError("Please enter all the trip fields");
     } else {
-      fetch(
-        "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/api/createTrip",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: name,
-            location: location,
-            begin_date: begin_date,
-            end_date: end_date,
-            latitude: "1",
-            longitude: "2",
-            category_id: "1",
-            user_id: "1",
-          }),
-        }
-      )
+      fetch(process.env.BACKEND_URL + "/api/createTrip", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          location: location,
+          begin_date: begin_date,
+          end_date: end_date,
+          latitude: "1",
+          longitude: "2",
+          category_id: "1",
+          user_id: "1",
+        }),
+      })
         .then((resp) => resp.json())
         .then((data) => {
           setSubmitted(true);
