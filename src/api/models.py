@@ -39,7 +39,8 @@ class Travel(db.Model):
             "location": self.location,
             "begin_date": self.begin_date.strftime("%d/%m/%Y"),
             "end_date": self.end_date.strftime("%d/%m/%Y"),
-            "id": self.id
+            "id": self.id,
+
         }
     @classmethod
     def get_by_id(cls, id):

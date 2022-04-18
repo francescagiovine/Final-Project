@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../../styles/home.css";
+import { Context } from "../store/appContext";
+import { useHistory } from "react-router-dom";
 
 export default function CreateTrip() {
   const [name, setName] = useState("");
@@ -7,9 +9,11 @@ export default function CreateTrip() {
   const [begin_date, setBeginDate] = useState("");
   const [end_date, setEndDate] = useState("");
   const [category, setCategory] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
   //   OJO FALTA EL USER ID QUE MARCOS ME DIJO LO COLOCARA MANUAL
   const token = sessionStorage.getItem("token");
-
+  const {store, actions} = useContext(Context)
+	const history = useHistory();
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
   //   EN PRINCIPIO NO NECESITAMOS NINGUN ERROR EN TEMA REGISTRO VIAJE
@@ -24,7 +28,7 @@ export default function CreateTrip() {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         setCategory(data);
         // this.setState({ totalReactPackages: data.total })
       });
@@ -59,7 +63,8 @@ export default function CreateTrip() {
   };
 
   const handleCategory = (e) => {
-    setCategory(e.target.value);
+    //console.log(e.target.value)
+    setSelectedCategory(e.target.value);
     setSubmitted(false);
   };
 
@@ -87,7 +92,7 @@ export default function CreateTrip() {
           end_date: end_date,
           latitude: "1",
           longitude: "2",
-          category_id: "1",
+          category_id: selectedCategory,
           user_id: "1",
         }),
       })
@@ -95,6 +100,7 @@ export default function CreateTrip() {
         .then((data) => {
           setSubmitted(true);
           setError(false);
+          history.push("/trips");
         })
         .catch((error) => {
           // setError(error);
@@ -103,8 +109,10 @@ export default function CreateTrip() {
     }
   };
 
+
   // Showing success message
   const successMessage = () => {
+    
     return (
       <div
         className="success"
@@ -113,6 +121,7 @@ export default function CreateTrip() {
         }}
       >
         <h1>You created your trip to {name} successfully</h1>
+        
       </div>
     );
   };
@@ -177,12 +186,12 @@ export default function CreateTrip() {
           type="date"
         />
         <label className="label">Category</label>
-        {/* {category.map((value, index) => {
-          return { value };
-        })} */}
-        <select defaultValue={"DEFAULT"}>
+        <select onChange={handleCategory}>
+          <option selected disabled>
+            Seleccione una opción
+          </option>
           {category.map((value, index) => (
-            <option key={index} value={value.name}>
+            <option key={index} value={value.id}>
               {value.name}
             </option>
           ))}

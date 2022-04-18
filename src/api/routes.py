@@ -107,7 +107,7 @@ def list_trips():
     response = []
     for travel in travels:
         response.append(travel.serialize()) 
-        
+           
     return jsonify(response), 200
 
 @api.route('/delete-trip', methods=['POST'])

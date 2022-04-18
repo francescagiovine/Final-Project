@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import plusUrl from "../../img/plus.png";
 import {Context} from "../store/appContext";
-import listTrips from "../component/trips.js";
+
 
 export const Private = () => {
 
@@ -43,7 +43,6 @@ export const Private = () => {
                     <img src={plusUrl} className="card-img-top" alt="..." />
                   </button>
                 </div>
-                <listTrips />
               </div>
             </div>
             </div>
