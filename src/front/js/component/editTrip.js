@@ -12,21 +12,17 @@ export default function EditTrip() {
   // console.log(id);
 
   const getSingleTrip = (id) => {
-    fetch(
-      "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/api/trip/".concat(
-        id
-      )
-    )
+    fetch(process.env.BACKEND_URL + "/api/trip/".concat(id))
       .then((response) => response.json())
       .then((response) => {
-        // console.log(response);
+        console.log("getSingleTrip", response);
         setName(response.name);
         setLocation(response.location);
         setBeginDate(response.begin_date);
         setEndDate(response.end_date);
       });
   };
-  getSingleTrip(id);
+  getSingleTrip(id); // OJO CON ESTO USEEFFECT COMO TRIP.JS
 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
@@ -67,24 +63,22 @@ export default function EditTrip() {
     ) {
       setError("Please enter all the trip fields");
     } else {
-      fetch(
-        "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/api/edit-trip",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: id,
-            name: name,
-            location: location,
-            begin_date: begin_date,
-            end_date: end_date,
-          }),
-        }
-      )
+      fetch(process.env.BACKEND_URL + "/api/edit-trip", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+          name: name,
+          location: location,
+          begin_date: begin_date,
+          end_date: end_date,
+        }),
+      })
         .then((resp) => resp.json())
         .then((data) => {
+          console.log("editTrip");
           setSubmitted(true);
           setError(false);
         })
@@ -155,18 +149,20 @@ export default function EditTrip() {
 
         <label className="label">Begin Date</label>
         <input
-          onChange={handleBeginDate}
-          className="input"
+          type="text"
+          onChange={(e) => console.log(e.target.value)}
+          onFocus={(e) => (e.target.type = "date")}
+          onBlur={(e) => (e.target.type = "text")}
           placeholder={begin_date}
-          type="datetime-local"
         />
 
         <label className="label">End Date</label>
         <input
-          onChange={handleEndDate}
-          className="input"
+          type="text"
+          onChange={(e) => console.log(e.target.value)}
+          onFocus={(e) => (e.target.type = "date")}
+          onBlur={(e) => (e.target.type = "text")}
           placeholder={end_date}
-          type="datetime-local"
         />
 
         <button onClick={handleSubmit} className="btn">

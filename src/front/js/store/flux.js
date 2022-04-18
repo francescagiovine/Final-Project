@@ -54,17 +54,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ demo: demo });
       },
       getSingleTrip: (id) => {
-        fetch(
-          "https://3001-francescagiovin-finalpro-m4vz8yo8vlu.ws-eu38.gitpod.io/trip/".concat(
-            id
-          )
-        ).then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            console.log(error);
+        fetch(process.env.BACKEND_URL + "/trip/".concat(id)).then(
+          (response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              console.log(error);
+            }
           }
-        });
+        );
       },
 
       syncTokenSessionStore: () => {
