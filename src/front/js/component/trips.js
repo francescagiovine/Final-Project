@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CardTrip from "../component/cardTrip";
+import CardTrip from "./cardTrip";
 
 export default function Trips() {
   const [trips, setTrips] = useState([]);
@@ -10,7 +10,7 @@ export default function Trips() {
       .then((data) => {
         console.log("listTrips", data);
         setTrips(data);
-        // this.setState({ totalReactPackages: data.total })
+        //this.setState({ totalReactPackages: data.total })
       });
   };
 

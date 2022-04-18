@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import SignUp from "./pages/signup";
 import CreateTrip from "./pages/createTrip";
-import Trips from "./pages/trips";
+import Trips from "./component/trips";
 import EditTrip from "./component/editTrip";
 
 import Home from "./pages/home";

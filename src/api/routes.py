@@ -12,15 +12,6 @@ from datetime import datetime
 api = Blueprint('api', __name__)
 
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
-
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200
-
 
 #api 1 - login, here i create the login service
 @api.route('/login', methods=['POST'])
@@ -46,6 +37,20 @@ def login():
 # this way we are sure the data is coming from the api and is the right data
 # end of api 1 - login
 
+
+@api.route('/hello', methods=['GET'])
+@jwt_required()
+def get_hello():
+
+    email = get_jwt_identity()
+    response_body = {
+        'message': email
+
+    }
+
+    return jsonify(response_body), 200
+
+
 #api 2 - signup, here we create the signup service
 
 @api.route('/signup', methods=['POST'])
@@ -66,7 +71,9 @@ def sign_up():
   # end of api 2 - signup
   
 @api.route('/createTrip', methods=['POST'])
+@jwt_required()
 def create_trip():
+
     print("hola")
     id = request.json.get('id')
     name = request.json.get('name')
@@ -76,7 +83,7 @@ def create_trip():
     category_id = request.json.get('category_id')
     latitude = request.json.get('latitude')
     longitude = request.json.get('longitude')
-    user_id = request.json.get('user_id')
+    user_id = get_jwt_identity()
 
     travel = Travel(name=name, user_id=user_id, location=location, begin_date=beginDate, end_date=endDate, category_id=category_id)
     db.session.add(travel)
@@ -94,6 +101,7 @@ def list_users():
     return jsonify(usersResponse), 200
 
 @api.route('/getTrips', methods=['GET'])
+
 def list_trips():
     travels = Travel.query.all()
     response = []

@@ -8,13 +8,20 @@ export default function CreateTrip() {
   const [end_date, setEndDate] = useState("");
   const [category, setCategory] = useState([]);
   //   OJO FALTA EL USER ID QUE MARCOS ME DIJO LO COLOCARA MANUAL
+  const token = sessionStorage.getItem("token");
 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
   //   EN PRINCIPIO NO NECESITAMOS NINGUN ERROR EN TEMA REGISTRO VIAJE
 
   const getCategory = () => {
-    fetch(process.env.BACKEND_URL + "/api/getCategories")
+    fetch(process.env.BACKEND_URL + "/api/getCategories", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      method: "GET",
+    })
       .then((response) => response.json())
       .then((data) => {
         // console.log(data);
@@ -71,6 +78,7 @@ export default function CreateTrip() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
         },
         body: JSON.stringify({
           name: name,
