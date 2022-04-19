@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/home.css";
 import { useParams } from "react-router-dom";
 
@@ -8,6 +8,7 @@ export default function EditTrip() {
   const [location, setLocation] = useState("");
   const [begin_date, setBeginDate] = useState("");
   const [end_date, setEndDate] = useState("");
+  const token = sessionStorage.getItem("token");
   // const id = queryParams.get("id");
   // console.log(id);
 
@@ -22,7 +23,9 @@ export default function EditTrip() {
         setEndDate(response.end_date);
       });
   };
-  getSingleTrip(id); // OJO CON ESTO USEEFFECT COMO TRIP.JS
+  useEffect(() => {
+    getSingleTrip(id);
+  }, []); // OJO CON ESTO USEEFFECT COMO TRIP.JS
 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
@@ -31,6 +34,7 @@ export default function EditTrip() {
   const handleName = (e) => {
     console.log(e.target.value);
     setName(e.target.value);
+    console.log(name);
     // setSubmitted(false);
   };
 
@@ -63,10 +67,11 @@ export default function EditTrip() {
     ) {
       setError("Please enter all the trip fields");
     } else {
-      fetch(process.env.BACKEND_URL + "/api/edit-trip", {
+      fetch(process.env.BACKEND_URL + "/api/editTrip", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
         },
         body: JSON.stringify({
           id: id,
@@ -98,7 +103,7 @@ export default function EditTrip() {
           display: submitted ? "" : "none",
         }}
       >
-        <h1>You created your trip to {name} successfully</h1>
+        <h1>You edited your trip to {name} successfully</h1>
       </div>
     );
   };
@@ -166,7 +171,7 @@ export default function EditTrip() {
         />
 
         <button onClick={handleSubmit} className="btn">
-          Submit
+          Guardar Cambios
         </button>
       </form>
     </div>

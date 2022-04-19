@@ -85,7 +85,7 @@ def create_trip():
     longitude = request.json.get('longitude')
     user_id = get_jwt_identity()
 
-    travel = Travel(name=name, user_id=user_id, location=location, begin_date=beginDate, end_date=endDate, category_id=category_id)
+    travel = Travel(id=id, name=name, user_id=user_id, location=location, begin_date=beginDate, end_date=endDate, category_id=category_id)
     db.session.add(travel)
     db.session.commit()
 
@@ -139,3 +139,22 @@ def get_categories():
         categoriesResponse.append(category.serialize())
 
     return jsonify(categoriesResponse), 200
+
+@api.route('/editTrip', methods=['POST'])
+@jwt_required()
+def edit_trip():
+
+    id = request.json.get('id')
+    trip = Travel.get_by_id(id)
+    trip.name = request.json.get('name')
+    trip.location = request.json.get('location')
+    # endDate = datetime.strptime(request.json.get('end_date'), "%d/%m/%Y")
+    # beginDate = datetime.strptime(request.json.get('begin_date'), "%d/%m/%Y")
+    # category_id = request.json.get('category_id')
+    # latitude = request.json.get('latitude')
+    # longitude = request.json.get('longitude')
+    # user_id = get_jwt_identity()
+
+    db.session.commit()
+
+    return jsonify({'response': "Viaje editado con éxito"}), 200
