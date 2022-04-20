@@ -33,7 +33,7 @@ h1 {
 .App {
   text-align: center;
   background-color: orange;
-  width: 60%;
+  width: 75%;
   margin: auto;
 }
 
@@ -79,7 +79,6 @@ h1 {
   background-color: lightblue;
   color: black;
   width: fit-content;
-  height: 50px;
   padding: 5px;
 }
 

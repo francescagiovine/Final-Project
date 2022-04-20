@@ -10,6 +10,20 @@ export default function Trips() {
   const token = sessionStorage.getItem("token");
   const {store, actions} = useContext(Context)
 
+  const ListTrips = () => {
+    fetch(process.env.BACKEND_URL + "/api/getTrips")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("listTrips", data);
+        setTrips(data);
+        //this.setState({ totalReactPackages: data.total })
+      });
+  };
+
+  useEffect(() => {
+    console.log(process.env.BACKEND_URL);
+    ListTrips();
+  }, []);
 
   //! Hacia arriba es la logica del front --> REACT
 
