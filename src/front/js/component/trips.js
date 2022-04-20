@@ -4,7 +4,7 @@ import CardTrip from "./cardTrip";
 export default function Trips() {
   const [trips, setTrips] = useState([]);
 
-  const listTrips = () => {
+  const ListTrips = () => {
     fetch(process.env.BACKEND_URL + "/api/getTrips")
       .then((response) => response.json())
       .then((data) => {
@@ -16,7 +16,7 @@ export default function Trips() {
 
   useEffect(() => {
     console.log(process.env.BACKEND_URL);
-    listTrips();
+    ListTrips();
   }, []);
 
   //! Hacia arriba es la logica del front --> REACT

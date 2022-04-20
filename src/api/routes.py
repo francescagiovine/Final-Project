@@ -158,3 +158,10 @@ def edit_trip():
     db.session.commit()
 
     return jsonify({'response': "Viaje editado con éxito"}), 200
+
+@api.route('/user', methods=['GET'])
+@jwt_required()
+def get_user():
+    user_id= get_jwt_identity()
+    user= User.query.filter_by(id=id).first()
+    return jsonify(user),200
