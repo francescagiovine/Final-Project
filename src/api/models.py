@@ -39,6 +39,7 @@ class Travel(db.Model):
             "location": self.location,
             "begin_date": self.begin_date.strftime("%d/%m/%Y"),
             "end_date": self.end_date.strftime("%d/%m/%Y"),
+            "category":self.category_id,
             "id": self.id,
 
         }

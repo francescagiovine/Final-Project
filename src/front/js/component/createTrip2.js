@@ -1,22 +1,40 @@
-import React, { useState, useEffect, useContext } from "react";
-import "../../styles/home.css";
-import { Context } from "../store/appContext";
-import { useHistory } from "react-router-dom";
+// import React from "react";
 
-export default function CreateTrip() {
+// const cardTrip = (props) => {
+//   return (
+//     <div className="card w-25">
+//       <div className="card-body">
+//         <h5 className="card-title">{props.title}</h5>
+//         <p className="card-text">{props.content}</p>
+//         <a href={props.href} target="_blank" className="btn btn-primary">
+//           {props.button}
+//         </a>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default cardTrip;
+
+// ESTO DE MOMENTO CREO QUE NO LO USARE!!!!!!
+
+import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+
+const CardTrip = (props) => {
+  const link = "/edit-trip/".concat(props.trip.id);
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [begin_date, setBeginDate] = useState("");
   const [end_date, setEndDate] = useState("");
-  const [category, setCategory] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  //   OJO FALTA EL USER ID QUE MARCOS ME DIJO LO COLOCARA MANUAL
   const token = sessionStorage.getItem("token");
-  const {store, actions} = useContext(Context)
-	const history = useHistory();
-  const [submitted, setSubmitted] = useState(false);
+  const [category, setCategory] = useState([]);
   const [error, setError] = useState(false);
-  //   EN PRINCIPIO NO NECESITAMOS NINGUN ERROR EN TEMA REGISTRO VIAJE
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  
+  
+  const CategoryName = [];
 
   const getCategory = () => {
     fetch(process.env.BACKEND_URL + "/api/getCategories", {
@@ -37,26 +55,22 @@ export default function CreateTrip() {
   useEffect(() => {
     getCategory();
   }, []);
-
-  // Handling the name change
+  
   const handleName = (e) => {
     setName(e.target.value);
     setSubmitted(false);
   };
 
-  // Handling the location change
   const handleLocation = (e) => {
     setLocation(e.target.value);
     setSubmitted(false);
   };
 
-  // Handling the beginDate change
   const handleBeginDate = (e) => {
     setBeginDate(e.target.value);
     setSubmitted(false);
   };
 
-  // Handling the endDate change
   const handleEndDate = (e) => {
     setEndDate(e.target.value);
     setSubmitted(false);
@@ -68,7 +82,6 @@ export default function CreateTrip() {
     setSubmitted(false);
   };
 
-  // Handling the form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
@@ -109,8 +122,6 @@ export default function CreateTrip() {
     }
   };
 
-
-  // Showing success message
   const successMessage = () => {
     
     return (
@@ -126,7 +137,6 @@ export default function CreateTrip() {
     );
   };
 
-  // Showing error message if error is true
   const errorMessage = () => {
     return (
       <div
@@ -140,52 +150,41 @@ export default function CreateTrip() {
     );
   };
 
+
   return (
-    <div className="App form">
-      <div>
-        <h1>Create your trip</h1>
-      </div>
-
-      {/* Calling to the methods */}
-      <div className="messages">
-        {errorMessage()}
-        {successMessage()}
-      </div>
-
-      <form>
-        {/* Labels and inputs for form data */}
-        <label className="label">Name</label>
+    <tbody>
+      <tr>
+        <th scope="row">        
         <input
           onChange={handleName}
           className="input"
           value={name}
           type="text"
-        />
-
-        <label className="label">Location</label>
-        <input
+        /></th>
+        <td>        
+          <input
           onChange={handleLocation}
           className="input"
           value={location}
           type="text"
-        />
-
-        <label className="label">Begin Date</label>
+        /></td>
+        <td>
         <input
           onChange={handleBeginDate}
           className="input"
           value={begin_date}
           type="date"
         />
-
-        <label className="label">End Date</label>
+        </td>
+        <td>
         <input
           onChange={handleEndDate}
           className="input"
           value={end_date}
           type="date"
         />
-        <label className="label">Category</label>
+        </td>
+        <td>
         <select onChange={handleCategory}>
           <option selected disabled>
             Seleccione una opción
@@ -196,11 +195,18 @@ export default function CreateTrip() {
             </option>
           ))}
         </select>
-
-        <button onClick={handleSubmit} className="btn" type="submit">
+        </td>
+        <td>
+          <div className="d-grid gap-2 d-md-block">
+          <button onClick={handleSubmit} className="btn" type="submit">
           Submit
         </button>
-      </form>
-    </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
   );
-}
+};
+
+
+export default CardTrip;

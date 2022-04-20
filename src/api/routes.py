@@ -28,8 +28,8 @@ def login():
 
     data_response = {
         "token" : token,
-        "email": email,
-        "password": password
+        "email": user.email,
+        "name": user.name
     }
 
     return jsonify(data_response), 200
@@ -101,14 +101,17 @@ def list_users():
     return jsonify(usersResponse), 200
 
 @api.route('/getTrips', methods=['GET'])
-
+@jwt_required()
 def list_trips():
-    travels = Travel.query.all()
+    user_id = get_jwt_identity()    
+    travels = Travel.query.filter_by(user_id = user_id).all()
     response = []
     for travel in travels:
         response.append(travel.serialize()) 
            
     return jsonify(response), 200
+
+
 
 @api.route('/delete-trip', methods=['POST'])
 def delete_trip():
