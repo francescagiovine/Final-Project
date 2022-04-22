@@ -63,7 +63,7 @@ export const Private = () => {
               save all information about your trip.
             </h1>
             <iframe
-              src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=1VFxI2H7Ifc7e7o0m-S6_pu3k87UKCI9pvimiPMvuckU&font=Default&lang=en&initial_zoom=1&height=300"
+              src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=https://3001-francescagiovin-finalpro-k48xhblu4u0.ws-eu34.gitpod.io/api/timeline&font=Default&lang=en&initial_zoom=1&height=300"
               width="100%"
               height="300"
               webkitallowfullscreen

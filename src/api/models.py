@@ -39,14 +39,38 @@ class Travel(db.Model):
             "location": self.location,
             "begin_date": self.begin_date.strftime("%d/%m/%Y"),
             "end_date": self.end_date.strftime("%d/%m/%Y"),
-            "category":self.category_id,
+            "category":self.category.name,
             "id": self.id,
-
+            "events" : [
+            {
+                "media" : {
+                    "url": "https://live.staticflickr.com/65535/50430730377_9c325887c8_b.jpg",
+                    "caption" : self.location
+                },
+                "start_date": {
+                    "month" : self.begin_date.strftime("%m"),
+                    "day" : self.begin_date.strftime("%d"),
+                    "year" : self.begin_date.strftime("%Y"),
+                },
+                "end_date": {
+                    "month" : self.end_date.strftime("%m"),
+                    "day" : self.end_date.strftime("%d"),
+                    "year" : self.end_date.strftime("%Y"),
+                },                
+                "text" : {
+                    "headline": self.name,
+                    "text" : self.category.name
+                }
+            }
+        ],
         }
+
     @classmethod
     def get_by_id(cls, id):
         trip = cls.query.get(id)
         return trip
+
+
 
 class Activity(db.Model):
     id = db.Column(db.Integer, primary_key=True)

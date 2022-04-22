@@ -100,7 +100,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             const responseFromApi = await response.json(); //puedo cambiar la alerta por una funcion que suelte un html y así homogeneizar las alertas
             console.log("response from API", responseFromApi);
             sessionStorage.setItem("token", responseFromApi.token);
-            sessionStorage.setItem("email", responseFromApi.email);
+            sessionStorage.setItem("email", responseFromApi.email); //con esto podemos recuperar el email y el nombre directamente en el front sin tener que hacer llamada
             sessionStorage.setItem("name", responseFromApi.name);
             setStore({ token: responseFromApi.token });
           }

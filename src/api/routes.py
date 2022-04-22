@@ -113,6 +113,8 @@ def list_trips():
 
 
 
+
+
 @api.route('/delete-trip', methods=['POST'])
 def delete_trip():
     id = request.json.get('id')
@@ -132,7 +134,32 @@ def get_trip(id):
     if trip: 
         return jsonify(trip.serialize()), 200
     return ({'error': 'Trip Not found'}), 404
+
+#Endpoint para el Timeline
+
+@api.route('/timeline', methods=['GET'])
+#@jwt_required()
+def timeline():
+    user_id = 7  
+    travels = Travel.query.filter_by(user_id = user_id).all() 
+    response = []
+    for travel in travels:
+        response.append(travel.serialize()) 
+    title = {  
+    'title': {
+        'text': {
+            'headline' : 'My Trip',
+            'text' : 'trip'
+            }
+        },
+    }
+
+
     
+
+    #return jsonify(response[0],response[1],response[2],response[3],response[4],response[5]), 200
+    return jsonify(title, response), 200
+  
 
 @api.route('/getCategories', methods=['GET'])
 def get_categories():
