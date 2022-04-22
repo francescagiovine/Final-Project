@@ -33,7 +33,6 @@ export const Private = () => {
               Bienvenido a tu área privada, aquí podrás guardar toda la
               información que tengas de tu viaje
             </h1>
-            <div className="alert alert-info">{store.message}</div>
             <div className="row row-cols-1 row-cols-md-3 g-4">
               <div className="col">
                 <div className="card">

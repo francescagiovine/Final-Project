@@ -155,6 +155,7 @@ export default function EditTrip() {
         <label className="label">Begin Date</label>
         <input
           type="text"
+          className="input"
           onChange={(e) => console.log(e.target.value)}
           onFocus={(e) => (e.target.type = "date")}
           onBlur={(e) => (e.target.type = "text")}
@@ -164,6 +165,7 @@ export default function EditTrip() {
         <label className="label">End Date</label>
         <input
           type="text"
+          className="input"
           onChange={(e) => console.log(e.target.value)}
           onFocus={(e) => (e.target.type = "date")}
           onBlur={(e) => (e.target.type = "text")}
