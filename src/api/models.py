@@ -35,6 +35,14 @@ class Travel(db.Model):
         return '<Travel %r>' % self.name
     def serialize(self): 
         return {
+            
+    'title': {
+        'text': {
+            'headline' : 'My Trip',
+            'text' : 'trip'
+            }
+        },
+    
             "name": self.name,
             "location": self.location,
             "begin_date": self.begin_date.strftime("%d/%m/%Y"),

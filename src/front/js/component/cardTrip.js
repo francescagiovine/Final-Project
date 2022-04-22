@@ -69,10 +69,7 @@ const CardTrip = (props) => {
     <tbody>
       <tr>
         <th scope="row">{props.trip.name}</th>
-        <td>{props.trip.location}</td>
-        <td>{props.trip.begin_date}</td>
-        <td>{props.trip.end_date}</td>
-        <td>{props.trip.category}</td>
+
         <td>
           <div className="d-grid gap-2 d-md-block">
             <Link to={link}>

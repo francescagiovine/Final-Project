@@ -140,7 +140,7 @@ def get_trip(id):
 @api.route('/timeline', methods=['GET'])
 #@jwt_required()
 def timeline():
-    user_id = 7  
+    user_id = 5  
     travels = Travel.query.filter_by(user_id = user_id).all() 
     response = []
     for travel in travels:
@@ -153,12 +153,10 @@ def timeline():
             }
         },
     }
-
-
     
 
     #return jsonify(response[0],response[1],response[2],response[3],response[4],response[5]), 200
-    return jsonify(title, response), 200
+    return jsonify( response), 200
   
 
 @api.route('/getCategories', methods=['GET'])

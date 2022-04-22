@@ -1,8 +1,11 @@
+import { object } from "prop-types";
+
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       token: null,
       message: null,
+      //timeline: {},
       demo: [
         {
           title: "FIRST",
@@ -77,7 +80,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         console.log("log out");
         setStore({ token: null });
       },
+        //fetch para timeline
 
+      //timeline: async() => {
+        //const response = await fetch("https://3001-francescagiovin-finalpro-k48xhblu4u0.ws-eu34.gitpod.io/api/timelinehttps://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=&font=Default&lang=en&initial_zoom=1&height=300");
+        //const data = await response.json();
+        //setStore({timeline : data})
+      //},
+      
       //traer el fetch del login aqui (como hice antes)
       login: async (email, password) => {
         try {

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import plusUrl from "../../img/plus.png";
 import {Context} from "../store/appContext";
-import CreateTrip from "./createTrip2";
+import CardTrip from "./cardTrip";
 
 
 export default function Trips() {
@@ -11,7 +11,13 @@ export default function Trips() {
   const {store, actions} = useContext(Context)
 
   const ListTrips = () => {
-    fetch(process.env.BACKEND_URL + "/api/getTrips")
+    fetch(process.env.BACKEND_URL + "/api/getTrips", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log("listTrips", data);
@@ -45,7 +51,7 @@ export default function Trips() {
           
         </thead>
         {trips.map((value, index) => {
-          return <CreateTrip key={index.toString()} trip={value} />;
+          return <CardTrip key={index.toString()} trip={value} />;
         })}
       </table>
      

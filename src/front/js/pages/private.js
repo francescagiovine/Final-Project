@@ -2,7 +2,6 @@ import React, { useEffect, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import CardTrip from "../component/cardTrip";
 import { Context } from "../store/appContext";
-import CreateTrip from "../component/createTrip2";
 
 export const Private = () => {
   const { store, actions } = useContext(Context);
@@ -13,6 +12,7 @@ export const Private = () => {
   useEffect(() => {
     if (store.token && store.token != "" && store.token != undefined)
       actions.getMessage();
+      //actions.timeline();
   }, [store.token]);
 
   const listTrips = () => {
@@ -63,7 +63,7 @@ export const Private = () => {
               save all information about your trip.
             </h1>
             <iframe
-              src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=https://3001-francescagiovin-finalpro-k48xhblu4u0.ws-eu34.gitpod.io/api/timeline&font=Default&lang=en&initial_zoom=1&height=300"
+              src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=https://3001-francescagiovin-finalpro-k48xhblu4u0.ws-eu34.gitpod.io/api/timeline&font=Default&lang=en&initial_zoom=1&height=300"//{store.timeline}
               width="100%"
               height="300"
               webkitallowfullscreen
@@ -76,16 +76,9 @@ export const Private = () => {
               <thead>
                 <tr>
                   <th scope="col">Activities</th>
-                  <th scope="col">Location</th>
-                  <th scope="col">Begin Date</th>
-                  <th scope="col">End Date</th>
-                  <th scope="col">Category</th>
                   <th scope="col">Acciones</th>
                 </tr>
               </thead>
-              {forms.map((value, index) => {
-                return <CreateTrip key={index.toString()} trip={value} />;
-              })}
               {trips.map((value, index) => {
                 return <CardTrip key={index.toString()} trip={value} />;
               })}
