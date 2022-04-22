@@ -13,6 +13,7 @@ import injectContext from "./store/appContext";
 import { Login } from "./pages/login";
 import { Navbar } from "./component/navbar";
 import { Private } from "./pages/private";
+import { Profile } from "./pages/profile";
 
 // import { Footer } from "./component/footer";
 
@@ -54,6 +55,9 @@ const Layout = () => {
             </Route>
             <Route exact path="/single/:theid">
               <Single />
+            </Route>
+            <Route exact path="/profile">
+              <Profile />
             </Route>
             <Route>
               <h1>Not found!</h1>

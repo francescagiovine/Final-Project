@@ -18,6 +18,9 @@ class User(db.Model):
             "email": self.email,
 
         }
+    def get_user(id):
+        user = User.query.filter_by(id=id).first()
+        return User.serialize(user)
 
 class Travel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
