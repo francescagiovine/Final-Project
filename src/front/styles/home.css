@@ -6,23 +6,37 @@
     on that page only (the ones not reused in other pages).
 */
 body {
-  background-color: rgb(161, 243, 236);
+  background-color: white;
 }
 h1 {
   text-align: center;
+  font-family: cursive;
+  color: #069a8e;
+}
+
+.h1 {
+  text-align: center;
   padding: 20px;
+  font-family: cursive;
+  color: #069a8e;
 }
 
 .navbar-brand {
   font-size: xx-large;
-  color: black;
+  color: #069a8e;
+}
+
+.navbar {
+  background-color: #ffffff;
 }
 
 .buttons {
   background-color: transparent;
   border: none;
-  font-size: xx-large;
+  font-size: large;
   padding: 20px;
+  font-family: cursive, Arial, Helvetica, sans-serif;
+  color: #069a8e;
 }
 
 .text-center2 {
@@ -32,9 +46,12 @@ h1 {
 
 .App {
   text-align: center;
-  background-color: orange;
-  width: 75%;
+  background-color: rgb(252, 252, 252);
+  width: 80%;
   margin: auto;
+  border-color: rgb(0, 85, 85);
+  border-width: 1rem;
+  border: #069a8e;
 }
 
 .label {
@@ -52,7 +69,7 @@ h1 {
 
 .btn {
   color: white;
-  background-color: red;
+  background-color: #827397;
   border-radius: 5px;
   font-size: larger;
   display: block;
@@ -76,7 +93,7 @@ h1 {
 
 .success {
   display: block;
-  background-color: lightblue;
+  background-color: rgb(247, 255, 147);
   color: black;
   width: fit-content;
   padding: 5px;
@@ -89,16 +106,40 @@ h1 {
 }
 
 .card {
-  width: 150px;
+
   height: 150px;
   background-color: transparent;
 }
 
 .plusbutton {
-  background-color: aquamarine;
+  background-color: rgb(226, 255, 245);
+  border-color: rgb(7, 105, 72);
+  border-width: 10px;
+  border-radius: 1rem;
+  font-family: cursive;
+  font-size: x-large;
 }
 
-.collapse {
-  margin-left: 75%;
-  padding: 20px;
+
+.loginPadre {
+  display: flex;
+  justify-content: center;
+}
+
+.iconoHome,
+.loginHome {
+  margin-right: 5px;
+}
+
+.logo {
+  width: 65px;
+
+}
+
+.input {
+  width: 200px;
+}
+
+.flex {
+  display: flex;
 }

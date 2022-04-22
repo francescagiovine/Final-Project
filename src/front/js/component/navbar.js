@@ -1,11 +1,13 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
+import logo from "../../img/logo.png";
 //import { useContext } from "react/cjs/react.production.min"; o/home en el link a widetravel
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
   const token = sessionStorage.getItem("token");
+  const name = sessionStorage.getItem("name");
   const getUser = () => {
     fetch(process.env.BACKEND_URL + "/api/getUser", {
       headers: {
@@ -26,11 +28,13 @@ export const Navbar = () => {
     getUser();
   }, []);
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-md navbar-light">
       <div className="container-fluid">
         <Link to="/" className="buttons">
           WideTravel
         </Link>
+        <img className="logo" src={logo} />
+
         <button
           className="navbar-toggler"
           type="button"
@@ -40,30 +44,35 @@ export const Navbar = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
+          <div className="flex">         
+          <h1>{name}</h1>
           <span className="navbar-toggler-icon"></span>
+          </div>
+
+          
         </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <div className="ml-auto">
             {!store.token ? (
-              <div>
+              <div className="loginPadre">
                 <Link to="/login">
-                  <button className="login btn btn-primary">Login</button>
+                  <button className="loginHome btn btn-primary">Login</button>
                 </Link>
                 <Link to="/signup" className="signup btn btn-secundary">
-                  Sign Up
+                  SignUp
                 </Link>
               </div>
             ) : (
-              <div>
+              <div className="loginPadre">
                 <Link to="/private">
-                  <button className="login btn btn-success">
+                  <button className="iconoHome btn btn-success">
                     <i className="fas fa-home"></i>
                   </button>
                 </Link>
                 <Link to="/">
                   <button
                     onClick={() => actions.logout()}
-                    className="login btn btn-primary"
+                    className="loginLogOut btn btn-primary"
                   >
                     <i className="fas fa-sign-out-alt"></i>
                   </button>

@@ -42,10 +42,6 @@ export default function Trips() {
         <thead>
           <tr>
             <th scope="col">Activity</th>
-            <th scope="col">Location</th>
-            <th scope="col">Begin Date</th>
-            <th scope="col">End Date</th>
-            <th scope="col">Category</th>
             <th scope="col">Actions</th>
           </tr>
           

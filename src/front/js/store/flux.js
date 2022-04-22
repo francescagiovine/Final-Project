@@ -76,9 +76,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       logout: () => {
-        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("token")
+        sessionStorage.removeItem("name")
+        sessionStorage.removeItem("email");
         console.log("log out");
         setStore({ token: null });
+        setStore({ name: null });
+        setStore({ email: null });
       },
         //fetch para timeline
 

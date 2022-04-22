@@ -2,12 +2,16 @@ import React, { useEffect, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import CardTrip from "../component/cardTrip";
 import { Context } from "../store/appContext";
+import plusUrl from "../../img/plus.png";
+import widetravel from "../../img/widetravel.png";
+import roadtrip from "../../img/roadtrip.png";
 
 export const Private = () => {
   const { store, actions } = useContext(Context);
   const [trips, setTrips] = useState([]);
   const forms = [""];
   const token = sessionStorage.getItem("token");
+  const name = sessionStorage.getItem("name");
 
   useEffect(() => {
     if (store.token && store.token != "" && store.token != undefined)
@@ -59,7 +63,7 @@ export const Private = () => {
           <div className="App">
             {" "}
             <h1>
-              Welcome {store.message}, this is your private area, here you can
+              Welcome {name}, this is your private area, here you can
               save all information about your trip.
             </h1>
             <iframe
@@ -72,17 +76,23 @@ export const Private = () => {
               frameborder="0"
             ></iframe>
             <h2>My Activities</h2>
-            <table className="table table-striped ">
-              <thead>
-                <tr>
-                  <th scope="col">Activities</th>
-                  <th scope="col">Acciones</th>
-                </tr>
-              </thead>
-              {trips.map((value, index) => {
-                return <CardTrip key={index.toString()} trip={value} />;
-              })}
-            </table>
+            <div className="row row-cols-1 row-cols-md-3 g-4 col ">
+              <div className=" flex">
+                <div className="card ">
+                  <button className="plusbutton">
+                    <Link to="/create-trip">New activity</Link>
+                    <img src={roadtrip} className="card-img-top" alt="..." />
+                  </button>
+                </div>
+                <div className="card ">
+                  <button className="plusbutton">
+                    <Link to="/trips">My trip</Link>
+                    <img src={widetravel} className="card-img-top" alt="..." />
+                  </button>
+                </div>
+                {/* <ListTrips /> */}
+              </div>
+            </div>
           </div>
         )}
       </div>

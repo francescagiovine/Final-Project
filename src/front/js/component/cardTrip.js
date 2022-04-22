@@ -73,7 +73,7 @@ const CardTrip = (props) => {
         <td>
           <div className="d-grid gap-2 d-md-block">
             <Link to={link}>
-              <button className="btn btn-primary">Edit</button>
+              <button className="btn btn-success">Edit</button>
             </Link>
             <button
               onClick={() => eliminarViaje(props.trip.id)}

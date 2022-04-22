@@ -38,17 +38,8 @@ def login():
 # end of api 1 - login
 
 
-@api.route('/hello', methods=['GET'])
-@jwt_required()
-def get_hello():
 
-    email = get_jwt_identity()
-    response_body = {
-        'message': email
 
-    }
-
-    return jsonify(response_body), 200
 
 
 #api 2 - signup, here we create the signup service
