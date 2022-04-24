@@ -37,8 +37,8 @@ export const Navbar = () => {
           <img className="logo" src={logo} />
         </div>
         <div className="col"></div>
-        <div className="col-3 col-sm-2">
-        <div className="flex">         
+        <div className="col-3 col-sm-2 flex">
+      
         <h1>{name}</h1>
         <button
           className="navbar-toggler"

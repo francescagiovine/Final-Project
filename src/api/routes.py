@@ -138,12 +138,10 @@ def timeline(id):
     'title': {
         'text': {
             'headline' : 'My Trip',
-            'text' : 'trip'
+            'text' : 'Swipe to see your activities'
             },
         "media": {
-          "url": "//www.flickr.com/photos/tm_10001/2310475988/",
-          "caption": "Whitney Houston performing on her My Love is Your Love Tour in Hamburg.",
-          "credit": "flickr/<a href='http://www.flickr.com/photos/tm_10001/'>tm_10001</a>"
+          "url": "https://www.travelclearing.com/wp-content/uploads/logo100-521x600.png",
         },
     },
     'events': [
