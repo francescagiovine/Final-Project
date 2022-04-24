@@ -33,24 +33,20 @@ class Travel(db.Model):
     user = db.relationship('User', backref=db.backref('travel', lazy=True))
     def __repr__(self):
         return '<Travel %r>' % self.name
-    def serialize(self): 
+        
+    def serialize(self):
         return {
-            
-    'title': {
-        'text': {
-            'headline' : 'My Trip',
-            'text' : 'trip'
-            }
-        },
-    
             "name": self.name,
             "location": self.location,
             "begin_date": self.begin_date.strftime("%d/%m/%Y"),
             "end_date": self.end_date.strftime("%d/%m/%Y"),
             "category":self.category.name,
             "id": self.id,
-            "events" : [
-            {
+        }
+        
+    def serializeTimeline(self): 
+        return {
+        
                 "media" : {
                     "url": "https://live.staticflickr.com/65535/50430730377_9c325887c8_b.jpg",
                     "caption" : self.location
@@ -70,9 +66,7 @@ class Travel(db.Model):
                     "text" : self.category.name
                 }
             }
-        ],
-        }
-
+            
     @classmethod
     def get_by_id(cls, id):
         trip = cls.query.get(id)

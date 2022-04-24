@@ -29,7 +29,8 @@ def login():
     data_response = {
         "token" : token,
         "email": user.email,
-        "name": user.name
+        "name": user.name,
+        "id": user.id
     }
 
     return jsonify(data_response), 200
@@ -128,22 +129,28 @@ def get_trip(id):
 
 #Endpoint para el Timeline
 
-@api.route('/timeline', methods=['GET'])
+@api.route('/timeline/<int:id>', methods=['GET'])
 #@jwt_required()
-def timeline():
-    user_id = 5  
-    travels = Travel.query.filter_by(user_id = user_id).all() 
-    response = []
-    for travel in travels:
-        response.append(travel.serialize()) 
-    title = {  
+def timeline(id):
+    print(id)
+    travels = Travel.query.filter_by(user_id = id).all() 
+    response = {  
     'title': {
         'text': {
             'headline' : 'My Trip',
             'text' : 'trip'
-            }
+            },
+        "media": {
+          "url": "//www.flickr.com/photos/tm_10001/2310475988/",
+          "caption": "Whitney Houston performing on her My Love is Your Love Tour in Hamburg.",
+          "credit": "flickr/<a href='http://www.flickr.com/photos/tm_10001/'>tm_10001</a>"
         },
+    },
+    'events': [
+        travel.serializeTimeline() for travel in travels
+    ]
     }
+    
     
 
     #return jsonify(response[0],response[1],response[2],response[3],response[4],response[5]), 200

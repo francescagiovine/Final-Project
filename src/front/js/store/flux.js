@@ -116,6 +116,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             sessionStorage.setItem("token", responseFromApi.token);
             sessionStorage.setItem("email", responseFromApi.email); //con esto podemos recuperar el email y el nombre directamente en el front sin tener que hacer llamada
             sessionStorage.setItem("name", responseFromApi.name);
+            sessionStorage.setItem("id", responseFromApi.id);
             setStore({ token: responseFromApi.token });
           }
         } catch (error) {

@@ -29,12 +29,17 @@ export const Navbar = () => {
   }, []);
   return (
     <nav className="navbar navbar-expand-md navbar-light">
-      <div className="container-fluid">
-        <Link to="/" className="buttons">
-          WideTravel
-        </Link>
-        <img className="logo" src={logo} />
-
+      <div className="container-fluid ">
+        <div className="col">
+          <Link to="/" className="buttons">
+            WideTravel
+          </Link>
+          <img className="logo" src={logo} />
+        </div>
+        <div className="col"></div>
+        <div className="col-3 col-sm-2">
+        <div className="flex">         
+        <h1>{name}</h1>
         <button
           className="navbar-toggler"
           type="button"
@@ -44,12 +49,8 @@ export const Navbar = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <div className="flex">         
-          <h1>{name}</h1>
           <span className="navbar-toggler-icon"></span>
-          </div>
-
-          
+         
         </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <div className="ml-auto">
@@ -80,6 +81,7 @@ export const Navbar = () => {
               </div>
             )}
           </div>
+        </div>
         </div>
       </div>
     </nav>
