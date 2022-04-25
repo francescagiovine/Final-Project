@@ -18,7 +18,7 @@
 
 // ESTO DE MOMENTO CREO QUE NO LO USARE!!!!!!
 
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import propTypes from "prop-types";
 import { Link } from "react-router-dom";
 
@@ -64,23 +64,21 @@ const editarViaje = (id) => {
 
 const CardTrip = (props) => {
   const link = "/edit-trip/".concat(props.trip.id);
+  const CategoryName = []
   return (
     <tbody>
       <tr>
         <th scope="row">{props.trip.name}</th>
-        <td>{props.trip.location}</td>
-        <td>{props.trip.begin_date}</td>
-        <td>{props.trip.end_date}</td>
+
         <td>
           <div className="d-grid gap-2 d-md-block">
             <Link to={link}>
-              <button className="btn btn-primary">Editar</button>
+              <button className="btn btn-success">Edit</button>
             </Link>
             <button
               onClick={() => eliminarViaje(props.trip.id)}
-              className="btn btn-danger"
-            >
-              Eliminar
+              className="btn btn-danger">
+              Delete
             </button>
           </div>
         </td>

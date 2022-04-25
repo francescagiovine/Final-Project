@@ -44,6 +44,15 @@ export const Demo = () => {
       <Link to="/">
         <button className="btn btn-primary">Back home</button>
       </Link>
+      <iframe
+        src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=1VFxI2H7Ifc7e7o0m-S6_pu3k87UKCI9pvimiPMvuckU&font=Default&lang=en&initial_zoom=2&height=650"
+        width="100%"
+        height="650"
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen
+        frameborder="0"
+      ></iframe>
     </div>
   );
 };
