@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 
 db = SQLAlchemy()
@@ -29,25 +30,60 @@ class Travel(db.Model):
     location = db.Column(db.String(), unique=False)
     latitude = db.Column(db.String(), unique=False, nullable=True)
     longitude = db.Column(db.String(), unique=False, nullable=True)
-    begin_date = db.Column(db.Date(), unique=False)
-    end_date = db.Column(db.Date(), unique=False)
+    begin_date = db.Column(db.DateTime(), unique=False)
+    end_date = db.Column(db.DateTime(timezone=False), unique=False)
+    media = db.Column(db.String(), unique=False, nullable=True)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     category = db.relationship('Category', backref=db.backref('travel', lazy=True))
     user = db.relationship('User', backref=db.backref('travel', lazy=True))
     def __repr__(self):
         return '<Travel %r>' % self.name
-    def serialize(self): 
+        
+    def serialize(self):
         return {
             "name": self.name,
             "location": self.location,
-            "begin_date": self.begin_date.strftime("%d/%m/%Y"),
-            "end_date": self.end_date.strftime("%d/%m/%Y"),
-            "id": self.id
+            "begin_date": self.begin_date.strftime("%d/%m/%Y %H:%M"),           
+            "end_date": self.end_date.strftime("%d/%m/%Y %H:%M"),  
+            "category":self.category.name,
+            "id": self.id,
+            "media": self.media
+
         }
+        
+    def serializeTimeline(self): 
+        return {
+        
+                "media" : {
+                    "url": self.media,
+                    "caption" : self.location
+                },
+                "start_date": {
+                    "minute" : self.begin_date.strftime("%M"),
+                    "hour" : self.begin_date.strftime("%H"),
+                    "day" : self.begin_date.strftime("%d"),
+                    "month" : self.begin_date.strftime("%m"),
+                    "year" : self.begin_date.strftime("%Y"),
+                },
+                "end_date": {
+                    "minute" : self.end_date.strftime("%M"),
+                    "hour" : self.end_date.strftime("%H"),
+                    "day" : self.end_date.strftime("%d"),
+                    "month" : self.end_date.strftime("%m"),
+                    "year" : self.end_date.strftime("%Y"),
+                },                
+                "text" : {
+                    "headline": self.name,
+                    "text" : self.category.name
+                }
+            }
+            
     @classmethod
     def get_by_id(cls, id):
         trip = cls.query.get(id)
         return trip
+
+
 
 class Activity(db.Model):
     id = db.Column(db.Integer, primary_key=True)

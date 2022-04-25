@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/home.css";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function EditTrip() {
   const { id } = useParams();
@@ -8,6 +9,7 @@ export default function EditTrip() {
   const [location, setLocation] = useState("");
   const [begin_date, setBeginDate] = useState("");
   const [end_date, setEndDate] = useState("");
+  const token = sessionStorage.getItem("token");
   // const id = queryParams.get("id");
   // console.log(id);
 
@@ -22,7 +24,9 @@ export default function EditTrip() {
         setEndDate(response.end_date);
       });
   };
-  getSingleTrip(id); // OJO CON ESTO USEEFFECT COMO TRIP.JS
+  useEffect(() => {
+    getSingleTrip(id);
+  }, []); // OJO CON ESTO USEEFFECT COMO TRIP.JS
 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
@@ -31,6 +35,7 @@ export default function EditTrip() {
   const handleName = (e) => {
     console.log(e.target.value);
     setName(e.target.value);
+    console.log(name);
     // setSubmitted(false);
   };
 
@@ -61,12 +66,13 @@ export default function EditTrip() {
       begin_date === "" ||
       end_date === ""
     ) {
-      setError("Please enter all the trip fields");
+      setError("Please enter all the fields");
     } else {
-      fetch(process.env.BACKEND_URL + "/api/edit-trip", {
+      fetch(process.env.BACKEND_URL + "/api/editTrip", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
         },
         body: JSON.stringify({
           id: id,
@@ -98,7 +104,9 @@ export default function EditTrip() {
           display: submitted ? "" : "none",
         }}
       >
-        <h1>You created your trip to {name} successfully</h1>
+        <h1 className="h1">You edited your activity to {name} successfully</h1>
+        <h1 className="">                
+          <Link to="/trips">Back to Activities</Link></h1>
       </div>
     );
   };
@@ -150,7 +158,8 @@ export default function EditTrip() {
         <label className="label">Begin Date</label>
         <input
           type="text"
-          onChange={(e) => console.log(e.target.value)}
+          className="input"
+          onChange={handleBeginDate}
           onFocus={(e) => (e.target.type = "date")}
           onBlur={(e) => (e.target.type = "text")}
           placeholder={begin_date}
@@ -159,6 +168,7 @@ export default function EditTrip() {
         <label className="label">End Date</label>
         <input
           type="text"
+          className="input"
           onChange={(e) => console.log(e.target.value)}
           onFocus={(e) => (e.target.type = "date")}
           onBlur={(e) => (e.target.type = "text")}
@@ -166,7 +176,7 @@ export default function EditTrip() {
         />
 
         <button onClick={handleSubmit} className="btn">
-          Submit
+          Guardar Cambios
         </button>
       </form>
     </div>

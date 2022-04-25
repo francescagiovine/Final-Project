@@ -1,8 +1,11 @@
+import { object } from "prop-types";
+
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       token: null,
       message: null,
+      //timeline: {},
       demo: [
         {
           title: "FIRST",
@@ -73,11 +76,22 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       logout: () => {
-        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("token")
+        sessionStorage.removeItem("name")
+        sessionStorage.removeItem("email");
         console.log("log out");
         setStore({ token: null });
+        setStore({ name: null });
+        setStore({ email: null });
       },
+        //fetch para timeline
 
+      //timeline: async() => {
+        //const response = await fetch("https://3001-francescagiovin-finalpro-k48xhblu4u0.ws-eu34.gitpod.io/api/timelinehttps://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=&font=Default&lang=en&initial_zoom=1&height=300");
+        //const data = await response.json();
+        //setStore({timeline : data})
+      //},
+      
       //traer el fetch del login aqui (como hice antes)
       login: async (email, password) => {
         try {
@@ -100,6 +114,9 @@ const getState = ({ getStore, getActions, setStore }) => {
             const responseFromApi = await response.json(); //puedo cambiar la alerta por una funcion que suelte un html y así homogeneizar las alertas
             console.log("response from API", responseFromApi);
             sessionStorage.setItem("token", responseFromApi.token);
+            sessionStorage.setItem("email", responseFromApi.email); //con esto podemos recuperar el email y el nombre directamente en el front sin tener que hacer llamada
+            sessionStorage.setItem("name", responseFromApi.name);
+            sessionStorage.setItem("id", responseFromApi.id);
             setStore({ token: responseFromApi.token });
           }
         } catch (error) {

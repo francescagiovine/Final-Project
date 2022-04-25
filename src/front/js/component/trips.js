@@ -1,11 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import plusUrl from "../../img/plus.png";
+import {Context} from "../store/appContext";
 import CardTrip from "./cardTrip";
 
-export default function Trips() {
-  const [trips, setTrips] = useState([]);
 
-  const listTrips = () => {
-    fetch(process.env.BACKEND_URL + "/api/getTrips")
+export default function Trips() {
+  const [trips, setTrips] = useState([""]);
+  const token = sessionStorage.getItem("token");
+  const {store, actions} = useContext(Context)
+
+  const ListTrips = () => {
+    fetch(process.env.BACKEND_URL + "/api/getTrips", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log("listTrips", data);
@@ -16,7 +28,7 @@ export default function Trips() {
 
   useEffect(() => {
     console.log(process.env.BACKEND_URL);
-    listTrips();
+    ListTrips();
   }, []);
 
   //! Hacia arriba es la logica del front --> REACT
@@ -29,17 +41,16 @@ export default function Trips() {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th scope="col">Country</th>
-            <th scope="col">City</th>
-            <th scope="col">Begin Date</th>
-            <th scope="col">End Date</th>
-            <th scope="col">Acciones</th>
+            <th scope="col">Activity</th>
+            <th scope="col">Actions</th>
           </tr>
+          
         </thead>
         {trips.map((value, index) => {
           return <CardTrip key={index.toString()} trip={value} />;
         })}
       </table>
+     
     </div>
   );
 }
