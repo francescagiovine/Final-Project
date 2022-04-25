@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 
 db = SQLAlchemy()
@@ -26,8 +27,9 @@ class Travel(db.Model):
     location = db.Column(db.String(), unique=False)
     latitude = db.Column(db.String(), unique=False, nullable=True)
     longitude = db.Column(db.String(), unique=False, nullable=True)
-    begin_date = db.Column(db.Date(), unique=False)
-    end_date = db.Column(db.Date(), unique=False)
+    begin_date = db.Column(db.DateTime(), unique=False)
+    end_date = db.Column(db.DateTime(timezone=False), unique=False)
+    media = db.Column(db.String(), unique=False, nullable=True)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     category = db.relationship('Category', backref=db.backref('travel', lazy=True))
     user = db.relationship('User', backref=db.backref('travel', lazy=True))
@@ -38,27 +40,33 @@ class Travel(db.Model):
         return {
             "name": self.name,
             "location": self.location,
-            "begin_date": self.begin_date.strftime("%d/%m/%Y"),
-            "end_date": self.end_date.strftime("%d/%m/%Y"),
+            "begin_date": self.begin_date.strftime("%d/%m/%Y %H:%M"),           
+            "end_date": self.end_date.strftime("%d/%m/%Y %H:%M"),  
             "category":self.category.name,
             "id": self.id,
+            "media": self.media
+
         }
         
     def serializeTimeline(self): 
         return {
         
                 "media" : {
-                    "url": "https://live.staticflickr.com/65535/50430730377_9c325887c8_b.jpg",
+                    "url": self.media,
                     "caption" : self.location
                 },
                 "start_date": {
-                    "month" : self.begin_date.strftime("%m"),
+                    "minute" : self.begin_date.strftime("%M"),
+                    "hour" : self.begin_date.strftime("%H"),
                     "day" : self.begin_date.strftime("%d"),
+                    "month" : self.begin_date.strftime("%m"),
                     "year" : self.begin_date.strftime("%Y"),
                 },
                 "end_date": {
-                    "month" : self.end_date.strftime("%m"),
+                    "minute" : self.end_date.strftime("%M"),
+                    "hour" : self.end_date.strftime("%H"),
                     "day" : self.end_date.strftime("%d"),
+                    "month" : self.end_date.strftime("%m"),
                     "year" : self.end_date.strftime("%Y"),
                 },                
                 "text" : {

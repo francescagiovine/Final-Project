@@ -14,6 +14,7 @@ h1 {
   color: #069a8e;
 }
 
+
 .h1 {
   text-align: center;
   padding: 20px;
@@ -58,14 +59,16 @@ h1 {
 .label {
   display: block;
   font-size: larger;
-  color: white;
+  color: #069a8e;
   padding: 5px;
+  font-family: cursive;
 }
 
 .input {
   font-size: larger;
   padding: 5px;
   margin: 2px;
+  border-radius: 10px;
 }
 
 .btn {
@@ -112,15 +115,6 @@ h1 {
   background-color: transparent;
 }
 
-.plusbutton {
-  background-color: rgb(226, 255, 245);
-  border-color: rgb(7, 105, 72);
-  border-width: 10px;
-  border-radius: 1rem;
-  font-family: cursive;
-  font-size: x-large;
-}
-
 
 .loginPadre {
   display: flex;
@@ -144,3 +138,4 @@ h1 {
 .flex {
   display: flex;
 }
+

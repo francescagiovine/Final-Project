@@ -46,7 +46,7 @@ export const Private = () => {
   }, [store.token]);
 
   return (
-    <div>
+
       <div className="ml-auto">
         {!store.token ? (
           <div>
@@ -63,13 +63,12 @@ export const Private = () => {
           <div className="App">
             {" "}
             <h1>
-              Welcome {name}, this is your private area, here you can
-              save all information about your trip.
+              Welcome {name}, here you can see all information about your trip.
             </h1>
             <iframe
-              src={`https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=https://3001-francescagiovin-finalpro-k48xhblu4u0.ws-eu42.gitpod.io/api/timeline/${sessionStorage.getItem("id")}&font=Default&lang=en&initial_zoom=1&height=300`}
-              width="100%"
-              height="300"
+              src={`https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=https://3001-francescagiovin-finalpro-k48xhblu4u0.ws-eu42.gitpod.io/api/timeline/${sessionStorage.getItem("id")}&font=Default&lang=en&initial_zoom=1&height=500`}
+              width="80%"
+              height="800"
               webkitallowfullscreen
               mozallowfullscreen
               allowfullscreen
@@ -96,6 +95,5 @@ export const Private = () => {
           </div>
         )}
       </div>
-    </div>
   );
 };

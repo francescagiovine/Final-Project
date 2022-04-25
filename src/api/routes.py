@@ -75,9 +75,10 @@ def create_trip():
     category_id = request.json.get('category_id')
     latitude = request.json.get('latitude')
     longitude = request.json.get('longitude')
+    media = request.json.get('media')
     user_id = get_jwt_identity()
 
-    travel = Travel(id=id, name=name, user_id=user_id, location=location, begin_date=beginDate, end_date=endDate, category_id=category_id)
+    travel = Travel(id=id, name=name, user_id=user_id, location=location, begin_date=beginDate, end_date=endDate, category_id=category_id, media=media)
     db.session.add(travel)
     db.session.commit()
 
@@ -132,7 +133,6 @@ def get_trip(id):
 @api.route('/timeline/<int:id>', methods=['GET'])
 #@jwt_required()
 def timeline(id):
-    print(id)
     travels = Travel.query.filter_by(user_id = id).all() 
     response = {  
     'title': {
@@ -152,7 +152,7 @@ def timeline(id):
     
 
     #return jsonify(response[0],response[1],response[2],response[3],response[4],response[5]), 200
-    return jsonify( response), 200
+    return jsonify(response), 200
   
 
 @api.route('/getCategories', methods=['GET'])

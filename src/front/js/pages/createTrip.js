@@ -10,7 +10,7 @@ export default function CreateTrip() {
   const [end_date, setEndDate] = useState("");
   const [category, setCategory] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  //   OJO FALTA EL USER ID QUE MARCOS ME DIJO LO COLOCARA MANUAL
+  const [media, setMedia] = useState("");
   const token = sessionStorage.getItem("token");
   const {store, actions} = useContext(Context)
 	const history = useHistory();
@@ -62,6 +62,12 @@ export default function CreateTrip() {
     setSubmitted(false);
   };
 
+    // Handling the location change
+    const handleMedia = (e) => {
+      setMedia(e.target.value);
+      setSubmitted(false);
+    };
+
   const handleCategory = (e) => {
     //console.log(e.target.value)
     setSelectedCategory(e.target.value);
@@ -93,6 +99,7 @@ export default function CreateTrip() {
           latitude: "1",
           longitude: "2",
           category_id: selectedCategory,
+          media: media,
           user_id: "1",
         }),
       })
@@ -175,7 +182,7 @@ export default function CreateTrip() {
           onChange={handleBeginDate}
           className="input"
           value={begin_date}
-          type="date"
+          type="datetime-local"
         />
 
         <label className="label">End Date</label>
@@ -183,8 +190,17 @@ export default function CreateTrip() {
           onChange={handleEndDate}
           className="input"
           value={end_date}
-          type="date"
+          type="datetime-local"
         />
+
+        <label className="label">Media</label>
+        <input
+          onChange={handleMedia}
+          className="input"
+          value={media}
+          type="text"
+        />
+
         <label className="label">Category</label>
         <select onChange={handleCategory}>
           <option selected disabled>

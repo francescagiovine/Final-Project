@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/home.css";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function EditTrip() {
   const { id } = useParams();
@@ -65,7 +66,7 @@ export default function EditTrip() {
       begin_date === "" ||
       end_date === ""
     ) {
-      setError("Please enter all the trip fields");
+      setError("Please enter all the fields");
     } else {
       fetch(process.env.BACKEND_URL + "/api/editTrip", {
         method: "POST",
@@ -103,7 +104,9 @@ export default function EditTrip() {
           display: submitted ? "" : "none",
         }}
       >
-        <h1 className="h1">You edited your trip to {name} successfully</h1>
+        <h1 className="h1">You edited your activity to {name} successfully</h1>
+        <h1 className="">                
+          <Link to="/trips">Back to Activities</Link></h1>
       </div>
     );
   };
