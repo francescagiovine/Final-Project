@@ -10,27 +10,33 @@ body {
 }
 h1 {
   text-align: center;
+  font-family: cursive;
+  color: #069a8e;
+}
+
+.h1 {
+  text-align: center;
   padding: 20px;
   font-family: cursive;
-  color: black;
+  color: #069a8e;
 }
 
 .navbar-brand {
   font-size: xx-large;
-  color: black;
+  color: #069a8e;
 }
 
 .navbar {
-  background-color: #069a8e;
+  background-color: #ffffff;
 }
 
 .buttons {
   background-color: transparent;
   border: none;
-  font-size: xx-large;
+  font-size: large;
   padding: 20px;
-  font-family: cursive;
-  color: black;
+  font-family: cursive, Arial, Helvetica, sans-serif;
+  color: #069a8e;
 }
 
 .text-center2 {
@@ -40,22 +46,27 @@ h1 {
 
 .App {
   text-align: center;
-  background-color: rgb(0, 85, 85);
-  width: 60%;
+  background-color: rgb(252, 252, 252);
+  width: 80%;
   margin: auto;
+  border-color: rgb(0, 85, 85);
+  border-width: 1rem;
+  border: #069a8e;
 }
 
 .label {
   display: block;
   font-size: larger;
-  color: white;
+  color: #069a8e;
   padding: 5px;
+  font-family: cursive;
 }
 
 .input {
   font-size: larger;
   padding: 5px;
   margin: 2px;
+  border-radius: 10px;
 }
 
 .btn {
@@ -97,18 +108,8 @@ h1 {
 }
 
 .card {
-  width: 150px;
   height: 150px;
   background-color: transparent;
-}
-
-.plusbutton {
-  background-color: aquamarine;
-}
-
-.collapse {
-  margin-left: 70%;
-  padding: 20px;
 }
 
 .loginPadre {
@@ -123,9 +124,12 @@ h1 {
 
 .logo {
   width: 65px;
-  background-color: #069a8e;
 }
 
 .input {
   width: 200px;
+}
+
+.flex {
+  display: flex;
 }

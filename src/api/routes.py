@@ -28,8 +28,9 @@ def login():
 
     data_response = {
         "token" : token,
-        "email": email,
-        "password": password
+        "email": user.email,
+        "name": user.name,
+        "id": user.id
     }
 
     return jsonify(data_response), 200
@@ -38,17 +39,8 @@ def login():
 # end of api 1 - login
 
 
-@api.route('/hello', methods=['GET'])
-@jwt_required()
-def get_hello():
 
-    email = get_jwt_identity()
-    response_body = {
-        'message': email
 
-    }
-
-    return jsonify(response_body), 200
 
 
 #api 2 - signup, here we create the signup service
@@ -83,9 +75,10 @@ def create_trip():
     category_id = request.json.get('category_id')
     latitude = request.json.get('latitude')
     longitude = request.json.get('longitude')
+    media = request.json.get('media')
     user_id = get_jwt_identity()
 
-    travel = Travel(id=id, name=name, user_id=user_id, location=location, begin_date=beginDate, end_date=endDate, category_id=category_id)
+    travel = Travel(id=id, name=name, user_id=user_id, location=location, begin_date=beginDate, end_date=endDate, category_id=category_id, media=media)
     db.session.add(travel)
     db.session.commit()
 
@@ -101,14 +94,19 @@ def list_users():
     return jsonify(usersResponse), 200
 
 @api.route('/getTrips', methods=['GET'])
-
+@jwt_required()
 def list_trips():
-    travels = Travel.query.all()
+    user_id = get_jwt_identity()    
+    travels = Travel.query.filter_by(user_id = user_id).all()
     response = []
     for travel in travels:
         response.append(travel.serialize()) 
-        
+           
     return jsonify(response), 200
+
+
+
+
 
 @api.route('/delete-trip', methods=['POST'])
 def delete_trip():
@@ -129,7 +127,33 @@ def get_trip(id):
     if trip: 
         return jsonify(trip.serialize()), 200
     return ({'error': 'Trip Not found'}), 404
+
+#Endpoint para el Timeline
+
+@api.route('/timeline/<int:id>', methods=['GET'])
+#@jwt_required()
+def timeline(id):
+    travels = Travel.query.filter_by(user_id = id).all() 
+    response = {  
+    'title': {
+        'text': {
+            'headline' : 'My Trip',
+            'text' : 'Swipe to see your activities'
+            },
+        "media": {
+          "url": "https://www.travelclearing.com/wp-content/uploads/logo100-521x600.png",
+        },
+    },
+    'events': [
+        travel.serializeTimeline() for travel in travels
+    ]
+    }
     
+    
+
+    #return jsonify(response[0],response[1],response[2],response[3],response[4],response[5]), 200
+    return jsonify(response), 200
+  
 
 @api.route('/getCategories', methods=['GET'])
 def get_categories():
