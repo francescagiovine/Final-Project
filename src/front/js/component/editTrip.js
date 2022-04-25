@@ -159,7 +159,7 @@ export default function EditTrip() {
         <input
           type="text"
           className="input"
-          onChange={(e) => console.log(e.target.value)}
+          onChange={handleBeginDate}
           onFocus={(e) => (e.target.type = "date")}
           onBlur={(e) => (e.target.type = "text")}
           placeholder={begin_date}
