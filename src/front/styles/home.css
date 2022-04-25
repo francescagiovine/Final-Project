@@ -14,7 +14,6 @@ h1 {
   color: #069a8e;
 }
 
-
 .h1 {
   text-align: center;
   padding: 20px;
@@ -29,7 +28,6 @@ h1 {
 
 .navbar {
   background-color: #ffffff;
-  
 }
 
 .buttons {
@@ -110,11 +108,9 @@ h1 {
 }
 
 .card {
-
   height: 150px;
   background-color: transparent;
 }
-
 
 .loginPadre {
   display: flex;
@@ -128,7 +124,6 @@ h1 {
 
 .logo {
   width: 65px;
-
 }
 
 .input {
@@ -138,4 +133,3 @@ h1 {
 .flex {
   display: flex;
 }
-

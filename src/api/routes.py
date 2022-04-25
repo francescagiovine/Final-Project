@@ -162,6 +162,28 @@ def get_categories():
     for category in categories:
         categoriesResponse.append(category.serialize())
 
+<<<<<<< HEAD
+    return jsonify(categoriesResponse), 200  
+
+@api.route('/user', methods=['GET'])
+@jwt_required()
+def get_user():
+    user_id= get_jwt_identity()
+    user= User.get_user(user_id)
+    return jsonify(user),200
+
+@api.route('/modify/user', methods=['PUT'])
+@jwt_required()
+def modify_user():
+    user_id= get_jwt_identity()
+    name = request.json.get('name')
+    email = request.json.get('email')
+    user= User.query.get(user_id)
+    user.name= name
+    user.email= email
+    db.session.commit()
+    return jsonify(user.serialize()),200 
+=======
     return jsonify(categoriesResponse), 200
 
 @api.route('/editTrip', methods=['POST'])
@@ -189,3 +211,4 @@ def get_user():
     user_id= get_jwt_identity()
     user= User.query.filter_by(id=id).first()
     return jsonify(user),200
+>>>>>>> main
