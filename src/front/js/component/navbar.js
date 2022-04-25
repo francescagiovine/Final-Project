@@ -45,8 +45,8 @@ export const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <div className="ml-auto">
-            {!store.token ? (
+          {!store.token ? (
+            <div className="ml-auto">
               <div className="loginPadre">
                 <Link to="/login">
                   <button className="loginHome btn btn-primary">Login</button>
@@ -55,24 +55,27 @@ export const Navbar = () => {
                   SignUp
                 </Link>
               </div>
-            ) : (
-              <div className="loginPadre">
+            </div>
+          ) : (
+            <div className="loginPadreIconos ml-auto">
+              <div className="loginPadre ms-5">
                 <Link to="/private">
-                  <button className="iconoHome btn btn-success">
+                  <button className="loginHome btn btn-primary" title="Home">
                     <i className="fas fa-home"></i>
                   </button>
                 </Link>
                 <Link to="/">
                   <button
                     onClick={() => actions.logout()}
-                    className="loginLogOut btn btn-primary"
+                    className="signup btn btn-secundary"
+                    title="Log Out"
                   >
                     <i className="fas fa-sign-out-alt"></i>
                   </button>
                 </Link>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </nav>

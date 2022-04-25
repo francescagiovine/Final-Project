@@ -33,19 +33,21 @@ export const Private = () => {
               Bienvenido a tu área privada, aquí podrás guardar toda la
               información que tengas de tu viaje
             </h1>
-            <div className="row row-cols-1 row-cols-md-3 g-4">
-              <div className="col">
-                <div className="card">
-                  <button className="plusbutton">
-                    <Link to="/create-trip"> Create new trip</Link>
-                    <img src={plusUrl} className="card-img-top" alt="..." />
-                  </button>
-                  <button className="plusbutton">
-                    <Link to="/trips">My trips</Link>
-                    <img src={plusUrl} className="card-img-top" alt="..." />
-                  </button>
+            <div className="container-fluid">
+              <div className="row row-cols-1 row-cols-md-3 g-4">
+                <div className="col">
+                  <div className="card">
+                    <button className="plusbutton">
+                      <Link to="/create-trip"> Create new trip</Link>
+                      <img src={plusUrl} className="card-img-top" alt="..." />
+                    </button>
+                    <button className="plusbutton">
+                      <Link to="/trips">My trips</Link>
+                      <img src={plusUrl} className="card-img-top" alt="..." />
+                    </button>
+                  </div>
+                  {/* <ListTrips /> */}
                 </div>
-                {/* <ListTrips /> */}
               </div>
             </div>
           </div>
