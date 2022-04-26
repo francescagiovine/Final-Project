@@ -84,6 +84,25 @@ def create_trip():
 
     return jsonify({'response': "Viaje creado con éxito"}), 200
 
+
+@api.route('/editTrip', methods=['POST'])
+@jwt_required()
+def edit_trip():
+
+    id = request.json.get('id')
+    trip = Travel.get_by_id(id)
+    trip.name = request.json.get('name')
+    trip.location = request.json.get('location')
+    trip.end_date = datetime.strptime(request.json.get('end_date'), "%Y-%m-%dT%H:%M")
+    trip.begin_date = datetime.strptime(request.json.get('begin_date'), "%Y-%m-%dT%H:%M")
+    trip.category_id = request.json.get('category_id')
+    trip.media = request.json.get('media')
+    user_id = get_jwt_identity()
+
+    db.session.commit()
+
+    return jsonify({'response': "Viaje editado con éxito"}), 200
+
 @api.route('/users', methods=['GET'])
 def list_users():
     users = User.query.all()
@@ -162,15 +181,14 @@ def get_categories():
     for category in categories:
         categoriesResponse.append(category.serialize())
 
-<<<<<<< HEAD
     return jsonify(categoriesResponse), 200  
 
-@api.route('/user', methods=['GET'])
-@jwt_required()
-def get_user():
-    user_id= get_jwt_identity()
-    user= User.get_user(user_id)
-    return jsonify(user),200
+# @api.route('/user', methods=['GET'])
+# @jwt_required()
+# def get_user():
+#    user_id= get_jwt_identity()
+#    user= User.get_user(user_id)
+#    return jsonify(user),200
 
 @api.route('/modify/user', methods=['PUT'])
 @jwt_required()
@@ -183,27 +201,8 @@ def modify_user():
     user.email= email
     db.session.commit()
     return jsonify(user.serialize()),200 
-=======
     return jsonify(categoriesResponse), 200
 
-@api.route('/editTrip', methods=['POST'])
-@jwt_required()
-def edit_trip():
-
-    id = request.json.get('id')
-    trip = Travel.get_by_id(id)
-    trip.name = request.json.get('name')
-    trip.location = request.json.get('location')
-    endDate = datetime.strptime(request.json.get('end_date'), "%d/%m/%Y")
-    beginDate = datetime.strptime(request.json.get('begin_date'), "%d/%m/%Y")
-    category_id = request.json.get('category_id')
-    latitude = request.json.get('latitude')
-    longitude = request.json.get('longitude')
-    user_id = get_jwt_identity()
-
-    db.session.commit()
-
-    return jsonify({'response': "Viaje editado con éxito"}), 200
 
 @api.route('/user', methods=['GET'])
 @jwt_required()
@@ -211,4 +210,3 @@ def get_user():
     user_id= get_jwt_identity()
     user= User.query.filter_by(id=id).first()
     return jsonify(user),200
->>>>>>> main

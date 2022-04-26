@@ -13,12 +13,6 @@ export const Private = () => {
   const token = sessionStorage.getItem("token");
   const name = sessionStorage.getItem("name");
 
-  useEffect(() => {
-    if (store.token && store.token != "" && store.token != undefined)
-      actions.getMessage();
-    //actions.timeline();
-  }, [store.token]);
-
   const listTrips = () => {
     fetch(process.env.BACKEND_URL + "/api/getTrips", {
       method: "GET",
@@ -35,15 +29,8 @@ export const Private = () => {
       });
   };
 
-  useEffect(() => {
-    console.log(process.env.BACKEND_URL);
-    listTrips();
-  }, []);
 
-  useEffect(() => {
-    if (store.token && store.token != "" && store.token != undefined)
-      actions.getMessage();
-  }, [store.token]);
+
 
   return (
     <div className="ml-auto">
@@ -69,13 +56,30 @@ export const Private = () => {
               "id"
             )}&font=Default&lang=en&initial_zoom=1&height=500`}
             width="80%"
-            height="800"
+            height="500"
             webkitallowfullscreen
             mozallowfullscreen
             allowfullscreen
             frameborder="0"
           ></iframe>
           <h2>My Activities</h2>
+        <div className=" flex card-group ">
+          <div class="card border-secondary">
+            <div class="card-header">Header</div>
+            <div class="card-body text-secondary">
+              <h5 class="card-title">Secondary card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>             
+          </div>
+          <div class="card border-secondary mb-3">
+            <div class="card-header">Header</div>
+            <div class="card-body text-secondary">
+              <h5 class="card-title">Secondary card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>             
+          </div>
+        </div>
+          
           <div className="row row-cols-1 row-cols-md-3 g-4 col ">
             <div className=" flex">
               <div className="card ">

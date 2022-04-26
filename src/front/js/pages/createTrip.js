@@ -96,8 +96,6 @@ export default function CreateTrip() {
           location: location,
           begin_date: begin_date,
           end_date: end_date,
-          latitude: "1",
-          longitude: "2",
           category_id: selectedCategory,
           media: media,
           user_id: "1",

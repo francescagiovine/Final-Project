@@ -38,9 +38,9 @@ export const Navbar = () => {
             </Link>
           </div>
           <div className="col col-sm-2 flex">
-            <h1 id="navbar-name" className="pe-3">
+            <h2 id="navbar-name" className="pe-3">
               {name}
-            </h1>
+            </h2>
             <button
               className="navbar-toggler"
               type="button"
@@ -57,7 +57,7 @@ export const Navbar = () => {
                 {!store.token ? (
                   <div className="loginPadre">
                     <Link to="/login">
-                      <button className="loginHome btn btn-primary">
+                      <button className="loginHome btn btn-secundary">
                         Login
                       </button>
                     </Link>

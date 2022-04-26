@@ -9,6 +9,9 @@ export default function EditTrip() {
   const [location, setLocation] = useState("");
   const [begin_date, setBeginDate] = useState("");
   const [end_date, setEndDate] = useState("");
+  const [category, setCategory] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [media, setMedia] = useState("");
   const token = sessionStorage.getItem("token");
   // const id = queryParams.get("id");
   // console.log(id);
@@ -22,6 +25,8 @@ export default function EditTrip() {
         setLocation(response.location);
         setBeginDate(response.begin_date);
         setEndDate(response.end_date);
+        setSelectedCategory(response.category_id);
+        setMedia(response.media);
       });
   };
   useEffect(() => {
@@ -30,6 +35,26 @@ export default function EditTrip() {
 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
+
+  const getCategory = () => {
+    fetch(process.env.BACKEND_URL + "/api/getCategories", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setCategory(data);
+        // this.setState({ totalReactPackages: data.total })
+      });
+  };
+
+  useEffect(() => {
+    getCategory();
+  }, []);
 
   // Handling the name change
   const handleName = (e) => {
@@ -57,6 +82,18 @@ export default function EditTrip() {
     setSubmitted(false);
   };
 
+  // Handling the location change
+  const handleMedia = (e) => {
+    setMedia(e.target.value);
+    setSubmitted(false);
+  };
+
+  const handleCategory = (e) => {
+    //console.log(e.target.value)
+    setSelectedCategory(e.target.value);
+    setSubmitted(false);
+  };
+
   // Handling the form submission
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -80,6 +117,8 @@ export default function EditTrip() {
           location: location,
           begin_date: begin_date,
           end_date: end_date,
+          category_id: selectedCategory,
+          media: media,
         }),
       })
         .then((resp) => resp.json())
@@ -105,8 +144,9 @@ export default function EditTrip() {
         }}
       >
         <h1 className="h1">You edited your activity to {name} successfully</h1>
-        <h1 className="">                
-          <Link to="/trips">Back to Activities</Link></h1>
+        <h1 className="">
+          <Link to="/trips">Back to Activities</Link>
+        </h1>
       </div>
     );
   };
@@ -143,7 +183,7 @@ export default function EditTrip() {
         <input
           onChange={handleName}
           className="input"
-          placeholder={name}
+          defaultValue={name}
           type="text"
         />
 
@@ -151,29 +191,53 @@ export default function EditTrip() {
         <input
           onChange={handleLocation}
           className="input"
-          placeholder={location}
+          defaultValue={location}
           type="text"
         />
 
         <label className="label">Begin Date</label>
         <input
-          type="text"
-          className="input"
+          defaultValue={begin_date}
           onChange={handleBeginDate}
-          onFocus={(e) => (e.target.type = "date")}
-          onBlur={(e) => (e.target.type = "text")}
-          placeholder={begin_date}
+          className="input"
+          type="datetime-local"
         />
 
         <label className="label">End Date</label>
         <input
-          type="text"
+          type="datetime-local"
           className="input"
-          onChange={(e) => console.log(e.target.value)}
-          onFocus={(e) => (e.target.type = "date")}
-          onBlur={(e) => (e.target.type = "text")}
-          placeholder={end_date}
+          onChange={handleEndDate}
+          defaultValue={end_date}
         />
+
+        <label className="label">Media</label>
+        <input
+          onChange={handleMedia}
+          className="input"
+          defaultValue={media}
+          type="text"
+        />
+
+        <label className="label">Category</label>
+        <select onChange={handleCategory} defaultValue={selectedCategory}>
+          <option selected disabled>
+            Seleccione una opción
+          </option>
+          {category.map((value, index) => (
+            <option
+              key={index}
+              value={value.id}
+              selected={
+                selectedCategory && selectedCategory == value.id
+                  ? "selected"
+                  : ""
+              }
+            >
+              {value.name}
+            </option>
+          ))}
+        </select>
 
         <button onClick={handleSubmit} className="btn">
           Guardar Cambios

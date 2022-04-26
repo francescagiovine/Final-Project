@@ -1,40 +1,42 @@
-// import React from "react";
-
-// const cardTrip = (props) => {
-//   return (
-//     <div className="card w-25">
-//       <div className="card-body">
-//         <h5 className="card-title">{props.title}</h5>
-//         <p className="card-text">{props.content}</p>
-//         <a href={props.href} target="_blank" className="btn btn-primary">
-//           {props.button}
-//         </a>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default cardTrip;
-
-// ESTO DE MOMENTO CREO QUE NO LO USARE!!!!!!
-
 import React, { useState, useEffect, useContext } from "react";
 import propTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
-const eliminarViaje = (id) => {
+
+
+const Trips = () => {
+  const token = sessionStorage.getItem("token");
+  fetch(process.env.BACKEND_URL + "/api/getTrips", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("listTrips", data);
+      setTrips(data);
+      //this.setState({ totalReactPackages: data.total })
+    });
+};
+
+
+const eliminarViaje = (tripid) => {
   fetch(process.env.BACKEND_URL + "/api/delete-trip", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      id: id,
+      id: tripid,
     }),
   })
     .then((resp) => resp.json())
     .then((res) => {
       console.log(res);
+      Trips()
     });
 };
 
