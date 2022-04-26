@@ -162,7 +162,6 @@ def get_categories():
     for category in categories:
         categoriesResponse.append(category.serialize())
 
-<<<<<<< HEAD
     return jsonify(categoriesResponse), 200  
 
 @api.route('/user', methods=['GET'])
@@ -183,7 +182,6 @@ def modify_user():
     user.email= email
     db.session.commit()
     return jsonify(user.serialize()),200 
-=======
     return jsonify(categoriesResponse), 200
 
 @api.route('/editTrip', methods=['POST'])
@@ -205,10 +203,9 @@ def edit_trip():
 
     return jsonify({'response': "Viaje editado con éxito"}), 200
 
-@api.route('/user', methods=['GET'])
-@jwt_required()
-def get_user():
-    user_id= get_jwt_identity()
-    user= User.query.filter_by(id=id).first()
-    return jsonify(user),200
->>>>>>> main
+# @api.route('/user', methods=['GET'])
+# @jwt_required()
+# def get_user():
+#     user_id= get_jwt_identity()
+#     user= User.query.filter_by(id=id).first()
+#     return jsonify(user),200
