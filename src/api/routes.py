@@ -192,12 +192,12 @@ def edit_trip():
     trip = Travel.get_by_id(id)
     trip.name = request.json.get('name')
     trip.location = request.json.get('location')
-    endDate = datetime.strptime(request.json.get('end_date'), "%d/%m/%Y")
-    beginDate = datetime.strptime(request.json.get('begin_date'), "%d/%m/%Y")
-    category_id = request.json.get('category_id')
-    latitude = request.json.get('latitude')
-    longitude = request.json.get('longitude')
-    user_id = get_jwt_identity()
+    trip.end_date = datetime.strptime(request.json.get('end_date'), '%Y-%m-%dT%H:%M')
+    trip.begin_date = datetime.strptime(request.json.get('begin_date'), '%Y-%m-%dT%H:%M')
+    # category_id = request.json.get('category_id')
+    # latitude = request.json.get('latitude')
+    # longitude = request.json.get('longitude')
+    # user_id = get_jwt_identity()
 
     db.session.commit()
 

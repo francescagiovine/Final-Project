@@ -43,8 +43,8 @@ class Travel(db.Model):
         return {
             "name": self.name,
             "location": self.location,
-            "begin_date": self.begin_date.strftime("%d/%m/%Y %H:%M"),           
-            "end_date": self.end_date.strftime("%d/%m/%Y %H:%M"),  
+            "begin_date": self.begin_date.strftime("%Y-%m-%dT%H:%M"),           
+            "end_date": self.end_date.strftime("%Y-%m-%dT%H:%M"),
             "category":self.category.name,
             "id": self.id,
             "media": self.media
@@ -58,7 +58,7 @@ class Travel(db.Model):
                     "url": self.media,
                     "caption" : self.location
                 },
-                "start_date": {
+                "begin_date": {
                     "minute" : self.begin_date.strftime("%M"),
                     "hour" : self.begin_date.strftime("%H"),
                     "day" : self.begin_date.strftime("%d"),

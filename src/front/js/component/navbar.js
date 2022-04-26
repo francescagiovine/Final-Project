@@ -9,7 +9,7 @@ export const Navbar = () => {
   const token = sessionStorage.getItem("token");
   const name = sessionStorage.getItem("name");
   const getUser = () => {
-    fetch(process.env.BACKEND_URL + "/api/getUser", {
+    fetch(process.env.BACKEND_URL + "/api/user", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
@@ -19,7 +19,7 @@ export const Navbar = () => {
       .then((response) => response.json())
       .then((data) => {
         // console.log(data);
-        setCategory(data);
+        // setCategory(data);
         // this.setState({ totalReactPackages: data.total })
       });
   };

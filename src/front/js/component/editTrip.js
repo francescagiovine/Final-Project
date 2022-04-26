@@ -105,8 +105,9 @@ export default function EditTrip() {
         }}
       >
         <h1 className="h1">You edited your activity to {name} successfully</h1>
-        <h1 className="">                
-          <Link to="/trips">Back to Activities</Link></h1>
+        <h1 className="">
+          <Link to="/trips">Back to Activities</Link>
+        </h1>
       </div>
     );
   };
@@ -157,21 +158,22 @@ export default function EditTrip() {
 
         <label className="label">Begin Date</label>
         <input
-          type="text"
+          // type="datetime-local"
           className="input"
           onChange={handleBeginDate}
-          onFocus={(e) => (e.target.type = "date")}
-          onBlur={(e) => (e.target.type = "text")}
+          onFocus={(e) => (e.target.type = "datetime-local")}
+          onBlur={(e) => (e.target.type = "datetime-local")}
           placeholder={begin_date}
         />
 
         <label className="label">End Date</label>
         <input
-          type="text"
+          // type="datetime-local"
           className="input"
-          onChange={(e) => console.log(e.target.value)}
-          onFocus={(e) => (e.target.type = "date")}
-          onBlur={(e) => (e.target.type = "text")}
+          // onChange={(e) => console.log(e.target.value)}
+          onChange={handleEndDate}
+          onFocus={(e) => (e.target.type = "datetime-local")}
+          onBlur={(e) => (e.target.type = "datetime-local")}
           placeholder={end_date}
         />
 
