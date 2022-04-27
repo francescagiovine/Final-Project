@@ -59,7 +59,7 @@ class Travel(db.Model):
                     "url": self.media,
                     "caption" : self.location
                 },
-                "start_date": {
+                "begin_date": {
                     "minute" : self.begin_date.strftime("%M"),
                     "hour" : self.begin_date.strftime("%H"),
                     "day" : self.begin_date.strftime("%d"),

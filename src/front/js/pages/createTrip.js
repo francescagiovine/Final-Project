@@ -12,8 +12,8 @@ export default function CreateTrip() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [media, setMedia] = useState("");
   const token = sessionStorage.getItem("token");
-  const {store, actions} = useContext(Context)
-	const history = useHistory();
+  const { store, actions } = useContext(Context);
+  const history = useHistory();
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
   //   EN PRINCIPIO NO NECESITAMOS NINGUN ERROR EN TEMA REGISTRO VIAJE
@@ -62,11 +62,11 @@ export default function CreateTrip() {
     setSubmitted(false);
   };
 
-    // Handling the location change
-    const handleMedia = (e) => {
-      setMedia(e.target.value);
-      setSubmitted(false);
-    };
+  // Handling the location change
+  const handleMedia = (e) => {
+    setMedia(e.target.value);
+    setSubmitted(false);
+  };
 
   const handleCategory = (e) => {
     //console.log(e.target.value)
@@ -114,10 +114,8 @@ export default function CreateTrip() {
     }
   };
 
-
   // Showing success message
   const successMessage = () => {
-    
     return (
       <div
         className="success"
@@ -125,8 +123,7 @@ export default function CreateTrip() {
           display: submitted ? "" : "none",
         }}
       >
-        <h1> {name} created successfully</h1>
-        
+        <h1> {name} created successfully</h1>        
       </div>
     );
   };
