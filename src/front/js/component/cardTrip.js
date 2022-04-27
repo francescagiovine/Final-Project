@@ -22,7 +22,7 @@ import React, { useState, useEffect, useContext } from "react";
 import propTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const eliminarViaje = (id) => {
+const eliminarViaje = (id, actualizarViajes) => {
   fetch(process.env.BACKEND_URL + "/api/delete-trip", {
     method: "POST",
     headers: {
@@ -35,6 +35,7 @@ const eliminarViaje = (id) => {
     .then((resp) => resp.json())
     .then((res) => {
       console.log(res);
+      actualizarViajes();
     });
 };
 
@@ -64,7 +65,7 @@ const editarViaje = (id) => {
 
 const CardTrip = (props) => {
   const link = "/edit-trip/".concat(props.trip.id);
-  const CategoryName = []
+  const CategoryName = [];
   return (
     <tbody>
       <tr>
@@ -76,8 +77,9 @@ const CardTrip = (props) => {
               <button className="btn btn-success">Edit</button>
             </Link>
             <button
-              onClick={() => eliminarViaje(props.trip.id)}
-              className="btn btn-danger">
+              onClick={() => eliminarViaje(props.trip.id, props.onTripsChange)}
+              className="btn btn-danger"
+            >
               Delete
             </button>
           </div>
