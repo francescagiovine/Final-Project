@@ -32,7 +32,7 @@ class Travel(db.Model):
     longitude = db.Column(db.String(), unique=False, nullable=True)
     begin_date = db.Column(db.DateTime(), unique=False)
     end_date = db.Column(db.DateTime(timezone=False), unique=False)
-    media = db.Column(db.String(), unique=False, nullable=True)
+    media = db.Column(db.String(255), unique=False, nullable=True)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     category = db.relationship('Category', backref=db.backref('travel', lazy=True))
     user = db.relationship('User', backref=db.backref('travel', lazy=True))
@@ -48,7 +48,7 @@ class Travel(db.Model):
             "category":self.category.name,
             "category_id":self.category.id,
             "id": self.id,
-            "media": self.media
+            "media": self.media,
 
         }
         

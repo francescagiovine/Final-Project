@@ -67,14 +67,17 @@ const CardTrip = (props) => {
   return (
     <tbody>
       <tr>
-        <th scope="row" className="cardtrip">
-          {props.trip.category}
-          <td className="h1">{props.trip.name}</td>
-        </th>
-        <th scope="row">
-          {props.trip.begin_date}
-          <td>{props.trip.end_date}</td>
-        </th>
+        <th scope="row">{props.trip.name}</th>
+        <td>
+          <img width="100" src={props.trip.media}></img>
+        </td>
+        <td>
+          <b>Location: </b> {props.trip.location} <br></br>
+          <b> Start date: </b> {props.trip.begin_date} <br></br>
+          <b> End date: </b>
+          {props.trip.end_date} <br></br>
+          <b> Category: </b> {props.trip.category} <br></br>
+        </td>
 
         <td>
           <div className="d-grid gap-2 d-md-block">

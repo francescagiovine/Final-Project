@@ -16,6 +16,7 @@ export default function CreateTrip() {
   const history = useHistory();
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
+  const [files, setFiles] = useState(null);
   //   EN PRINCIPIO NO NECESITAMOS NINGUN ERROR EN TEMA REGISTRO VIAJE
 
   const getCategory = () => {
@@ -85,21 +86,22 @@ export default function CreateTrip() {
     ) {
       setError("Please enter all the trip fields");
     } else {
+      let body = new FormData();
+      body.append("name", name);
+      body.append("location", location);
+      body.append("begin_date", begin_date);
+      body.append("end_date", end_date);
+      body.append("end_date", end_date);
+      body.append("category_id", selectedCategory);
+      body.append("media", files[0]);
+
       fetch(process.env.BACKEND_URL + "/api/createTrip", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: "Bearer " + token,
         },
-        body: JSON.stringify({
-          name: name,
-          location: location,
-          begin_date: begin_date,
-          end_date: end_date,
-          category_id: selectedCategory,
-          media: media,
-          user_id: "1",
-        }),
+        body,
+
       })
         .then((resp) => resp.json())
         .then((data) => {
@@ -142,6 +144,23 @@ export default function CreateTrip() {
     );
   };
 
+  const uploadImage = (evt) => {
+    evt.preventDefault();
+    // we are about to send this to the backend.
+    console.log("This are the files", files);
+    let body = new FormData();
+    body.append("profile_image", files[0]);
+    const options = {
+      body,
+      method: "POST",
+    };
+    // you need to have the user_id in the localStorage
+    fetch(`${process.env.BACKEND_URL}/user/${currentUserId}/image`, options)
+      .then((resp) => resp.json())
+      .then((data) => console.log("Success!!!!", data))
+      .catch((erros) => console.error("ERRORRRRRR!!!", error));
+  };
+
   return (
     <div className="App form">
       <div>
@@ -154,13 +173,14 @@ export default function CreateTrip() {
         {successMessage()}
       </div>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         {/* Labels and inputs for form data */}
         <label className="label">Name</label>
         <input
           onChange={handleName}
           className="input"
           value={name}
+          name="name"
           type="text"
         />
 
@@ -188,13 +208,7 @@ export default function CreateTrip() {
           type="datetime-local"
         />
 
-        <label className="label">URL</label>
-        <input
-          onChange={handleMedia}
-          className="input"
-          value={media}
-          type="text"
-        />
+
 
         <label className="label">Category</label>
         <select onChange={handleCategory} className="input">
@@ -208,7 +222,11 @@ export default function CreateTrip() {
           ))}
         </select>
 
-        <button onClick={handleSubmit} className="btn btn-user" type="submit">
+        <label>Subir foto</label>
+
+        <input type="file" onChange={(e) => setFiles(e.target.files)} />
+
+        <button className="btn btn-user" type="submit">
           Submit
         </button>
       </form>

@@ -47,14 +47,17 @@ export default function Trips() {
             allowfullscreen
             frameborder="0"
           ></iframe>
+      <span className="h1">Mis viajes</span>
+      <br></br>
+      <br></br>
       <table className="table table-striped">
-        <thead>
+        {/* <thead>
           <tr>
             <th scope="col">Activity</th>
             <th scope="col">Begin Date</th>
             <th scope="col">Actions</th>
           </tr>
-        </thead>
+        </thead> */}
         {trips.map((value, index) => {
           return (
             <CardTrip
