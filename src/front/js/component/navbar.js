@@ -2,8 +2,6 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import logo from "../../img/logo.png";
-import roadtrip from "../../img/roadtrip.png";
-import list from "../../img/list.png";
 //import { useContext } from "react/cjs/react.production.min"; o/home en el link a widetravel
 
 export const Navbar = () => {
@@ -11,6 +9,8 @@ export const Navbar = () => {
   useEffect(() => {
     actions.getUser();
   }, [store.name]);
+  console.log(store.name)
+
   return (
     <div className="ml-auto">
       <nav className="navbar navbar-expand-md navbar-light ml-auto flex">
@@ -43,13 +43,8 @@ export const Navbar = () => {
 
           <div className="col flex ">
             <h2  className="pe-3 name">
-              {name}
-            </h2>
-          </div>
-          <div className="col col-sm-2 flex">
-            <h1 id="navbar-name" className="pe-3">
               {store.name}
-            </h1>
+            </h2>
           </div>
           <div>
             <button

@@ -78,13 +78,13 @@ def edit_trip():
     db.session.commit()
     return jsonify({'response': "Viaje editado con éxito"}), 200
 
-#@api.route('/users', methods=['GET'])
-#def list_users():
-#    users = User.query.all()
-#    usersResponse = []
-#    for user in users:
-#        usersResponse.append(user.serialize())
-#    return jsonify(usersResponse), 200
+@api.route('/users', methods=['GET'])
+def list_users():
+    users = User.query.all()
+    usersResponse = []
+    for user in users:
+        usersResponse.append(user.serialize())
+    return jsonify(usersResponse), 200
 
 @api.route('/getTrips', methods=['GET'])
 @jwt_required()
