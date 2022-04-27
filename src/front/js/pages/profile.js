@@ -59,14 +59,14 @@ export const Profile = () => {
     getUser();
   }, []);
   return (
-    <div className="container">
+    <div className="App container">
       <div className="row">
-        <label className="col-1" htmlFor="name">
-          name
+        <label className="label col-5" htmlFor="name">
+          Name
         </label>
         <input
           id="name"
-          className="col-4"
+          className="input col-5"
           name="name"
           defaultValue={user.name}
           onChange={(event) => {
@@ -75,16 +75,30 @@ export const Profile = () => {
         />
       </div>
       <div className="row">
-        <label className="col-1" htmlFor="email">
-          email
+        <label className="label col-5" htmlFor="email">
+          Email
         </label>
         <input
           id="email"
-          className="col-4"
+          className="input col-4"
           name="email"
           defaultValue={user.email}
           onChange={(event) => {
             setUser({ ...user, email: event.target.value });
+          }}
+        />
+      </div>
+      <div className="row">
+        <label className="label col-5" htmlFor="password">
+          Password
+        </label>
+        <input
+          id="password"
+          className="input col-4"
+          name="password"
+          defaultValue={user.password}
+          onChange={(event) => {
+            setUser({ ...user, password: event.target.value });
           }}
         />
       </div>
