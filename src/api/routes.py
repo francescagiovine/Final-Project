@@ -145,12 +145,12 @@ def get_categories():
 
     return jsonify(categoriesResponse), 200  
 
-# @api.route('/user', methods=['GET'])
-# @jwt_required()
-# def get_user():
-#    user_id= get_jwt_identity()
-#    user= User.get_user(user_id)
-#    return jsonify(user),200
+@api.route('/user', methods=['GET'])
+@jwt_required()
+def get_user():
+    user_id= get_jwt_identity()
+    user= User.get_user(user_id)
+    return jsonify(user),200
 
 @api.route('/modify/user', methods=['PUT'])
 @jwt_required()
@@ -158,9 +158,14 @@ def modify_user():
     user_id= get_jwt_identity()
     name = request.json.get('name')
     email = request.json.get('email')
+    password = request.json.get('password')
     user= User.query.get(user_id)
-    user.name= name
-    user.email= email
+    if name:
+        user.name= name
+    if email:    
+        user.email= email
+    if password:
+        user.password= password
     db.session.commit()
     return jsonify(user.serialize()),200 
     return jsonify(categoriesResponse), 200

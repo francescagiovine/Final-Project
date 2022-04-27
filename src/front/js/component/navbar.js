@@ -8,27 +8,9 @@ import list from "../../img/list.png";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
-  const token = sessionStorage.getItem("token");
-  const name = sessionStorage.getItem("name");
-  const getUser = () => {
-    fetch(process.env.BACKEND_URL + "/api/user", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data);
-        // setCategory(data);
-        // this.setState({ totalReactPackages: data.total })
-      });
-  };
-
   useEffect(() => {
-    getUser();
-  }, []);
+    actions.getUser();
+  }, [store.name]);
   return (
     <div className="ml-auto">
       <nav className="navbar navbar-expand-md navbar-light ml-auto flex">
@@ -58,10 +40,18 @@ export const Navbar = () => {
               </div>
 
           </div>
+
           <div className="col flex ">
             <h2  className="pe-3 name">
               {name}
             </h2>
+          </div>
+          <div className="col col-sm-2 flex">
+            <h1 id="navbar-name" className="pe-3">
+              {store.name}
+            </h1>
+          </div>
+          <div>
             <button
               className="navbar-toggler"
               type="button"
