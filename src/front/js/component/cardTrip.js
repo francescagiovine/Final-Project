@@ -23,7 +23,7 @@ const Trips = () => {
 };
 
 
-const eliminarViaje = (id, actualizarViajes, tripid) => {
+const eliminarViaje = (tripid) => {
   fetch(process.env.BACKEND_URL + "/api/delete-trip", {
     method: "POST",
     headers: {
@@ -37,7 +37,6 @@ const eliminarViaje = (id, actualizarViajes, tripid) => {
     .then((res) => {
       console.log(res);
       Trips()
-      actualizarViajes();
     });
 };
 
@@ -80,7 +79,7 @@ const CardTrip = (props) => {
               <button className="btn btn-user btn-success"><i class="fas fa-edit"></i></button>
             </Link>
             <button
-              onClick={() => eliminarViaje(props.trip.id, props.onTripsChange)}
+              onClick={() => eliminarViaje(props.trip.id)}
               className="btn btn-user btn-danger">
               <i className="fas fa-trash"></i>  
             </button>
