@@ -42,7 +42,7 @@ export const Login = () => {
 							<input onChange={handleEmail} className="input" value={email} type="email"/>
 							<label className="label">Password</label>
 							<input onChange={handlePassword} className="input" value={password} type="password"/>
-							<button onClick={handleLogin} className="btn" type="login">Login</button>
+							<button onClick={handleLogin} className="btn btn-user" type="login">Login</button>
 						</form>
 					  </div>
 			</div>

@@ -70,17 +70,18 @@ const CardTrip = (props) => {
   return (
     <tbody>
       <tr>
-        <th scope="row">{props.trip.name}</th>
+        <th scope="row" className="cardtrip">{props.trip.category}<td className="h1">{props.trip.name}</td></th>
+        <th scope="row" >{props.trip.begin_date}<td>{props.trip.end_date}</td></th>
 
         <td>
           <div className="d-grid gap-2 d-md-block">
             <Link to={link}>
-              <button className="btn btn-success">Edit</button>
+              <button className="btn btn-user btn-success"><i class="fas fa-edit"></i></button>
             </Link>
             <button
               onClick={() => eliminarViaje(props.trip.id)}
-              className="btn btn-danger">
-              Delete
+              className="btn btn-user btn-danger">
+              <i className="fas fa-trash"></i>
             </button>
           </div>
         </td>

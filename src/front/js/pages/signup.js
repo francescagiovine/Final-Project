@@ -127,7 +127,7 @@ export default function SignUp() {
           type="password"
         />
 
-        <button onClick={handleSubmit} className="btn" type="submit">
+        <button onClick={handleSubmit} className="btn btn-user" type="submit">
           Submit
         </button>
       </form>

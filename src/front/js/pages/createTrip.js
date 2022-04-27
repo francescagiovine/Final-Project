@@ -125,7 +125,7 @@ export default function CreateTrip() {
           display: submitted ? "" : "none",
         }}
       >
-        <h1>You created your trip to {name} successfully</h1>
+        <h1> {name} created successfully</h1>
         
       </div>
     );
@@ -148,7 +148,7 @@ export default function CreateTrip() {
   return (
     <div className="App form">
       <div>
-        <h1>Create your trip</h1>
+        <h1>New Activity</h1>
       </div>
 
       {/* Calling to the methods */}
@@ -167,8 +167,8 @@ export default function CreateTrip() {
           type="text"
         />
 
-        <label className="label">Location</label>
-        <input
+        <label className="label">Description</label>
+        <textarea 
           onChange={handleLocation}
           className="input"
           value={location}
@@ -191,7 +191,7 @@ export default function CreateTrip() {
           type="datetime-local"
         />
 
-        <label className="label">Media</label>
+        <label className="label">URL</label>
         <input
           onChange={handleMedia}
           className="input"
@@ -200,9 +200,9 @@ export default function CreateTrip() {
         />
 
         <label className="label">Category</label>
-        <select onChange={handleCategory}>
+        <select onChange={handleCategory} className="input">
           <option selected disabled>
-            Seleccione una opción
+            Select an option
           </option>
           {category.map((value, index) => (
             <option key={index} value={value.id}>
@@ -211,7 +211,7 @@ export default function CreateTrip() {
           ))}
         </select>
 
-        <button onClick={handleSubmit} className="btn" type="submit">
+        <button onClick={handleSubmit} className="btn btn-user" type="submit">
           Submit
         </button>
       </form>

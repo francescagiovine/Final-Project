@@ -11,7 +11,7 @@ const Home = () => {
 
   return (
     <div className="text-center mt-5">
-      <h1>HAVE ALL YOUR TRIP IN YOUR HANDS!!!</h1>
+      <h1>HAVE YOUR WHOLE TRIP IN YOUR HANDS!!!</h1>
       <p>
         <img src={widetravelUrl} className="img-fluid" />
       </p>

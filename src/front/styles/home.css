@@ -13,10 +13,8 @@ h1 {
   font-family: cursive;
   color: #069a8e;
 }
-
-.h1 {
+.name {
   text-align: center;
-  padding: 20px;
   font-family: cursive;
   color: #069a8e;
 }
@@ -28,15 +26,27 @@ h1 {
 
 .navbar {
   background-color: #ffffff;
+    text-decoration: none;
 }
-
+.btn-navbar{
+  background-color: #92d2cd;
+  border-radius: 10px;
+  font-family: Cursive, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
 .buttons {
   background-color: transparent;
   border: none;
   font-size: large;
   padding: 20px;
   font-family: cursive, Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  
   color: #069a8e;
+}
+
+.cardtrip {
+
+  font-family: cursive, Arial, Helvetica, sans-serif;
 }
 
 .text-center2 {
@@ -67,9 +77,11 @@ h1 {
   padding: 5px;
   margin: 2px;
   border-radius: 10px;
+  width: 250px;
+  font-family: cursive;
 }
 
-.btn {
+.btn-user {
   color: white;
   background-color: #EC788A;
   border-radius: 5px;
@@ -77,6 +89,7 @@ h1 {
   display: block;
   padding: 5px;
   margin: 10px auto;
+  font-family: cursive;
 }
 
 .messages {
@@ -117,18 +130,15 @@ h1 {
   justify-content: center;
 }
 
-.iconoHome,
-.loginHome {
+.btn1 {
   margin-right: 5px;
+  text-decoration: none;
 }
 
 .logo {
   width: 65px;
 }
 
-.input {
-  width: 200px;
-}
 
 .flex {
   display: flex;

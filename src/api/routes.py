@@ -156,11 +156,11 @@ def timeline(id):
     response = {  
     'title': {
         'text': {
-            'headline' : 'My Trip',
+            'headline' : 'My Travels',
             'text' : 'Swipe to see your activities'
             },
         "media": {
-          "url": "https://www.travelclearing.com/wp-content/uploads/logo100-521x600.png",
+          "url": "",
         },
     },
     'events': [

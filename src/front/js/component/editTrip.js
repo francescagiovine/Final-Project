@@ -143,8 +143,8 @@ export default function EditTrip() {
           display: submitted ? "" : "none",
         }}
       >
-        <h1 className="h1">You edited your activity to {name} successfully</h1>
-        <h1 className="">
+        <h1 className="corporative">You edited your activity to {name} successfully</h1>
+        <h1 className="corporative">
           <Link to="/trips">Back to Activities</Link>
         </h1>
       </div>
@@ -160,7 +160,7 @@ export default function EditTrip() {
           display: error != false ? "" : "none",
         }}
       >
-        <h1>{error}</h1>
+        <h1 className="corporative">{error}</h1>
       </div>
     );
   };
@@ -168,7 +168,7 @@ export default function EditTrip() {
   return (
     <div className="App form">
       <div>
-        <h1>Edit your trip</h1>
+        <h1 className="corporative">Edit your trip</h1>
       </div>
 
       {/* Calling to the methods */}
@@ -187,8 +187,8 @@ export default function EditTrip() {
           type="text"
         />
 
-        <label className="label">Location</label>
-        <input
+        <label className="label">Description</label>
+        <textarea 
           onChange={handleLocation}
           className="input"
           defaultValue={location}
@@ -211,7 +211,7 @@ export default function EditTrip() {
           defaultValue={end_date}
         />
 
-        <label className="label">Media</label>
+        <label className="label">URL</label>
         <input
           onChange={handleMedia}
           className="input"
@@ -220,9 +220,9 @@ export default function EditTrip() {
         />
 
         <label className="label">Category</label>
-        <select onChange={handleCategory} defaultValue={selectedCategory}>
+        <select onChange={handleCategory} defaultValue={selectedCategory} className="input">
           <option selected disabled>
-            Seleccione una opción
+            Select an option
           </option>
           {category.map((value, index) => (
             <option
@@ -239,8 +239,8 @@ export default function EditTrip() {
           ))}
         </select>
 
-        <button onClick={handleSubmit} className="btn">
-          Guardar Cambios
+        <button onClick={handleSubmit} className="btn btn-user">
+          Save
         </button>
       </form>
     </div>

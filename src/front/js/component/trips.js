@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import plusUrl from "../../img/plus.png";
 import {Context} from "../store/appContext";
 import CardTrip from "./cardTrip";
 
@@ -37,11 +36,22 @@ export default function Trips() {
 
   return (
     <div>
-      <span className="listTrips">Mis viajes</span>
+      <iframe
+            src={`https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=https://3001-francescagiovin-finalpro-k48xhblu4u0.ws-eu42.gitpod.io/api/timeline/${sessionStorage.getItem(
+              "id"
+            )}&font=Default&lang=en&initial_zoom=1&height=500`}
+            width="100%"
+            height="500"
+            webkitallowfullscreen
+            mozallowfullscreen
+            allowfullscreen
+            frameborder="0"
+          ></iframe>
       <table className="table table-striped">
         <thead>
           <tr>
             <th scope="col">Activity</th>
+            <th scope="col">Begin Date</th>
             <th scope="col">Actions</th>
           </tr>
           
