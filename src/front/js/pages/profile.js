@@ -60,6 +60,7 @@ export const Profile = () => {
   }, []);
   return (
     <div className="App container">
+      <h1 className="m-4">Modify User</h1>
       <div className="row justify-content-center">
         <label className="label col-1 text-start" htmlFor="name">
           Name
