@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import propTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import moment from "moment";
 
 const Trips = () => {
   const token = sessionStorage.getItem("token");
@@ -73,9 +74,10 @@ const CardTrip = (props) => {
         </td>
         <td>
           <b>Location: </b> {props.trip.location} <br></br>
-          <b> Start date: </b> {props.trip.begin_date} <br></br>
+          <b> Start date: </b>{" "}
+          {moment(props.trip.begin_date).format("DD/MM/YYYY hh:mm")} <br></br>
           <b> End date: </b>
-          {props.trip.end_date} <br></br>
+          {moment(props.trip.end_date).format("DD/MM/YYYY hh:mm")} <br></br>
           <b> Category: </b> {props.trip.category} <br></br>
         </td>
 

@@ -48,15 +48,22 @@ class Travel(db.Model):
             "category":self.category.name,
             "category_id":self.category.id,
             "id": self.id,
-            "media": self.media,
+            "latitude": self.latitude,
 
         }
         
     def serializeTimeline(self): 
+        if self.latitude is not None:
+            current_url = self.latitude
+        elif self.media is not None:
+            current_url = self.media
+        else:
+            current_url = ""
+
         return {
         
                 "media" : {
-                    "url": self.media,
+                    "url": current_url,
                     "caption" : self.location
                 },
                 "start_date": {

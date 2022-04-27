@@ -59,11 +59,10 @@ def create_trip():
     print("hola")
     name = request.form.get('name')
     location = request.form.get('location')
+    location_url = request.form.get('location_url')
     endDate = datetime.strptime(request.form.get('end_date'), '%Y-%m-%dT%H:%M')
     beginDate = datetime.strptime(request.form.get('begin_date'), '%Y-%m-%dT%H:%M')
     category_id = request.form.get('category_id')
-    latitude = "1"
-    longitude = "2"
     user_id = get_jwt_identity()
 
         # validate that the front-end request was built correctly
@@ -74,7 +73,7 @@ def create_trip():
     else:
         raise APIException('Missing media on the FormData')
 
-    travel = Travel( name=name, user_id=user_id, location=location, begin_date=beginDate, end_date=endDate, category_id=category_id, media=image_url)
+    travel = Travel( name=name, user_id=user_id, location=location, latitude=location_url, begin_date=beginDate, end_date=endDate, category_id=category_id, media=image_url)
     db.session.add(travel)
     db.session.commit()
     return jsonify({'response': "Viaje creado con éxito"}), 200
@@ -89,7 +88,7 @@ def edit_trip():
     trip.end_date = datetime.strptime(request.json.get('end_date'), "%Y-%m-%dT%H:%M")
     trip.begin_date = datetime.strptime(request.json.get('begin_date'), "%Y-%m-%dT%H:%M")
     trip.category_id = request.json.get('category_id')
-    trip.media = request.json.get('media')
+    trip.latitude = request.json.get('latitude')
     user_id = get_jwt_identity()
     db.session.commit()
     return jsonify({'response': "Viaje editado con éxito"}), 200

@@ -3,9 +3,10 @@ import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import { useHistory } from "react-router-dom";
 
-export default function CreateTrip() {
+export default function CreateTrip(props) {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
+  const [locationUrl, setLocationUrl] = useState("");
   const [begin_date, setBeginDate] = useState("");
   const [end_date, setEndDate] = useState("");
   const [category, setCategory] = useState([]);
@@ -38,6 +39,11 @@ export default function CreateTrip() {
   useEffect(() => {
     getCategory();
   }, []);
+
+  const handleLocationUrl = (e) => {
+    setLocationUrl(e.target.value);
+    setSubmitted(false);
+  };
 
   // Handling the name change
   const handleName = (e) => {
@@ -89,6 +95,7 @@ export default function CreateTrip() {
       let body = new FormData();
       body.append("name", name);
       body.append("location", location);
+      body.append("location_url", locationUrl);
       body.append("begin_date", begin_date);
       body.append("end_date", end_date);
       body.append("end_date", end_date);
@@ -101,7 +108,6 @@ export default function CreateTrip() {
           Authorization: "Bearer " + token,
         },
         body,
-
       })
         .then((resp) => resp.json())
         .then((data) => {
@@ -125,7 +131,7 @@ export default function CreateTrip() {
           display: submitted ? "" : "none",
         }}
       >
-        <h1> {name} created successfully</h1>        
+        <h1> {name} created successfully</h1>
       </div>
     );
   };
@@ -161,6 +167,10 @@ export default function CreateTrip() {
       .catch((erros) => console.error("ERRORRRRRR!!!", error));
   };
 
+  const onMapClick = (e) => {
+    console.log("passss", e);
+  };
+
   return (
     <div className="App form">
       <div>
@@ -185,7 +195,7 @@ export default function CreateTrip() {
         />
 
         <label className="label">Description</label>
-        <textarea 
+        <textarea
           onChange={handleLocation}
           className="input"
           value={location}
@@ -208,8 +218,6 @@ export default function CreateTrip() {
           type="datetime-local"
         />
 
-
-
         <label className="label">Category</label>
         <select onChange={handleCategory} className="input">
           <option selected disabled>
@@ -222,9 +230,20 @@ export default function CreateTrip() {
           ))}
         </select>
 
-        <label>Subir foto</label>
+        <label className="label">Location URL</label>
+        <input
+          onChange={handleLocationUrl}
+          className="input"
+          value={locationUrl}
+          type="text"
+        />
 
-        <input type="file" onChange={(e) => setFiles(e.target.files)} />
+        <label className="label">Subir foto</label>
+        <input
+          type="file"
+          className="btn"
+          onChange={(e) => setFiles(e.target.files)}
+        />
 
         <button className="btn btn-user" type="submit">
           Submit

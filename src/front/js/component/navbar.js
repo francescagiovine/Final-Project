@@ -9,7 +9,7 @@ export const Navbar = () => {
   useEffect(() => {
     actions.getUser();
   }, [store.name]);
-  console.log(store.name)
+  console.log(store.name);
 
   return (
     <div className="ml-auto">
@@ -22,29 +22,32 @@ export const Navbar = () => {
             </Link>
           </div>
           <div className="col">
-          <div className="ml-auto">
-                {!store.token ? (
-                  <div className="loginPadre"></div>
-                ) : (
-                  <div className="loginPadre">
-            <Link to="/create-trip"><button className="btn-navbar btn btn-outline-primary m-1">
-              <h4 className="corporative">New</h4>
-              <i class="fas fa-plus"></i>
-            </button></Link>
-            <Link to="/trips"><button className="btn-navbar btn btn-outline-primary m-1">
-              <h4 className="corporative">List</h4>
-              <i class="fas fa-clipboard-list"></i>
-            </button></Link>
-                  </div>
-                )}
-              </div>
-
+            <div className="ml-auto">
+              {!store.token ? (
+                <div className="loginPadre"></div>
+              ) : (
+                <div className="loginPadre">
+                  <Link to="/create-trip">
+                    <button className="btn-navbar btn btn-outline-primary m-1">
+                      <h4 className="corporative">New</h4>
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </Link>
+                  <Link to="/trips">
+                    <button className="btn-navbar btn btn-outline-primary m-1">
+                      <h4 className="corporative">List</h4>
+                      <i class="fas fa-clipboard-list"></i>
+                    </button>
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="col flex ">
-            <h2  className="pe-3 name">
-              {store.name}
-            </h2>
+            <Link to="/profile">
+              <h2 className="pe-3 name">{store.name}</h2>
+            </Link>
           </div>
           <div>
             <button
