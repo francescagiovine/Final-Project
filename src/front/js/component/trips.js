@@ -37,14 +37,16 @@ export default function Trips() {
 
   return (
     <div>
-      <span className="listTrips">Mis viajes</span>
+      <span className="h1">Mis viajes</span>
+      <br></br>
+      <br></br>
       <table className="table table-striped">
-        <thead>
+        {/* <thead>
           <tr>
             <th scope="col">Activity</th>
             <th scope="col">Actions</th>
           </tr>
-        </thead>
+        </thead> */}
         {trips.map((value, index) => {
           return (
             <CardTrip

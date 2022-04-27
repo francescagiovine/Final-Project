@@ -11,6 +11,15 @@ from datetime import datetime
 
 api = Blueprint('api', __name__)
 
+import cloudinary
+import cloudinary.uploader
+
+cloudinary.config( 
+  cloud_name = "dycp5engp", 
+  api_key = "672335987197793", 
+  api_secret = "S_JT9qrYmuqqj5WN5YhWXRiBfsI",
+#   secure = true
+)
 
 
 #api 1 - login, here i create the login service
@@ -67,18 +76,24 @@ def sign_up():
 def create_trip():
 
     print("hola")
-    id = request.json.get('id')
-    name = request.json.get('name')
-    location = request.json.get('location')
-    endDate = datetime.strptime(request.json.get('end_date'), '%Y-%m-%dT%H:%M')
-    beginDate = datetime.strptime(request.json.get('begin_date'), '%Y-%m-%dT%H:%M')
-    category_id = request.json.get('category_id')
-    latitude = request.json.get('latitude')
-    longitude = request.json.get('longitude')
-    media = request.json.get('media')
+    name = request.form.get('name')
+    location = request.form.get('location')
+    endDate = datetime.strptime(request.form.get('end_date'), '%Y-%m-%dT%H:%M')
+    beginDate = datetime.strptime(request.form.get('begin_date'), '%Y-%m-%dT%H:%M')
+    category_id = request.form.get('category_id')
+    latitude = "1"
+    longitude = "2"
     user_id = get_jwt_identity()
 
-    travel = Travel(id=id, name=name, user_id=user_id, location=location, begin_date=beginDate, end_date=endDate, category_id=category_id, media=media)
+        # validate that the front-end request was built correctly
+    if 'media' in request.files:
+        # upload file to uploadcare
+        result = cloudinary.uploader.upload(request.files['media'])
+        image_url = result['secure_url']
+    else:
+        raise APIException('Missing media on the FormData')
+
+    travel = Travel( name=name, user_id=user_id, location=location, begin_date=beginDate, end_date=endDate, category_id=category_id, media=image_url)
     db.session.add(travel)
     db.session.commit()
 
