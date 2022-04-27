@@ -3,8 +3,6 @@ import propTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-
-
 const Trips = () => {
   const token = sessionStorage.getItem("token");
   fetch(process.env.BACKEND_URL + "/api/getTrips", {
@@ -22,8 +20,7 @@ const Trips = () => {
     });
 };
 
-
-const eliminarViaje = (tripid) => {
+const eliminarViaje = (tripid, listTrips) => {
   fetch(process.env.BACKEND_URL + "/api/delete-trip", {
     method: "POST",
     headers: {
@@ -36,7 +33,7 @@ const eliminarViaje = (tripid) => {
     .then((resp) => resp.json())
     .then((res) => {
       console.log(res);
-      Trips()
+      listTrips();
     });
 };
 
@@ -70,18 +67,27 @@ const CardTrip = (props) => {
   return (
     <tbody>
       <tr>
-        <th scope="row" className="cardtrip">{props.trip.category}<td className="h1">{props.trip.name}</td></th>
-        <th scope="row" >{props.trip.begin_date}<td>{props.trip.end_date}</td></th>
+        <th scope="row" className="cardtrip">
+          {props.trip.category}
+          <td className="h1">{props.trip.name}</td>
+        </th>
+        <th scope="row">
+          {props.trip.begin_date}
+          <td>{props.trip.end_date}</td>
+        </th>
 
         <td>
           <div className="d-grid gap-2 d-md-block">
             <Link to={link}>
-              <button className="btn btn-user btn-success"><i class="fas fa-edit"></i></button>
+              <button className="btn btn-user btn-success">
+                <i class="fas fa-edit"></i>
+              </button>
             </Link>
             <button
-              onClick={() => eliminarViaje(props.trip.id)}
-              className="btn btn-user btn-danger">
-              <i className="fas fa-trash"></i>  
+              onClick={() => eliminarViaje(props.trip.id, props.onTripsChange)}
+              className="btn btn-user btn-danger"
+            >
+              <i className="fas fa-trash"></i>
             </button>
           </div>
         </td>
