@@ -5,6 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       token: null,
       message: null,
+      name: null,
       //timeline: {},
       demo: [
         {
@@ -24,14 +25,26 @@ const getState = ({ getStore, getActions, setStore }) => {
       exampleFunction: () => {
         getActions().changeColor(0, "green");
       },
-
+      getUser: () => {
+        fetch(process.env.BACKEND_URL + "/api/user", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            setStore({ name: data.name });
+          });
+      },
       getMessage: () => {
         const store = getStore();
         const opts = {
           headers: {
-            "Authorization": "Bearer " + store.token
-          }
-        }
+            Authorization: "Bearer " + store.token,
+          },
+        };
         // fetching data from the backend
 
         fetch(process.env.BACKEND_URL + "/api/hello", opts)
@@ -76,22 +89,22 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       logout: () => {
-        sessionStorage.removeItem("token")
-        sessionStorage.removeItem("name")
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("name");
         sessionStorage.removeItem("email");
         console.log("log out");
         setStore({ token: null });
         setStore({ name: null });
         setStore({ email: null });
       },
-        //fetch para timeline
+      //fetch para timeline
 
       //timeline: async() => {
-        //const response = await fetch("https://3001-francescagiovin-finalpro-k48xhblu4u0.ws-eu34.gitpod.io/api/timelinehttps://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=&font=Default&lang=en&initial_zoom=1&height=300");
-        //const data = await response.json();
-        //setStore({timeline : data})
+      //const response = await fetch("https://3001-francescagiovin-finalpro-k48xhblu4u0.ws-eu34.gitpod.io/api/timelinehttps://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=&font=Default&lang=en&initial_zoom=1&height=300");
+      //const data = await response.json();
+      //setStore({timeline : data})
       //},
-      
+
       //traer el fetch del login aqui (como hice antes)
       login: async (email, password) => {
         try {

@@ -50,7 +50,7 @@ export const Profile = () => {
       .then((data) => {
         console.log("user", data);
         setUser(data);
-        //this.setState({ totalReactPackages: data.total })
+        actions.getUser();
       });
   };
 
@@ -60,8 +60,8 @@ export const Profile = () => {
   }, []);
   return (
     <div className="App container">
-      <div className="row">
-        <label className="label col-5" htmlFor="name">
+      <div className="row justify-content-center">
+        <label className="label col-1 text-start" htmlFor="name">
           Name
         </label>
         <input
@@ -74,8 +74,8 @@ export const Profile = () => {
           }}
         />
       </div>
-      <div className="row">
-        <label className="label col-5" htmlFor="email">
+      <div className="row justify-content-center">
+        <label className="label col-1 text-start" htmlFor="email">
           Email
         </label>
         <input
@@ -88,8 +88,8 @@ export const Profile = () => {
           }}
         />
       </div>
-      <div className="row">
-        <label className="label col-5" htmlFor="password">
+      <div className="row justify-content-center">
+        <label className="label col-1 text-start" htmlFor="password">
           Password
         </label>
         <input
@@ -103,6 +103,7 @@ export const Profile = () => {
         />
       </div>
       <button
+        className="btn mt-4"
         onClick={() => {
           if (user.name.trim() != "" && user.email.trim() != "") {
             saveUser();
