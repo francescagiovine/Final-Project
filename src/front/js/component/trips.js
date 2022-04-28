@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import {Context} from "../store/appContext";
+import { Context } from "../store/appContext";
 import CardTrip from "./cardTrip";
 
 export default function Trips() {
@@ -30,6 +30,14 @@ export default function Trips() {
     ListTrips();
   }, []);
 
+  function generateTimelineUrl() {
+    return `https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=${
+      process.env.BACKEND_URL
+    }/api/timeline/${sessionStorage.getItem(
+      "id"
+    )}&font=Default&lang=en&initial_zoom=1&height=500`;
+  }
+
   //! Hacia arriba es la logica del front --> REACT
 
   //! Aqui empieza la vista --> Lenguaje HTML / CSS HACIA ABAJO
@@ -37,27 +45,26 @@ export default function Trips() {
   return (
     <div>
       <iframe
-            src={`https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=https://3001-francescagiovin-finalpro-k48xhblu4u0.ws-eu42.gitpod.io/api/timeline/${sessionStorage.getItem(
-              "id"
-            )}&font=Default&lang=en&initial_zoom=1&height=500`}
-            width="100%"
-            height="500"
-            webkitallowfullscreen
-            mozallowfullscreen
-            allowfullscreen
-            frameborder="0"
-          ></iframe>
+        src={generateTimelineUrl()}
+        width="100%"
+        height="500"
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen
+        frameborder="0"
+      ></iframe>
       <span className="h1">Mis viajes</span>
       <br></br>
       <br></br>
       <table className="table table-striped">
-        {/* <thead>
+        <thead>
           <tr>
-            <th scope="col">Activity</th>
-            <th scope="col">Begin Date</th>
+            <th scope="col">Name</th>
+            <th scope="col">Image</th>
+            <th scope="col">Information</th>
             <th scope="col">Actions</th>
           </tr>
-        </thead> */}
+        </thead>
         {trips.map((value, index) => {
           return (
             <CardTrip

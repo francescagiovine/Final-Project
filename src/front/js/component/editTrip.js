@@ -7,6 +7,7 @@ export default function EditTrip() {
   const { id } = useParams();
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
+  const [locationUrl, setLocationUrl] = useState("");
   const [begin_date, setBeginDate] = useState("");
   const [end_date, setEndDate] = useState("");
   const [category, setCategory] = useState([]);
@@ -26,7 +27,7 @@ export default function EditTrip() {
         setBeginDate(response.begin_date);
         setEndDate(response.end_date);
         setSelectedCategory(response.category_id);
-        setMedia(response.media);
+        setLocationUrl(response.latitude);
       });
   };
   useEffect(() => {
@@ -83,8 +84,8 @@ export default function EditTrip() {
   };
 
   // Handling the location change
-  const handleMedia = (e) => {
-    setMedia(e.target.value);
+  const handleLocationUrl = (e) => {
+    setLocationUrl(e.target.value);
     setSubmitted(false);
   };
 
@@ -118,7 +119,7 @@ export default function EditTrip() {
           begin_date: begin_date,
           end_date: end_date,
           category_id: selectedCategory,
-          media: media,
+          latitude: locationUrl,
         }),
       })
         .then((resp) => resp.json())
@@ -143,7 +144,9 @@ export default function EditTrip() {
           display: submitted ? "" : "none",
         }}
       >
-        <h1 className="corporative">You edited your activity to {name} successfully</h1>
+        <h1 className="corporative">
+          You edited your activity to {name} successfully
+        </h1>
         <h1 className="corporative">
           <Link to="/trips">Back to Activities</Link>
         </h1>
@@ -188,7 +191,7 @@ export default function EditTrip() {
         />
 
         <label className="label">Description</label>
-        <textarea 
+        <textarea
           onChange={handleLocation}
           className="input"
           defaultValue={location}
@@ -211,16 +214,20 @@ export default function EditTrip() {
           defaultValue={end_date}
         />
 
-        <label className="label">URL</label>
+        <label className="label">Location URL</label>
         <input
-          onChange={handleMedia}
+          onChange={handleLocationUrl}
           className="input"
-          defaultValue={media}
+          defaultValue={locationUrl}
           type="text"
         />
 
         <label className="label">Category</label>
-        <select onChange={handleCategory} defaultValue={selectedCategory} className="input">
+        <select
+          onChange={handleCategory}
+          defaultValue={selectedCategory}
+          className="input"
+        >
           <option selected disabled>
             Select an option
           </option>

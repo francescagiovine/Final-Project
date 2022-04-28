@@ -28,8 +28,13 @@ export const Private = () => {
       });
   };
 
-
-
+  function generateTimelineUrl() {
+    return `https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=${
+      process.env.BACKEND_URL
+    }/api/timeline/${sessionStorage.getItem(
+      "id"
+    )}&font=Default&lang=en&initial_zoom=1&height=500`;
+  }
 
   return (
     <div className="ml-auto">
@@ -51,7 +56,7 @@ export const Private = () => {
             Welcome {name}, here you can see everything about your travels.
           </h1>
           <iframe
-            src={`https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=https://3001-francescagiovin-finalpro-k48xhblu4u0.ws-eu42.gitpod.io/api/timeline/${sessionStorage.getItem("id")}&font=Default&lang=en&initial_zoom=1&height=500`}
+            src={generateTimelineUrl()}
             width="100%"
             height="500"
             webkitallowfullscreen

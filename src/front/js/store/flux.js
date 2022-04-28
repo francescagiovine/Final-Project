@@ -130,7 +130,11 @@ const getState = ({ getStore, getActions, setStore }) => {
             sessionStorage.setItem("token", responseFromApi.token);
             sessionStorage.setItem("email", responseFromApi.email); //con esto podemos recuperar el email y el nombre directamente en el front sin tener que hacer llamada
             sessionStorage.setItem("id", responseFromApi.id);
-            setStore({ token: responseFromApi.token });
+            setStore({
+              name: responseFromApi.name,
+              token: responseFromApi.token,
+              email: responseFromApi.email,
+            });
           }
         } catch (error) {
           console.log("There is an error in login process");
