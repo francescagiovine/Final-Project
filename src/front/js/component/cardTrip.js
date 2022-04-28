@@ -74,7 +74,7 @@ const CardTrip = (props) => {
         </td>
         <td>
           <b>Location: </b> {props.trip.location} <br></br>
-          <b> Start date: </b>{" "}
+          <b> Start date: </b>
           {moment(props.trip.begin_date).format("DD/MM/YYYY hh:mm")} <br></br>
           <b> End date: </b>
           {moment(props.trip.end_date).format("DD/MM/YYYY hh:mm")} <br></br>
@@ -85,7 +85,7 @@ const CardTrip = (props) => {
           <div className="d-grid gap-2 d-md-block">
             <Link to={link}>
               <button className="btn btn-user btn-success">
-                <i class="fas fa-edit"></i>
+                <i className="fas fa-edit"></i>
               </button>
             </Link>
             <button

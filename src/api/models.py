@@ -49,6 +49,7 @@ class Travel(db.Model):
             "category_id":self.category.id,
             "id": self.id,
             "latitude": self.latitude,
+            "media": self.media
 
         }
         
