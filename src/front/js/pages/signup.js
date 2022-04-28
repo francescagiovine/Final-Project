@@ -90,9 +90,9 @@ export default function SignUp() {
   };
 
   return (
-    <div className="App form">
+    <div className="App form pt-2 pb-2 rounded">
       <div>
-        <h1>User Registration</h1>
+        <h1 className="title">User Registration</h1>
       </div>
 
       {/* Calling to the methods */}

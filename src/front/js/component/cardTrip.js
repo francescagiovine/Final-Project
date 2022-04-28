@@ -72,7 +72,7 @@ const CardTrip = (props) => {
         <td>
           <img width="100" src={props.trip.media}></img>
         </td>
-        <td>
+        <td className="information">
           <b>Location: </b> {props.trip.location} <br></br>
           <b> Start date: </b>{" "}
           {moment(props.trip.begin_date).format("DD/MM/YYYY hh:mm")} <br></br>
@@ -83,17 +83,15 @@ const CardTrip = (props) => {
 
         <td>
           <div className="d-grid gap-2 d-md-block">
-            <Link to={link}>
-              <button className="btn btn-user btn-success">
-                <i class="fas fa-edit"></i>
-              </button>
+            <Link to={link} className="btn-actions me-2">
+              <i class="fas fa-edit"></i>
             </Link>
-            <button
+            <Link
+              className="btn-actions"
               onClick={() => eliminarViaje(props.trip.id, props.onTripsChange)}
-              className="btn btn-user btn-danger"
             >
               <i className="fas fa-trash"></i>
-            </button>
+            </Link>
           </div>
         </td>
       </tr>

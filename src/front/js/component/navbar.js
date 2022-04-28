@@ -16,7 +16,7 @@ export const Navbar = () => {
       <nav className="navbar navbar-expand-md navbar-light ml-auto flex">
         <div className="container-fluid">
           <div className="col">
-            <Link to="/" className="buttons flex">
+            <Link to="/" className="buttons flex text-white">
               <img className="logo" src={logo} />
               <h2 className="WideTravel">WideTravel</h2>
             </Link>
@@ -28,15 +28,13 @@ export const Navbar = () => {
               ) : (
                 <div className="loginPadre">
                   <Link to="/create-trip">
-                    <button className="btn-navbar btn btn-outline-primary m-1">
-                      <h4 className="corporative">New</h4>
-                      <i class="fas fa-plus"></i>
+                    <button className="btn1 btn btn-secundary btn-user px-3">
+                      <i className="fas fa-plus"></i>
                     </button>
                   </Link>
                   <Link to="/trips">
-                    <button className="btn-navbar btn btn-outline-primary m-1">
-                      <h4 className="corporative">List</h4>
-                      <i class="fas fa-clipboard-list"></i>
+                    <button className="btn1 btn btn-secundary btn-user px-3">
+                      <i className="fas fa-clipboard-list"></i>
                     </button>
                   </Link>
                 </div>
@@ -45,8 +43,8 @@ export const Navbar = () => {
           </div>
 
           <div className="col flex ">
-            <Link to="/profile">
-              <h2 className="pe-3 name">{store.name}</h2>
+            <Link to="/profile" className="text-decoration-none">
+              <h2 className="pe-3 name text-white">{store.name}</h2>
             </Link>
           </div>
           <div>
@@ -65,14 +63,8 @@ export const Navbar = () => {
               <div className="ml-auto h3">
                 {!store.token ? (
                   <div className="loginPadre">
-                    <Link to="/login">
-                      <button className="btn1 btn btn-secundary btn-user">
-                        Login
-                      </button>
-                    </Link>
-                    <Link to="/signup" className="btn btn-secundary btn-user">
-                      SignUp
-                    </Link>
+                    <Link  className="btn1 btn btn-secundary btn-user" to="/login">Login</Link>
+                    <Link to="/signup" className="btn btn-secundary btn-user">SignUp</Link>
                   </div>
                 ) : (
                   <div className="loginPadre">

@@ -43,38 +43,43 @@ export default function Trips() {
   //! Aqui empieza la vista --> Lenguaje HTML / CSS HACIA ABAJO
 
   return (
-    <div>
-      <iframe
-        src={generateTimelineUrl()}
-        width="100%"
-        height="500"
-        webkitallowfullscreen
-        mozallowfullscreen
-        allowfullscreen
-        frameborder="0"
-      ></iframe>
-      <span className="h1">Mis viajes</span>
-      <br></br>
-      <br></br>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Image</th>
-            <th scope="col">Information</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        {trips.map((value, index) => {
-          return (
-            <CardTrip
-              key={index.toString()}
-              trip={value}
-              onTripsChange={ListTrips}
-            />
-          );
-        })}
-      </table>
+    <div className="row App pt-2">
+      <div className="col-12 mx-auto">
+        <iframe
+          src={generateTimelineUrl()}
+          width="100%"
+          height="500"
+          webkitallowfullscreen
+          mozallowfullscreen
+          allowfullscreen
+          frameborder="0"
+        ></iframe>
+      </div>
+
+      <div className="col-12 mx-auto">
+        <span className="h1">My Trips</span>
+        <table className="table table-striped mt-2 border">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Image</th>
+              <th scope="col">
+                Information
+              </th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          {trips.map((value, index) => {
+            return (
+              <CardTrip
+                key={index.toString()}
+                trip={value}
+                onTripsChange={ListTrips}
+              />
+            );
+          })}
+        </table>
+      </div>
     </div>
   );
 }

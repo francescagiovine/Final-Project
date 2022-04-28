@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import widetravelUrl from "../../img/widetravel.png";
+import widetravelUrl from "../../img/pngwing.com.png";
 import roadtripUrl from "../../img/roadtrip.png";
 
 
@@ -13,7 +13,7 @@ const Home = () => {
     <div className="text-center mt-5">
       <h1>HAVE YOUR WHOLE TRIP IN YOUR HANDS!!!</h1>
       <p>
-        <img src={widetravelUrl} className="img-fluid" />
+
       </p>
     </div>
   );

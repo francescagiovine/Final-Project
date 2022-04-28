@@ -6,46 +6,31 @@
     on that page only (the ones not reused in other pages).
 */
 body {
-  background-color: white;
+  background-image: url("https://elviajerofeliz.com/wp-content/uploads/2020/11/mejores-playas-del-mundo-10.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-h1 {
+.title {
   text-align: center;
-  font-family: cursive;
-  color: #069a8e;
+  color: brown;
 }
 .name {
   text-align: center;
-  font-family: cursive;
-  color: #069a8e;
 }
 
 .navbar-brand {
   font-size: xx-large;
-  color: #069a8e;
 }
 
 .navbar {
-  background-color: #ffffff;
-    text-decoration: none;
+  text-decoration: none;
 }
-.btn-navbar{
+.btn-navbar {
   background-color: #92d2cd;
   border-radius: 10px;
-  font-family: Cursive, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-.buttons {
-  background-color: transparent;
-  border: none;
-  font-size: large;
-  padding: 20px;
-  font-family: cursive, Arial, Helvetica, sans-serif;
-  text-decoration: none;
-  
-  color: #069a8e;
 }
 
 .cardtrip {
-
   font-family: cursive, Arial, Helvetica, sans-serif;
 }
 
@@ -56,20 +41,22 @@ h1 {
 
 .App {
   text-align: center;
-  background-color: rgb(252, 252, 252);
   width: 80%;
   margin: auto;
-  border-color: rgb(0, 85, 85);
   border-width: 1rem;
   border: #069a8e;
+  background-color: rgb(252 252 252 / 44%);
+}
+.btn-actions {
+  font-size: 18px;
+  color: #214a82;
 }
 
 .label {
   display: block;
   font-size: larger;
-  color: #069a8e;
+  color: white;
   padding: 5px;
-  font-family: cursive;
 }
 
 .input {
@@ -78,20 +65,28 @@ h1 {
   margin: 2px;
   border-radius: 10px;
   width: 250px;
-  font-family: cursive;
 }
 
 .btn-user {
-  color: white;
-  background-color: #EC788A;
+  color: #214a82;
+  background-color: #ffffff;
+  font-size: 25px;
   border-radius: 5px;
-  font-size: larger;
   display: block;
   padding: 5px;
   margin: 10px auto;
-  font-family: cursive;
 }
 
+.btn-login {
+  color: #214a82;
+  background-color: #ffffff;
+  border: 1px solid;
+  font-size: 25px;
+  border-radius: 5px;
+  display: block;
+  padding: 5px;
+  margin: 10px auto;
+}
 .messages {
   display: flex;
   justify-content: center;
@@ -136,10 +131,14 @@ h1 {
 }
 
 .logo {
+  filter: invert(1);
   width: 65px;
 }
 
-
 .flex {
   display: flex;
+}
+
+.information {
+  text-align: left;
 }
