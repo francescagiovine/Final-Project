@@ -100,7 +100,9 @@ export default function CreateTrip(props) {
       body.append("end_date", end_date);
       body.append("end_date", end_date);
       body.append("category_id", selectedCategory);
-      body.append("media", files[0]);
+      if (files) {
+        body.append("media", files[0]);
+      }
 
       fetch(process.env.BACKEND_URL + "/api/createTrip", {
         method: "POST",
@@ -113,7 +115,7 @@ export default function CreateTrip(props) {
         .then((data) => {
           setSubmitted(true);
           setError(false);
-          history.push("/private");
+          history.push("/trips");
         })
         .catch((error) => {
           // setError(error);
@@ -174,7 +176,7 @@ export default function CreateTrip(props) {
   return (
     <div className="App form">
       <div>
-        <h1>New Activity</h1>
+        <h1 className="title">New Activity</h1>
       </div>
 
       {/* Calling to the methods */}

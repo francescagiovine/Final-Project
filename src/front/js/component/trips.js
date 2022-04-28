@@ -43,7 +43,7 @@ export default function Trips() {
   //! Aqui empieza la vista --> Lenguaje HTML / CSS HACIA ABAJO
 
   return (
-    <div className="row App pt-2">
+    <div className="row App pt-2 pb-2 rounded">
       <div className="col-12 mx-auto">
         <iframe
           src={generateTimelineUrl()}
@@ -57,7 +57,7 @@ export default function Trips() {
       </div>
 
       <div className="col-12 mx-auto">
-        <span className="h1">My Trips</span>
+        <span className="h1 title">My Trips</span>
         <table className="table table-striped mt-2 border">
           <thead>
             <tr>

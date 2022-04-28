@@ -171,7 +171,7 @@ export default function EditTrip() {
   return (
     <div className="App form">
       <div>
-        <h1 className="corporative">Edit your trip</h1>
+        <h1 className="title">Edit your trip</h1>
       </div>
 
       {/* Calling to the methods */}

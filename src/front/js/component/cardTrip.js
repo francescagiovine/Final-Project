@@ -68,13 +68,13 @@ const CardTrip = (props) => {
   return (
     <tbody>
       <tr>
-        <th scope="row">{props.trip.name}</th>
+        <th scope="row "><h5>{props.trip.name}</h5></th>
         <td>
-          <img width="100" src={props.trip.media}></img>
+          <img height="100" src={props.trip.media}></img>
         </td>
         <td className="information">
-          <b>Location: </b> {props.trip.location} <br></br>
-          <b> Start date: </b>{" "}
+          <b>Description: </b> {props.trip.location} <br></br>
+          <b> Start date: </b>
           {moment(props.trip.begin_date).format("DD/MM/YYYY hh:mm")} <br></br>
           <b> End date: </b>
           {moment(props.trip.end_date).format("DD/MM/YYYY hh:mm")} <br></br>
@@ -84,7 +84,7 @@ const CardTrip = (props) => {
         <td>
           <div className="d-grid gap-2 d-md-block">
             <Link to={link} className="btn-actions me-2">
-              <i class="fas fa-edit"></i>
+              <i className="fas fa-edit"></i>
             </Link>
             <Link
               className="btn-actions"

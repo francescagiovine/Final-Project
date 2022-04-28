@@ -9,10 +9,11 @@ body {
   background-image: url("https://elviajerofeliz.com/wp-content/uploads/2020/11/mejores-playas-del-mundo-10.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }
 .title {
   text-align: center;
-  color: brown;
+  color: #7F1105
 }
 .name {
   text-align: center;
@@ -45,7 +46,7 @@ body {
   margin: auto;
   border-width: 1rem;
   border: #069a8e;
-  background-color: rgb(252 252 252 / 44%);
+  background-color: rgba(252, 252, 252, 0.728);
 }
 .btn-actions {
   font-size: 18px;
@@ -135,10 +136,24 @@ body {
   width: 65px;
 }
 
+
 .flex {
   display: flex;
 }
 
 .information {
   text-align: left;
+}
+.actions {
+  text-align: left;
+}
+
+.imgCardTrip {
+  height: 100px;
+}
+/* mediaquery */
+@media (max-width: 600px) {
+  .information {
+    display: none;
+  }
 }

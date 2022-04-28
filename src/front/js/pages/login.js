@@ -34,7 +34,7 @@ export const Login = () => {
 
 		<div className="App form pt-2 pb-2 rounded">
 			<div>
-		  		<h1>Login</h1>
+		  		<h1 className="title">Login</h1>
 
 					  <div>
 						<form>
