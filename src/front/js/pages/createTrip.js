@@ -100,7 +100,9 @@ export default function CreateTrip(props) {
       body.append("end_date", end_date);
       body.append("end_date", end_date);
       body.append("category_id", selectedCategory);
-      body.append("media", files[0]);
+      if (files) {
+        body.append("media", files[0]);
+      }
 
       fetch(process.env.BACKEND_URL + "/api/createTrip", {
         method: "POST",

@@ -71,7 +71,8 @@ def create_trip():
         result = cloudinary.uploader.upload(request.files['media'])
         image_url = result['secure_url']
     else:
-        raise APIException('Missing media on the FormData')
+        # raise APIException('Missing media on the FormData')
+        image_url = "https://res.cloudinary.com/dycp5engp/image/upload/v1651147412/qfwgk92acqqnkoqdbraj.png"
 
     travel = Travel( name=name, user_id=user_id, location=location, latitude=location_url, begin_date=beginDate, end_date=endDate, category_id=category_id, media=image_url)
     db.session.add(travel)
