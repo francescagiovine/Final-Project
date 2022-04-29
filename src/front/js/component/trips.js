@@ -43,8 +43,10 @@ export default function Trips() {
   //! Aqui empieza la vista --> Lenguaje HTML / CSS HACIA ABAJO
 
   return (
-    <div className="row App pt-2 pb-2 rounded">
-      <div className="col-12 mx-auto">
+    <div className="container">
+  <div className="row App pt-2 pb-2 rounded">
+    <div className="col">
+      <div className="row col-12 mx-auto">
         <iframe
           src={generateTimelineUrl()}
           width="100%"
@@ -56,17 +58,15 @@ export default function Trips() {
         ></iframe>
       </div>
 
-      <div className="col-12 mx-auto">
+      <div className="row mx-auto">
         <span className="h1 title">My Trips</span>
         <table className="table table-striped mt-2 border">
           <thead>
             <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Image</th>
-              <th scope="col">
-                Information
-              </th>
-              <th scope="col">Actions</th>
+            <td className=""><th scope="col">Name</th></td>
+              <td className="image"><th scope="col">Image</th></td>
+              <td className="information"><th scope="col">Information</th></td>
+              <td className=""><th scope="col">Actions</th></td>
             </tr>
           </thead>
           {trips.map((value, index) => {
@@ -80,6 +80,11 @@ export default function Trips() {
           })}
         </table>
       </div>
+
     </div>
+
+  </div>
+</div>
+
   );
 }

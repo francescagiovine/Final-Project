@@ -10,12 +10,20 @@ const Home = () => {
   const { store, actions } = useContext(Context);
 
   return (
-    <div className="text-center mt-5">
+    <div className="container">
+  <div className="row">
+    <div className="col">
+    <div className=" text-center mt-5">
       <h1>HAVE YOUR WHOLE TRIP IN YOUR HANDS!!!</h1>
       <p>
 
       </p>
     </div>
+    </div>
+
+  </div>
+</div>
+
   );
 };
 

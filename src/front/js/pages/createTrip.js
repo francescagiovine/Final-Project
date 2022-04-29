@@ -174,7 +174,10 @@ export default function CreateTrip(props) {
   };
 
   return (
-    <div className="App form">
+    <div className="container">
+  <div className="row">
+    <div className="col">
+    <div className="App form pt-2 pb-2 rounded">
       <div>
         <h1 className="title">New Activity</h1>
       </div>
@@ -252,5 +255,9 @@ export default function CreateTrip(props) {
         </button>
       </form>
     </div>
+    </div>
+  </div>
+</div>
+
   );
 }

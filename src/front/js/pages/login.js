@@ -30,9 +30,11 @@ export const Login = () => {
 
   
 	return (
-
-
-		<div className="App form pt-2 pb-2 rounded">
+	
+		<div className="container">
+  <div className="row">
+    <div className="col">
+	<div className="App form pt-2 pb-2 rounded">
 			<div>
 		  		<h1 className="title">Login</h1>
 
@@ -46,5 +48,10 @@ export const Login = () => {
 						</form>
 					  </div>
 			</div>
-	  </div>)
+	  </div>
+    </div>
+  </div>
+</div>
+
+)
 	}

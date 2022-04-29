@@ -59,15 +59,18 @@ export const Profile = () => {
     getUser();
   }, []);
   return (
-    <div className="App container">
-      <h1 className="m-4">Modify User</h1>
+    <div className="container">
+  <div className="row">
+    <div className="col">
+    <div className="App form pt-2 pb-2 rounded">
+      <h1 className="m-4 title">Modify User</h1>
       <div className="row justify-content-center">
-        <label className="label col-1 text-start" htmlFor="name">
+        <label className="label" htmlFor="name">
           Name
         </label>
         <input
           id="name"
-          className="input col-5"
+          className="input"
           name="name"
           defaultValue={user.name}
           onChange={(event) => {
@@ -76,12 +79,12 @@ export const Profile = () => {
         />
       </div>
       <div className="row justify-content-center">
-        <label className="label col-1 text-start" htmlFor="email">
+        <label className="label" htmlFor="email">
           Email
         </label>
         <input
           id="email"
-          className="input col-4"
+          className="input"
           name="email"
           defaultValue={user.email}
           onChange={(event) => {
@@ -90,13 +93,14 @@ export const Profile = () => {
         />
       </div>
       <div className="row justify-content-center">
-        <label className="label col-1 text-start" htmlFor="password">
+        <label className="label" htmlFor="password">
           Password
         </label>
         <input
           id="password"
           className="input col-4"
           name="password"
+          type="password"
           defaultValue={user.password}
           onChange={(event) => {
             setUser({ ...user, password: event.target.value });
@@ -104,7 +108,7 @@ export const Profile = () => {
         />
       </div>
       <button
-        className="btn mt-4"
+        className="btn btn-user"
         onClick={() => {
           if (user.name.trim() != "" && user.email.trim() != "") {
             saveUser();
@@ -124,5 +128,9 @@ export const Profile = () => {
         ? "usuario no cambiado"
         : null}
     </div>
+    </div>
+  </div>
+</div>
+
   );
 };

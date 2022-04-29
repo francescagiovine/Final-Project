@@ -169,7 +169,10 @@ export default function EditTrip() {
   };
 
   return (
-    <div className="App form">
+    <div className="container">
+  <div className="row">
+    <div className="col">
+    <div className="App form pt-2 pb-2 rounded">
       <div>
         <h1 className="title">Edit your trip</h1>
       </div>
@@ -251,5 +254,9 @@ export default function EditTrip() {
         </button>
       </form>
     </div>
+    </div>
+  </div>
+</div>
+
   );
 }

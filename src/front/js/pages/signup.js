@@ -90,16 +90,19 @@ export default function SignUp() {
   };
 
   return (
-    <div className="App form pt-2 pb-2 rounded">
-      <div>
-        <h1 className="title">User Registration</h1>
-      </div>
+    <div className="container">
+      <div className="row">
+        <div className="col">
+          <div className="App form pt-2 pb-2 rounded">
+            <div>
+              <h1 className="title">User Registration</h1>
+            </div>
 
-      {/* Calling to the methods */}
-      <div className="messages">
-        {errorMessage()}
-        {successMessage()}
-      </div>
+              {/* Calling to the methods */}
+            <div className="messages">
+              {errorMessage()}
+              {successMessage()}
+            </div>
 
       <form>
         {/* Labels and inputs for form data */}
@@ -132,5 +135,8 @@ export default function SignUp() {
         </button>
       </form>
     </div>
+    </div>
+  </div>
+</div>    
   );
 }

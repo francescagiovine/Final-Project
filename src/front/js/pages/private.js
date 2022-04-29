@@ -37,6 +37,9 @@ export const Private = () => {
   }
 
   return (
+    <div className="container">
+  <div className="row">
+    <div className="col">
     <div className="ml-auto">
       {!store.token ? (
         <div>
@@ -67,5 +70,9 @@ export const Private = () => {
         </div>
       )}
     </div>
+    </div>
+  </div>
+</div>
+
   );
 };

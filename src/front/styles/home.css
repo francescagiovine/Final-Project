@@ -56,7 +56,7 @@ body {
 .label {
   display: block;
   font-size: larger;
-  color: white;
+  color: #7F1105;
   padding: 5px;
 }
 
@@ -144,16 +144,30 @@ body {
 .information {
   text-align: left;
 }
-.actions {
+
+.image {
+  text-align: center;
+}
+
+.cardname {
   text-align: left;
 }
+
 
 .imgCardTrip {
   height: 100px;
 }
 /* mediaquery */
-@media (max-width: 600px) {
+@media (max-width: 769px) {
+  .image {
+    display: none;
+  }
+}
+
+@media (max-width: 450px) {
   .information {
     display: none;
   }
+
+  
 }

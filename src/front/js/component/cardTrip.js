@@ -58,9 +58,6 @@ const editarViaje = (id) => {
     });
 };
 
-//! Hacia arriba es la logica
-
-//! Hacia abajo es la vista
 
 const CardTrip = (props) => {
   const link = "/edit-trip/".concat(props.trip.id);
@@ -68,9 +65,9 @@ const CardTrip = (props) => {
   return (
     <tbody>
       <tr>
-        <th scope="row "><h5>{props.trip.name}</h5></th>
-        <td>
-          <img height="100" src={props.trip.media}></img>
+        <th scope="row "><h5 className="title cardname">{props.trip.name}</h5></th>
+        <td className="image ">
+          <img className="rounded border border-bottom" height="100" src={props.trip.media}></img>
         </td>
         <td className="information">
           <b>Description: </b> {props.trip.location} <br></br>
@@ -82,7 +79,7 @@ const CardTrip = (props) => {
         </td>
 
         <td>
-          <div className="d-grid gap-2 d-md-block">
+          <div className="d-grid gap-2 d-md-block ">
             <Link to={link} className="btn-actions me-2">
               <i className="fas fa-edit"></i>
             </Link>
