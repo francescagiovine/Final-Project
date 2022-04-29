@@ -26,7 +26,7 @@ const Home = () => {
       </p>
     </div>
     </div>
-    <div className="col"></div>
+    <div className="col girl"></div>
 
   </div>
 </div>
