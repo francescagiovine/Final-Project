@@ -16,7 +16,7 @@ export const Navbar = () => {
       <nav className="navbar navbar-expand-md navbar-light ml-auto flex">
         <div className="container-fluid">
           <div className="col">
-            <Link to="/" className="buttons flex text-white">
+            <Link to="/" className="buttons flex text-white text-decoration-none">
               <img className="logo" src={logo} />
               <h2 className="WideTravel">WideTravel</h2>
             </Link>

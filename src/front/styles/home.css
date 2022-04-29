@@ -153,6 +153,15 @@ body {
   text-align: left;
 }
 
+.title-homepage {
+  color: antiquewhite;
+
+}
+
+.text-homepage {
+  color: antiquewhite;
+  text-align: justify;
+}
 
 .imgCardTrip {
   height: 100px;
