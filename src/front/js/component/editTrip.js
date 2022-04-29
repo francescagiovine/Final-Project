@@ -170,93 +170,92 @@ export default function EditTrip() {
 
   return (
     <div className="container">
-  <div className="row">
-    <div className="col">
-    <div className="App form pt-2 pb-2 rounded">
-      <div>
-        <h1 className="title">Edit your trip</h1>
+      <div className="row">
+        <div className="col">
+          <div className="App form pt-2 pb-2 rounded">
+            <div>
+              <h1 className="title">Edit your trip</h1>
+            </div>
+
+            {/* Calling to the methods */}
+            <div className="messages">
+              {errorMessage()}
+              {successMessage()}
+            </div>
+
+            <form>
+              {/* Labels and inputs for form data */}
+              <label className="label">Name</label>
+              <input
+                onChange={handleName}
+                className="input"
+                defaultValue={name}
+                type="text"
+              />
+
+              <label className="label">Description</label>
+              <textarea
+                onChange={handleLocation}
+                className="input"
+                defaultValue={location}
+                type="text"
+              />
+
+              <label className="label">Begin Date</label>
+              <input
+                defaultValue={begin_date}
+                onChange={handleBeginDate}
+                className="input"
+                type="datetime-local"
+              />
+
+              <label className="label">End Date</label>
+              <input
+                type="datetime-local"
+                className="input"
+                onChange={handleEndDate}
+                defaultValue={end_date}
+              />
+
+              <label className="label">URL</label>
+              <input
+                onChange={handleLocationUrl}
+                className="input"
+                defaultValue={locationUrl}
+                type="text"
+              />
+
+              <label className="label">Category</label>
+              <select
+                onChange={handleCategory}
+                defaultValue={selectedCategory}
+                className="input"
+              >
+                <option selected disabled>
+                  Select an option
+                </option>
+                {category.map((value, index) => (
+                  <option
+                    key={index}
+                    value={value.id}
+                    selected={
+                      selectedCategory && selectedCategory == value.id
+                        ? "selected"
+                        : ""
+                    }
+                  >
+                    {value.name}
+                  </option>
+                ))}
+              </select>
+
+              <button onClick={handleSubmit} className="btn btn-user">
+                Save
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
-
-      {/* Calling to the methods */}
-      <div className="messages">
-        {errorMessage()}
-        {successMessage()}
-      </div>
-
-      <form>
-        {/* Labels and inputs for form data */}
-        <label className="label">Name</label>
-        <input
-          onChange={handleName}
-          className="input"
-          defaultValue={name}
-          type="text"
-        />
-
-        <label className="label">Description</label>
-        <textarea
-          onChange={handleLocation}
-          className="input"
-          defaultValue={location}
-          type="text"
-        />
-
-        <label className="label">Begin Date</label>
-        <input
-          defaultValue={begin_date}
-          onChange={handleBeginDate}
-          className="input"
-          type="datetime-local"
-        />
-
-        <label className="label">End Date</label>
-        <input
-          type="datetime-local"
-          className="input"
-          onChange={handleEndDate}
-          defaultValue={end_date}
-        />
-
-        <label className="label">Location URL</label>
-        <input
-          onChange={handleLocationUrl}
-          className="input"
-          defaultValue={locationUrl}
-          type="text"
-        />
-
-        <label className="label">Category</label>
-        <select
-          onChange={handleCategory}
-          defaultValue={selectedCategory}
-          className="input"
-        >
-          <option selected disabled>
-            Select an option
-          </option>
-          {category.map((value, index) => (
-            <option
-              key={index}
-              value={value.id}
-              selected={
-                selectedCategory && selectedCategory == value.id
-                  ? "selected"
-                  : ""
-              }
-            >
-              {value.name}
-            </option>
-          ))}
-        </select>
-
-        <button onClick={handleSubmit} className="btn btn-user">
-          Save
-        </button>
-      </form>
     </div>
-    </div>
-  </div>
-</div>
-
   );
 }
