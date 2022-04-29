@@ -175,89 +175,88 @@ export default function CreateTrip(props) {
 
   return (
     <div className="container">
-  <div className="row">
-    <div className="col">
-    <div className="App form pt-2 pb-2 rounded">
-      <div>
-        <h1 className="title">New Activity</h1>
+      <div className="row">
+        <div className="col">
+          <div className="App form pt-2 pb-2 rounded">
+            <div>
+              <h1 className="title">New Activity</h1>
+            </div>
+
+            {/* Calling to the methods */}
+            <div className="messages">
+              {errorMessage()}
+              {successMessage()}
+            </div>
+
+            <form onSubmit={handleSubmit}>
+              {/* Labels and inputs for form data */}
+              <label className="label">Name</label>
+              <input
+                onChange={handleName}
+                className="input"
+                value={name}
+                name="name"
+                type="text"
+              />
+
+              <label className="label">Description</label>
+              <textarea
+                onChange={handleLocation}
+                className="input"
+                value={location}
+                type="text"
+              />
+
+              <label className="label">Begin Date</label>
+              <input
+                onChange={handleBeginDate}
+                className="input"
+                value={begin_date}
+                type="datetime-local"
+              />
+
+              <label className="label">End Date</label>
+              <input
+                onChange={handleEndDate}
+                className="input"
+                value={end_date}
+                type="datetime-local"
+              />
+
+              <label className="label">Category</label>
+              <select onChange={handleCategory} className="input">
+                <option selected disabled>
+                  Select an option
+                </option>
+                {category.map((value, index) => (
+                  <option key={index} value={value.id}>
+                    {value.name}
+                  </option>
+                ))}
+              </select>
+
+              <label className="label">URL</label>
+              <input
+                onChange={handleLocationUrl}
+                className="input"
+                value={locationUrl}
+                type="text"
+              />
+
+              <label className="label">Upload File</label>
+              <input
+                type="file"
+                className="btn"
+                onChange={(e) => setFiles(e.target.files)}
+              />
+
+              <button className="btn btn-user" type="submit">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
-
-      {/* Calling to the methods */}
-      <div className="messages">
-        {errorMessage()}
-        {successMessage()}
-      </div>
-
-      <form onSubmit={handleSubmit}>
-        {/* Labels and inputs for form data */}
-        <label className="label">Name</label>
-        <input
-          onChange={handleName}
-          className="input"
-          value={name}
-          name="name"
-          type="text"
-        />
-
-        <label className="label">Description</label>
-        <textarea
-          onChange={handleLocation}
-          className="input"
-          value={location}
-          type="text"
-        />
-
-        <label className="label">Begin Date</label>
-        <input
-          onChange={handleBeginDate}
-          className="input"
-          value={begin_date}
-          type="datetime-local"
-        />
-
-        <label className="label">End Date</label>
-        <input
-          onChange={handleEndDate}
-          className="input"
-          value={end_date}
-          type="datetime-local"
-        />
-
-        <label className="label">Category</label>
-        <select onChange={handleCategory} className="input">
-          <option selected disabled>
-            Select an option
-          </option>
-          {category.map((value, index) => (
-            <option key={index} value={value.id}>
-              {value.name}
-            </option>
-          ))}
-        </select>
-
-        <label className="label">Location URL</label>
-        <input
-          onChange={handleLocationUrl}
-          className="input"
-          value={locationUrl}
-          type="text"
-        />
-
-        <label className="label">Subir foto</label>
-        <input
-          type="file"
-          className="btn"
-          onChange={(e) => setFiles(e.target.files)}
-        />
-
-        <button className="btn btn-user" type="submit">
-          Submit
-        </button>
-      </form>
     </div>
-    </div>
-  </div>
-</div>
-
   );
 }

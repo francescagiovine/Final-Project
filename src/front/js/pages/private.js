@@ -38,41 +38,41 @@ export const Private = () => {
 
   return (
     <div className="container">
-  <div className="row">
-    <div className="col">
-    <div className="ml-auto">
-      {!store.token ? (
-        <div>
-          <h1 className="corporative">You're not logged yet</h1>
-          <Link to="/login">
-            <button className="login btn btn-primary">Login</button>
-          </Link>
-          <Link to="/signup">
-            {" "}
-            <button className="signup btn btn-secundary">Sign Up</button>
-          </Link>
+      <div className="row">
+        <div className="col">
+          <div className="ml-auto App2 form rounded">
+            {!store.token ? (
+              <div>
+                <h1 className="corporative">You're not logged yet</h1>
+                <Link to="/login">
+                  <button className="login btn btn-primary">Login</button>
+                </Link>
+                <Link to="/signup">
+                  {" "}
+                  <button className="signup btn btn-secundary">Sign Up</button>
+                </Link>
+              </div>
+            ) : (
+              <div className="App">
+                {" "}
+                <h1 className="corporative">
+                  Welcome {name}, here you can see everything about your
+                  travels.
+                </h1>
+                <iframe
+                  src={generateTimelineUrl()}
+                  width="100%"
+                  height="500"
+                  webkitallowfullscreen
+                  mozallowfullscreen
+                  allowfullscreen
+                  frameborder="0"
+                ></iframe>
+              </div>
+            )}
+          </div>
         </div>
-      ) : (
-        <div className="App">
-          {" "}
-          <h1 className="corporative">
-            Welcome {name}, here you can see everything about your travels.
-          </h1>
-          <iframe
-            src={generateTimelineUrl()}
-            width="100%"
-            height="500"
-            webkitallowfullscreen
-            mozallowfullscreen
-            allowfullscreen
-            frameborder="0"
-          ></iframe>
-        </div>
-      )}
+      </div>
     </div>
-    </div>
-  </div>
-</div>
-
   );
 };
