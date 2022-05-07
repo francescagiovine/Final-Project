@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import moment from "moment";
 
-const Trips = () => {
+const Activities = () => {
   const token = sessionStorage.getItem("token");
-  fetch(process.env.BACKEND_URL + "/api/getTrips", {
+  fetch(process.env.BACKEND_URL + "/api/getActivities", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -15,31 +15,31 @@ const Trips = () => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log("listTrips", data);
-      setTrips(data);
+      console.log("listActivities", data);
+      setActivities(data);
       //this.setState({ totalReactPackages: data.total })
     });
 };
 
-const eliminarViaje = (tripid, listTrips) => {
-  fetch(process.env.BACKEND_URL + "/api/delete-trip", {
+const deleteActivity = (activityID, listActivities) => {
+  fetch(process.env.BACKEND_URL + "/api/delete-activity", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      id: tripid,
+      id: activityID,
     }),
   })
     .then((resp) => resp.json())
     .then((res) => {
       console.log(res);
-      listTrips();
+      listActivities();
     });
 };
 
-const editarViaje = (id) => {
-  fetch(process.env.BACKEND_URL + "/api/edit-trip", {
+const editActivity = (id) => {
+  fetch(process.env.BACKEND_URL + "/api/edit-activity", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -59,23 +59,23 @@ const editarViaje = (id) => {
 };
 
 
-const CardTrip = (props) => {
-  const link = "/edit-trip/".concat(props.trip.id);
+const CardActivity = (props) => {
+  const link = "/edit-activity/".concat(props.activity.id);
   const CategoryName = [];
   return (
     <tbody>
       <tr>
-        <th scope="row "><h5 className="title cardname">{props.trip.name}</h5></th>
+        <th scope="row "><h5 className="title cardname">{props.activity.name}</h5></th>
         <td className="image ">
-          <img className="rounded border border-bottom" height="100" src={props.trip.media}></img>
+          <img className="rounded border border-bottom" height="100" src={props.activity.media}></img>
         </td>
         <td className="information">
-          <b>Description: </b> {props.trip.location} <br></br>
+          <b>Description: </b> {props.activity.location} <br></br>
           <b> Start date: </b>
-          {moment(props.trip.begin_date).format("DD/MM/YYYY hh:mm")} <br></br>
+          {moment(props.activity.begin_date).format("DD/MM/YYYY hh:mm")} <br></br>
           <b> End date: </b>
-          {moment(props.trip.end_date).format("DD/MM/YYYY hh:mm")} <br></br>
-          <b> Category: </b> {props.trip.category} <br></br>
+          {moment(props.activity.end_date).format("DD/MM/YYYY hh:mm")} <br></br>
+          <b> Category: </b> {props.activity.category} <br></br>
         </td>
 
         <td>
@@ -85,7 +85,7 @@ const CardTrip = (props) => {
             </Link>
             <Link
               className="btn-actions"
-              onClick={() => eliminarViaje(props.trip.id, props.onTripsChange)}
+              onClick={() => deleteActivity(props.activity.id, props.onActivitiesChange)}
             >
               <i className="fas fa-trash"></i>
             </Link>
@@ -96,6 +96,6 @@ const CardTrip = (props) => {
   );
 };
 
-CardTrip.propTypes = { trip: propTypes.any };
+CardActivity.propTypes = { activity: propTypes.any };
 
-export default CardTrip;
+export default CardActivity;

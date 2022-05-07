@@ -69,8 +69,20 @@ const getState = ({ getStore, getActions, setStore }) => {
         //reset the global store
         setStore({ demo: demo });
       },
-      getSingleTrip: (id) => {
-        fetch(process.env.BACKEND_URL + "/trip/".concat(id)).then(
+      getSingleTravel: (id) => {
+        fetch(process.env.BACKEND_URL + "/travel/".concat(id)).then(
+          (response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              console.log(error);
+            }
+          }
+        );
+      },
+
+      getSingleActivity: (id) => {
+        fetch(process.env.BACKEND_URL + "/activity/".concat(id)).then(
           (response) => {
             if (response.ok) {
               return response.json();

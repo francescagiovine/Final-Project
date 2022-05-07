@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/home.css";
-import { Context } from "../store/appContext";
-import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function CreateTrip(props) {
+export default function EditActivity() {
+  const { id } = useParams();
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [locationUrl, setLocationUrl] = useState("");
@@ -13,12 +14,28 @@ export default function CreateTrip(props) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [media, setMedia] = useState("");
   const token = sessionStorage.getItem("token");
-  const { store, actions } = useContext(Context);
-  const history = useHistory();
+  // const id = queryParams.get("id");
+  // console.log(id);
+
+  const getSingleActivity = (id) => {
+    fetch(process.env.BACKEND_URL + "/api/activity/".concat(id))
+      .then((response) => response.json())
+      .then((response) => {
+        console.log("getSingleActivity", response);
+        setName(response.name);
+        setLocation(response.location);
+        setBeginDate(response.begin_date);
+        setEndDate(response.end_date);
+        setSelectedCategory(response.category_id);
+        setLocationUrl(response.latitude);
+      });
+  };
+  useEffect(() => {
+    getSingleActivity(id);
+  }, []);
+
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
-  const [files, setFiles] = useState(null);
-  //   EN PRINCIPIO NO NECESITAMOS NINGUN ERROR EN TEMA REGISTRO VIAJE
 
   const getCategory = () => {
     fetch(process.env.BACKEND_URL + "/api/getCategories", {
@@ -40,15 +57,12 @@ export default function CreateTrip(props) {
     getCategory();
   }, []);
 
-  const handleLocationUrl = (e) => {
-    setLocationUrl(e.target.value);
-    setSubmitted(false);
-  };
-
   // Handling the name change
   const handleName = (e) => {
+    console.log(e.target.value);
     setName(e.target.value);
-    setSubmitted(false);
+    console.log(name);
+    // setSubmitted(false);
   };
 
   // Handling the location change
@@ -70,8 +84,8 @@ export default function CreateTrip(props) {
   };
 
   // Handling the location change
-  const handleMedia = (e) => {
-    setMedia(e.target.value);
+  const handleLocationUrl = (e) => {
+    setLocationUrl(e.target.value);
     setSubmitted(false);
   };
 
@@ -90,36 +104,33 @@ export default function CreateTrip(props) {
       begin_date === "" ||
       end_date === ""
     ) {
-      setError("Please enter all the trip fields");
+      setError("Please enter all the fields");
     } else {
-      let body = new FormData();
-      body.append("name", name);
-      body.append("location", location);
-      body.append("location_url", locationUrl);
-      body.append("begin_date", begin_date);
-      body.append("end_date", end_date);
-      body.append("end_date", end_date);
-      body.append("category_id", selectedCategory);
-      if (files) {
-        body.append("media", files[0]);
-      }
-
-      fetch(process.env.BACKEND_URL + "/api/createTrip", {
+      fetch(process.env.BACKEND_URL + "/api/editActivity", {
         method: "POST",
         headers: {
+          "Content-Type": "application/json",
           Authorization: "Bearer " + token,
         },
-        body,
+        body: JSON.stringify({
+          id: id,
+          name: name,
+          location: location,
+          begin_date: begin_date,
+          end_date: end_date,
+          category_id: selectedCategory,
+          latitude: locationUrl,
+        }),
       })
         .then((resp) => resp.json())
         .then((data) => {
+          console.log("editActivity");
           setSubmitted(true);
           setError(false);
-          history.push("/trips");
         })
         .catch((error) => {
           // setError(error);
-          // console.log(error);
+          console.log(error);
         });
     }
   };
@@ -133,7 +144,12 @@ export default function CreateTrip(props) {
           display: submitted ? "" : "none",
         }}
       >
-        <h1> {name} created successfully</h1>
+        <h1 className="corporative">
+          You edited your activity to {name} successfully
+        </h1>
+        <h1 className="corporative">
+          <Link to="/activities">Back to Activities</Link>
+        </h1>
       </div>
     );
   };
@@ -147,30 +163,9 @@ export default function CreateTrip(props) {
           display: error != false ? "" : "none",
         }}
       >
-        <h1>{error}</h1>
+        <h1 className="corporative">{error}</h1>
       </div>
     );
-  };
-
-  const uploadImage = (evt) => {
-    evt.preventDefault();
-    // we are about to send this to the backend.
-    console.log("This are the files", files);
-    let body = new FormData();
-    body.append("profile_image", files[0]);
-    const options = {
-      body,
-      method: "POST",
-    };
-    // you need to have the user_id in the localStorage
-    fetch(`${process.env.BACKEND_URL}/user/${currentUserId}/image`, options)
-      .then((resp) => resp.json())
-      .then((data) => console.log("Success!!!!", data))
-      .catch((erros) => console.error("ERRORRRRRR!!!", error));
-  };
-
-  const onMapClick = (e) => {
-    console.log("passss", e);
   };
 
   return (
@@ -179,7 +174,7 @@ export default function CreateTrip(props) {
         <div className="col">
           <div className="App form pt-2 pb-2 rounded">
             <div>
-              <h1 className="title">New Activity</h1>
+              <h1 className="title">Edit your activity</h1>
             </div>
 
             {/* Calling to the methods */}
@@ -188,14 +183,13 @@ export default function CreateTrip(props) {
               {successMessage()}
             </div>
 
-            <form onSubmit={handleSubmit}>
+            <form>
               {/* Labels and inputs for form data */}
               <label className="label">Name</label>
               <input
                 onChange={handleName}
                 className="input"
-                value={name}
-                name="name"
+                defaultValue={name}
                 type="text"
               />
 
@@ -203,55 +197,60 @@ export default function CreateTrip(props) {
               <textarea
                 onChange={handleLocation}
                 className="input"
-                value={location}
+                defaultValue={location}
                 type="text"
               />
 
               <label className="label">Begin Date</label>
               <input
+                defaultValue={begin_date}
                 onChange={handleBeginDate}
                 className="input"
-                value={begin_date}
                 type="datetime-local"
               />
 
               <label className="label">End Date</label>
               <input
-                onChange={handleEndDate}
-                className="input"
-                value={end_date}
                 type="datetime-local"
+                className="input"
+                onChange={handleEndDate}
+                defaultValue={end_date}
               />
-
-              <label className="label">Category</label>
-              <select onChange={handleCategory} className="input">
-                <option selected disabled>
-                  Select an option
-                </option>
-                {category.map((value, index) => (
-                  <option key={index} value={value.id}>
-                    {value.name}
-                  </option>
-                ))}
-              </select>
 
               <label className="label">URL</label>
               <input
                 onChange={handleLocationUrl}
                 className="input"
-                value={locationUrl}
+                defaultValue={locationUrl}
                 type="text"
               />
 
-              <label className="label">Upload File</label>
-              <input
-                type="file"
-                className="btn"
-                onChange={(e) => setFiles(e.target.files)}
-              />
+              <label className="label">Category</label>
+              <select
+                onChange={handleCategory}
+                defaultValue={selectedCategory}
+                className="input"
+              >
+                <option selected disabled>
+                  Select an option
+                </option>
+                {category.map((value, index) => (
+                  <option
+                    key={index}
+                    value={value.id}
+                    selected={
+                      selectedCategory && selectedCategory == value.id
+                        ? "selected"
+                        : ""
+                    }
+                  >
+                    {value.name}
+                  </option>
+                ))}
+              </select>
 
-              <button className="btn btn-user" type="submit">
-                Submit
+              <button onClick={handleSubmit} className="btn btn-user">
+                Save
               </button>
             </form>
           </div>

@@ -23,9 +23,36 @@ class User(db.Model):
         user = User.query.filter_by(id=id).first()
         return User.serialize(user)
 
+class Travel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    description = db.Column(db.String())
+    begin_date = db.Column(db.DateTime())
+    end_date = db.Column(db.DateTime())
+    location = db.Column(db.String())
+    media = db.Column(db.String(255), unique=False, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', backref=db.backref('travel', lazy=True))
+
+    def __repr__(self):
+        return '<Travel %r>' % self.name
+        
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "begin_date": self.begin_date.strftime("%Y-%m-%dT%H:%M"),           
+            "end_date": self.end_date.strftime("%Y-%m-%dT%H:%M"),  
+            "location": self.location,
+            "media": self.media
+
+        }
+
 class Activity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
+    #travel_id = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     location = db.Column(db.String(), unique=False)
     latitude = db.Column(db.String(), unique=False, nullable=True)
@@ -93,16 +120,6 @@ class Activity(db.Model):
         return activity
 
 
-
-class Travel(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    description = db.Column(db.String())
-    travel_id = db.Column(db.Integer, nullable=False)
-    begin_date = db.Column(db.DateTime())
-    end_date = db.Column(db.DateTime())
-    Location = db.Column(db.String())
-    cost = db.Column(db.Float())
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)

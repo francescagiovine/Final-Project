@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import CardTrip from "./cardTrip";
+import CardTravel from "./cardTravel";
 
-export default function Trips() {
-  const [trips, setTrips] = useState([""]);
+export default function Travels() {
+  const [travels, setTravels] = useState([""]);
   const token = sessionStorage.getItem("token");
   const { store, actions } = useContext(Context);
 
-  function ListTrips() {
-    console.log("entrando a ListTrips");
-    fetch(process.env.BACKEND_URL + "/api/getTrips", {
+  function ListTravels() {
+    console.log("entrando a ListTravels");
+    fetch(process.env.BACKEND_URL + "/api/getTravels", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -19,15 +19,15 @@ export default function Trips() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("listTrips", data);
-        setTrips(data);
+        console.log("listTravels", data);
+        setTravels(data);
         //this.setState({ totalReactPackages: data.total })
       });
   }
 
   useEffect(() => {
     console.log(process.env.BACKEND_URL);
-    ListTrips();
+    ListTravels();
   }, []);
 
   function generateTimelineUrl() {
@@ -59,7 +59,7 @@ export default function Trips() {
       </div>
 
       <div className="row mx-auto">
-        <span className="h1 title">My Trips</span>
+        <span className="h1 title">My Travels</span>
         <table className="table table-striped mt-2 border">
           <thead>
             <tr>
@@ -69,12 +69,12 @@ export default function Trips() {
               <td className=""><th scope="col">Actions</th></td>
             </tr>
           </thead>
-          {trips.map((value, index) => {
+          {travels.map((value, index) => {
             return (
-              <CardTrip
+              <CardTravel
                 key={index.toString()}
-                trip={value}
-                onTripsChange={ListTrips}
+                travel={value}
+                onTravelsChange={ListTravels}
               />
             );
           })}

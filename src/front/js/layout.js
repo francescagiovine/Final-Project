@@ -2,9 +2,12 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import SignUp from "./pages/signup";
-import CreateTrip from "./pages/createTrip";
-import Trips from "./component/trips";
-import EditTrip from "./component/editTrip";
+import CreateTravel from "./pages/createTravel";
+import Travels from "./component/travels";
+import EditTravel from "./component/editTravel";
+import CreateActivity from "./pages/createActivity";
+import Activities from "./component/activities";
+import EditActivity from "./component/editActivity";
 
 import Home from "./pages/home";
 import { Demo } from "./pages/demo";
@@ -40,14 +43,23 @@ const Layout = () => {
             <Route exact path="/private">
               <Private />
             </Route>
-            <Route exact path="/create-trip">
-              <CreateTrip />
+            <Route exact path="/create-travel">
+              <CreateTravel />
             </Route>
-            <Route exact path="/trips">
-              <Trips />
+            <Route exact path="/travels">
+              <Travels />
             </Route>
-            <Route exact path="/edit-trip/:id">
-              <EditTrip />
+            <Route exact path="/edit-travel/:id">
+              <EditTravel />
+            </Route>
+            <Route exact path="/create-activity">
+              <CreateActivity />
+            </Route>
+            <Route exact path="/activities">
+              <Activities />
+            </Route>
+            <Route exact path="/edit-activity/:id">
+              <EditActivity />
             </Route>
             <Route exact path="/demo">
               <Demo />

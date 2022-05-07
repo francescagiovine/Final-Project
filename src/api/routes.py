@@ -53,9 +53,63 @@ def sign_up():
     db.session.commit()
     return jsonify({'response': "Usuario creado con éxito"}), 200
   # end of api 2 - signup  
-@api.route('/createTrip', methods=['POST'])
+
+@api.route('/users', methods=['GET'])
+def list_users():
+    users = User.query.all()
+    usersResponse = []
+    for user in users:
+        usersResponse.append(user.serialize())
+    return jsonify(usersResponse), 200
+
+
+@api.route('/user', methods=['GET'])
 @jwt_required()
-def create_trip():
+def get_user():
+    user_id= get_jwt_identity()
+    user= User.get_user(user_id)
+    return jsonify(user),200
+
+@api.route('/modify/user', methods=['PUT'])
+@jwt_required()
+def modify_user():
+    user_id= get_jwt_identity()
+    name = request.json.get('name')
+    email = request.json.get('email')
+    password = request.json.get('password')
+    user= User.query.get(user_id)
+    if name:
+        user.name= name
+    if email:    
+        user.email= email
+    if password:
+        user.password= password
+    db.session.commit()
+    return jsonify(user.serialize()),200 
+    return jsonify(categoriesResponse), 200
+
+    # ACTIVITIES
+
+@api.route('/getActivities', methods=['GET'])
+@jwt_required()
+def list_activities():
+    user_id = get_jwt_identity()    
+    activities = Activity.query.filter_by(user_id = user_id).all()
+    response = []
+    for activity in activities:
+        response.append(activity.serialize())            
+    return jsonify(response), 200
+
+@api.route('/activity/<int:id>', methods=['GET'])
+def get_activity(id):
+    activity = Activity.get_by_id(id)
+    if activity: 
+        return jsonify(activity.serialize()), 200
+    return ({'error': 'Activity not found'}), 404
+
+@api.route('/createActivity', methods=['POST'])
+@jwt_required()
+def create_activity():
     print("hola")
     name = request.form.get('name')
     location = request.form.get('location')
@@ -79,9 +133,9 @@ def create_trip():
     db.session.commit()
     return jsonify({'response': "Created succesfully"}), 200
 
-@api.route('/editTrip', methods=['POST'])
+@api.route('/editActivity', methods=['POST'])
 @jwt_required()
-def edit_trip():
+def edit_activity():
     id = request.json.get('id')
     activity = Activity.get_by_id(id)
     activity.name = request.json.get('name')
@@ -94,26 +148,8 @@ def edit_trip():
     db.session.commit()
     return jsonify({'response': "Edited succesfully"}), 200
 
-@api.route('/users', methods=['GET'])
-def list_users():
-    users = User.query.all()
-    usersResponse = []
-    for user in users:
-        usersResponse.append(user.serialize())
-    return jsonify(usersResponse), 200
-
-@api.route('/getTrips', methods=['GET'])
-@jwt_required()
-def list_trips():
-    user_id = get_jwt_identity()    
-    activities = Activity.query.filter_by(user_id = user_id).all()
-    response = []
-    for activity in activities:
-        response.append(activity.serialize())            
-    return jsonify(response), 200
-
-@api.route('/delete-trip', methods=['POST'])
-def delete_trip():
+@api.route('/delete-activity', methods=['POST'])
+def delete_activity():
     id = request.json.get('id')
     activity = Activity.query.get(id)
     db.session.delete(activity)
@@ -123,12 +159,76 @@ def delete_trip():
     }
     return jsonify(response_body), 200
 
-@api.route('/trip/<int:id>', methods=['GET'])
-def get_trip(id):
-    activity = Activity.get_by_id(id)
-    if activity: 
-        return jsonify(activity.serialize()), 200
-    return ({'error': 'Activity not found'}), 404
+@api.route('/getTravels', methods=['GET'])
+@jwt_required()
+def list_travels():
+    user_id = get_jwt_identity()    
+    travels = Travel.query.filter_by(user_id = user_id).all()
+    response = []
+    for travel in travels:
+        response.append(travel.serialize())            
+    return jsonify(response), 200
+
+@api.route('/travel/<int:id>', methods=['GET'])
+def get_travel(id):
+    travel = Travel.get_by_id(id)
+    if travel: 
+        return jsonify(travel.serialize()), 200
+    return ({'error': 'Travel not found'}), 404
+
+@api.route('/createTravel', methods=['POST'])
+@jwt_required()
+def create_travel():
+    print("hello")
+    name = request.form.get('name')
+    location = request.form.get('location')
+    description = request.form.get('description')
+    location_url = request.form.get('location_url')
+    endDate = datetime.strptime(request.form.get('end_date'), '%Y-%m-%dT%H:%M')
+    beginDate = datetime.strptime(request.form.get('begin_date'), '%Y-%m-%dT%H:%M')
+    category_id = request.form.get('category_id')
+    user_id = get_jwt_identity()
+
+        # validate that the front-end request was built correctly
+    if 'media' in request.files:
+        # upload file to uploadcare
+        result = cloudinary.uploader.upload(request.files['media'])
+        image_url = result['secure_url']
+    else:
+        # raise APIException('Missing media on the FormData')
+        image_url = "https://res.cloudinary.com/dycp5engp/image/upload/v1651147412/qfwgk92acqqnkoqdbraj.png"
+
+    travel = Travel( name=name, user_id=user_id, description=description, location=location, begin_date=beginDate, end_date=endDate, media=image_url)
+    db.session.add(travel)
+    db.session.commit()
+    return jsonify({'response': "Created succesfully"}), 200
+
+@api.route('/editTravel', methods=['POST'])
+@jwt_required()
+def edit_travel():
+    id = request.json.get('id')
+    travel = Travel.get_by_id(id)
+    travel.name = request.json.get('name')
+    travel.location = request.json.get('location')
+    travel.description = request.json.get('description')
+    travel.end_date = datetime.strptime(request.json.get('end_date'), "%Y-%m-%dT%H:%M")
+    travel.begin_date = datetime.strptime(request.json.get('begin_date'), "%Y-%m-%dT%H:%M")
+    user_id = get_jwt_identity()
+    db.session.commit()
+    return jsonify({'response': "Edited succesfully"}), 200
+
+@api.route('/delete-travel', methods=['POST'])
+def delete_travel():
+    id = request.json.get('id')
+    travel = Travel.query.get(id)
+    db.session.delete(travel)
+    db.session.commit()
+    response_body = {
+        "message": "travel deleted"
+    }
+    return jsonify(response_body), 200
+
+
 
 #Endpoint para el Timeline
 @api.route('/timeline/<int:id>', methods=['GET'])
@@ -161,30 +261,6 @@ def get_categories():
 
     return jsonify(categoriesResponse), 200  
 
-@api.route('/user', methods=['GET'])
-@jwt_required()
-def get_user():
-    user_id= get_jwt_identity()
-    user= User.get_user(user_id)
-    return jsonify(user),200
-
-@api.route('/modify/user', methods=['PUT'])
-@jwt_required()
-def modify_user():
-    user_id= get_jwt_identity()
-    name = request.json.get('name')
-    email = request.json.get('email')
-    password = request.json.get('password')
-    user= User.query.get(user_id)
-    if name:
-        user.name= name
-    if email:    
-        user.email= email
-    if password:
-        user.password= password
-    db.session.commit()
-    return jsonify(user.serialize()),200 
-    return jsonify(categoriesResponse), 200
 
 
 #@api.route('/user', methods=['GET'])
