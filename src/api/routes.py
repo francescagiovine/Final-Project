@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Travel, Category
+from api.models import db, User, Travel, Category, Activity
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 import json
@@ -74,25 +74,25 @@ def create_trip():
         # raise APIException('Missing media on the FormData')
         image_url = "https://res.cloudinary.com/dycp5engp/image/upload/v1651147412/qfwgk92acqqnkoqdbraj.png"
 
-    travel = Travel( name=name, user_id=user_id, location=location, latitude=location_url, begin_date=beginDate, end_date=endDate, category_id=category_id, media=image_url)
-    db.session.add(travel)
+    activity = Activity( name=name, user_id=user_id, location=location, latitude=location_url, begin_date=beginDate, end_date=endDate, category_id=category_id, media=image_url)
+    db.session.add(activity)
     db.session.commit()
-    return jsonify({'response': "Viaje creado con éxito"}), 200
+    return jsonify({'response': "Created succesfully"}), 200
 
 @api.route('/editTrip', methods=['POST'])
 @jwt_required()
 def edit_trip():
     id = request.json.get('id')
-    trip = Travel.get_by_id(id)
-    trip.name = request.json.get('name')
-    trip.location = request.json.get('location')
-    trip.end_date = datetime.strptime(request.json.get('end_date'), "%Y-%m-%dT%H:%M")
-    trip.begin_date = datetime.strptime(request.json.get('begin_date'), "%Y-%m-%dT%H:%M")
-    trip.category_id = request.json.get('category_id')
-    trip.latitude = request.json.get('latitude')
+    activity = Activity.get_by_id(id)
+    activity.name = request.json.get('name')
+    activity.location = request.json.get('location')
+    activity.end_date = datetime.strptime(request.json.get('end_date'), "%Y-%m-%dT%H:%M")
+    activity.begin_date = datetime.strptime(request.json.get('begin_date'), "%Y-%m-%dT%H:%M")
+    activity.category_id = request.json.get('category_id')
+    activity.latitude = request.json.get('latitude')
     user_id = get_jwt_identity()
     db.session.commit()
-    return jsonify({'response': "Viaje editado con éxito"}), 200
+    return jsonify({'response': "Edited succesfully"}), 200
 
 @api.route('/users', methods=['GET'])
 def list_users():
@@ -106,39 +106,39 @@ def list_users():
 @jwt_required()
 def list_trips():
     user_id = get_jwt_identity()    
-    travels = Travel.query.filter_by(user_id = user_id).all()
+    activities = Activity.query.filter_by(user_id = user_id).all()
     response = []
-    for travel in travels:
-        response.append(travel.serialize())            
+    for activity in activities:
+        response.append(activity.serialize())            
     return jsonify(response), 200
 
 @api.route('/delete-trip', methods=['POST'])
 def delete_trip():
     id = request.json.get('id')
-    travel = Travel.query.get(id)
-    db.session.delete(travel)
+    activity = Activity.query.get(id)
+    db.session.delete(activity)
     db.session.commit()
     response_body = {
-        "message": "Viaje eliminado"
+        "message": "Activity deleted"
     }
     return jsonify(response_body), 200
 
 @api.route('/trip/<int:id>', methods=['GET'])
 def get_trip(id):
-    trip = Travel.get_by_id(id)
-    if trip: 
-        return jsonify(trip.serialize()), 200
-    return ({'error': 'Trip Not found'}), 404
+    activity = Activity.get_by_id(id)
+    if activity: 
+        return jsonify(activity.serialize()), 200
+    return ({'error': 'Activity not found'}), 404
 
 #Endpoint para el Timeline
 @api.route('/timeline/<int:id>', methods=['GET'])
 #@jwt_required()
 def timeline(id):
-    travels = Travel.query.filter_by(user_id = id).all() 
+    activities = Activity.query.filter_by(user_id = id).all() 
     response = {  
     'title': {
         'text': {
-            'headline' : 'My Travels',
+            'headline' : 'My Activities',
             'text' : 'Swipe to see your activities'
             },
         "media": {
@@ -146,7 +146,7 @@ def timeline(id):
         },
     },
     'events': [
-        travel.serializeTimeline() for travel in travels
+        activity.serializeTimeline() for activity in activities
     ]
     }
     return jsonify(response), 200

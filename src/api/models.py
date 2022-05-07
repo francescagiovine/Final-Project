@@ -23,7 +23,7 @@ class User(db.Model):
         user = User.query.filter_by(id=id).first()
         return User.serialize(user)
 
-class Travel(db.Model):
+class Activity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -34,10 +34,10 @@ class Travel(db.Model):
     end_date = db.Column(db.DateTime(timezone=False), unique=False)
     media = db.Column(db.String(255), unique=False, nullable=True)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
-    category = db.relationship('Category', backref=db.backref('travel', lazy=True))
-    user = db.relationship('User', backref=db.backref('travel', lazy=True))
+    category = db.relationship('Category', backref=db.backref('activity', lazy=True))
+    user = db.relationship('User', backref=db.backref('activity', lazy=True))
     def __repr__(self):
-        return '<Travel %r>' % self.name
+        return '<Activity %r>' % self.name
         
     def serialize(self):
         return {
@@ -89,18 +89,16 @@ class Travel(db.Model):
             
     @classmethod
     def get_by_id(cls, id):
-        trip = cls.query.get(id)
-        return trip
+        activity = cls.query.get(id)
+        return activity
 
 
 
-class Activity(db.Model):
+class Travel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     description = db.Column(db.String())
     travel_id = db.Column(db.Integer, nullable=False)
-    category_id = db.Column(db.Integer)
-    subcategory_id = db.Column(db.Integer)
     begin_date = db.Column(db.DateTime())
     end_date = db.Column(db.DateTime())
     Location = db.Column(db.String())
@@ -124,11 +122,10 @@ class Subcategory(db.Model):
 
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<Subcategory %r>' % self.username
 
     def serialize(self):
         return {
             "id": self.id,
-            "email": self.email,
-            # do not serialize the password, its a security breach
+            "name": self.name,
         }

@@ -21,7 +21,7 @@ export default function EditTrip() {
     fetch(process.env.BACKEND_URL + "/api/trip/".concat(id))
       .then((response) => response.json())
       .then((response) => {
-        console.log("getSingleTrip", response);
+        console.log("getSingleActivity", response);
         setName(response.name);
         setLocation(response.location);
         setBeginDate(response.begin_date);
@@ -124,7 +124,7 @@ export default function EditTrip() {
       })
         .then((resp) => resp.json())
         .then((data) => {
-          console.log("editTrip");
+          console.log("editActivity");
           setSubmitted(true);
           setError(false);
         })
