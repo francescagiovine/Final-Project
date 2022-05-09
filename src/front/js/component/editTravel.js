@@ -99,7 +99,6 @@ export default function EditTravel() {
           location: location,
           begin_date: begin_date,
           end_date: end_date,
-          category_id: selectedCategory,
           latitude: locationUrl,
         }),
       })

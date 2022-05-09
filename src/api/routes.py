@@ -88,76 +88,7 @@ def modify_user():
     return jsonify(user.serialize()),200 
     return jsonify(categoriesResponse), 200
 
-    # ACTIVITIES
-
-@api.route('/getActivities', methods=['GET'])
-@jwt_required()
-def list_activities():
-    user_id = get_jwt_identity()    
-    activities = Activity.query.filter_by(user_id = user_id).all()
-    response = []
-    for activity in activities:
-        response.append(activity.serialize())            
-    return jsonify(response), 200
-
-@api.route('/activity/<int:id>', methods=['GET'])
-def get_activity(id):
-    activity = Activity.get_by_id(id)
-    if activity: 
-        return jsonify(activity.serialize()), 200
-    return ({'error': 'Activity not found'}), 404
-
-@api.route('/createActivity', methods=['POST'])
-@jwt_required()
-def create_activity():
-    print("hola")
-    name = request.form.get('name')
-    location = request.form.get('location')
-    location_url = request.form.get('location_url')
-    endDate = datetime.strptime(request.form.get('end_date'), '%Y-%m-%dT%H:%M')
-    beginDate = datetime.strptime(request.form.get('begin_date'), '%Y-%m-%dT%H:%M')
-    category_id = request.form.get('category_id')
-    user_id = get_jwt_identity()
-
-        # validate that the front-end request was built correctly
-    if 'media' in request.files:
-        # upload file to uploadcare
-        result = cloudinary.uploader.upload(request.files['media'])
-        image_url = result['secure_url']
-    else:
-        # raise APIException('Missing media on the FormData')
-        image_url = "https://res.cloudinary.com/dycp5engp/image/upload/v1651147412/qfwgk92acqqnkoqdbraj.png"
-
-    activity = Activity( name=name, user_id=user_id, location=location, latitude=location_url, begin_date=beginDate, end_date=endDate, category_id=category_id, media=image_url)
-    db.session.add(activity)
-    db.session.commit()
-    return jsonify({'response': "Created succesfully"}), 200
-
-@api.route('/editActivity', methods=['POST'])
-@jwt_required()
-def edit_activity():
-    id = request.json.get('id')
-    activity = Activity.get_by_id(id)
-    activity.name = request.json.get('name')
-    activity.location = request.json.get('location')
-    activity.end_date = datetime.strptime(request.json.get('end_date'), "%Y-%m-%dT%H:%M")
-    activity.begin_date = datetime.strptime(request.json.get('begin_date'), "%Y-%m-%dT%H:%M")
-    activity.category_id = request.json.get('category_id')
-    activity.latitude = request.json.get('latitude')
-    user_id = get_jwt_identity()
-    db.session.commit()
-    return jsonify({'response': "Edited succesfully"}), 200
-
-@api.route('/delete-activity', methods=['POST'])
-def delete_activity():
-    id = request.json.get('id')
-    activity = Activity.query.get(id)
-    db.session.delete(activity)
-    db.session.commit()
-    response_body = {
-        "message": "Activity deleted"
-    }
-    return jsonify(response_body), 200
+  # TRAVEL
 
 @api.route('/getTravels', methods=['GET'])
 @jwt_required()
@@ -231,9 +162,29 @@ def delete_travel():
 
 
 #Endpoint para el Timeline
-@api.route('/timeline/<int:id>', methods=['GET'])
+@api.route('/timeline-travel/<int:id>', methods=['GET'])
 #@jwt_required()
-def timeline(id):
+def timelineTravel(id):
+    travels = Travel.query.filter_by(user_id = id).all() 
+    response = {  
+    'title': {
+        'text': {
+            'headline' : 'My Travels',
+            'text' : 'Swipe to see your travels'
+            },
+        "media": {
+          "url": "",
+        },
+    },
+    'events': [
+        travel.serializeTimeline() for travel in travels
+    ]
+    }
+    return jsonify(response), 200
+  
+@api.route('/timeline-activity/<int:id>', methods=['GET'])
+#@jwt_required()
+def timelineActivity(id):
     activities = Activity.query.filter_by(user_id = id).all() 
     response = {  
     'title': {
@@ -250,7 +201,6 @@ def timeline(id):
     ]
     }
     return jsonify(response), 200
-  
 
 @api.route('/getCategories', methods=['GET'])
 def get_categories():
@@ -261,13 +211,75 @@ def get_categories():
 
     return jsonify(categoriesResponse), 200  
 
+    # ACTIVITIES
 
+@api.route('/getActivities', methods=['GET'])
+@jwt_required()
+def list_activities():
+    user_id = get_jwt_identity()    
+    activities = Activity.query.filter_by(user_id = user_id).all()
+    response = []
+    for activity in activities:
+        response.append(activity.serialize())            
+    return jsonify(response), 200
 
-#@api.route('/user', methods=['GET'])
-#@jwt_required()
-#def get_user():
-#    user_id= get_jwt_identity()
-#    user= User.query.filter_by(id=id).first()
-#    return jsonify(user),200
+@api.route('/activity/<int:id>', methods=['GET'])
+def get_activity(id):
+    activity = Activity.get_by_id(id)
+    if activity: 
+        return jsonify(activity.serialize()), 200
+    return ({'error': 'Activity not found'}), 404
+
+@api.route('/createActivity', methods=['POST'])
+@jwt_required()
+def create_activity():
+    print("hola")
+    name = request.form.get('name')
+    location = request.form.get('location')
+    location_url = request.form.get('location_url')
+    endDate = datetime.strptime(request.form.get('end_date'), '%Y-%m-%dT%H:%M')
+    beginDate = datetime.strptime(request.form.get('begin_date'), '%Y-%m-%dT%H:%M')
+    category_id = request.form.get('category_id')
+    user_id = get_jwt_identity()
+
+        # validate that the front-end request was built correctly
+    if 'media' in request.files:
+        # upload file to uploadcare
+        result = cloudinary.uploader.upload(request.files['media'])
+        image_url = result['secure_url']
+    else:
+        # raise APIException('Missing media on the FormData')
+        image_url = "https://res.cloudinary.com/dycp5engp/image/upload/v1651147412/qfwgk92acqqnkoqdbraj.png"
+
+    activity = Activity( name=name, user_id=user_id, location=location, latitude=location_url, begin_date=beginDate, end_date=endDate, category_id=category_id, media=image_url)
+    db.session.add(activity)
+    db.session.commit()
+    return jsonify({'response': "Created succesfully"}), 200
+
+@api.route('/editActivity', methods=['POST'])
+@jwt_required()
+def edit_activity():
+    id = request.json.get('id')
+    activity = Activity.get_by_id(id)
+    activity.name = request.json.get('name')
+    activity.location = request.json.get('location')
+    activity.end_date = datetime.strptime(request.json.get('end_date'), "%Y-%m-%dT%H:%M")
+    activity.begin_date = datetime.strptime(request.json.get('begin_date'), "%Y-%m-%dT%H:%M")
+    activity.category_id = request.json.get('category_id')
+    activity.latitude = request.json.get('latitude')
+    user_id = get_jwt_identity()
+    db.session.commit()
+    return jsonify({'response': "Edited succesfully"}), 200
+
+@api.route('/delete-activity', methods=['POST'])
+def delete_activity():
+    id = request.json.get('id')
+    activity = Activity.query.get(id)
+    db.session.delete(activity)
+    db.session.commit()
+    response_body = {
+        "message": "Activity deleted"
+    }
+    return jsonify(response_body), 200
 
 

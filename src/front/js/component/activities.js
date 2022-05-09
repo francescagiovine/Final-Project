@@ -32,7 +32,7 @@ export default function Activities() {
   function generateTimelineUrl() {
     return `https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=${
       process.env.BACKEND_URL
-    }/api/timeline/${sessionStorage.getItem(
+    }/api/timeline-activity/${sessionStorage.getItem(
       "id"
     )}&font=Default&lang=en&initial_zoom=1&height=500`;
   }

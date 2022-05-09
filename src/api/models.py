@@ -39,21 +39,60 @@ class Travel(db.Model):
         
     def serialize(self):
         return {
-            "id": self.id,
+
             "name": self.name,
             "description": self.description,
             "begin_date": self.begin_date.strftime("%Y-%m-%dT%H:%M"),           
             "end_date": self.end_date.strftime("%Y-%m-%dT%H:%M"),  
             "location": self.location,
+            "id": self.id,
             "media": self.media
 
         }
 
+    def serializeTimeline(self): 
+
+        if self.media is not None:
+            current_url = self.media
+        else:
+            current_url = ""
+
+        return {
+        
+                "media" : {
+                    "url": current_url,
+                    "caption" : self.location
+                },
+                "start_date": {
+                    "minute" : self.begin_date.strftime("%M"),
+                    "hour" : self.begin_date.strftime("%H"),
+                    "day" : self.begin_date.strftime("%d"),
+                    "month" : self.begin_date.strftime("%m"),
+                    "year" : self.begin_date.strftime("%Y"),
+                },
+                "end_date": {
+                    "minute" : self.end_date.strftime("%M"),
+                    "hour" : self.end_date.strftime("%H"),
+                    "day" : self.end_date.strftime("%d"),
+                    "month" : self.end_date.strftime("%m"),
+                    "year" : self.end_date.strftime("%Y"),
+                },                
+                "text" : {
+                    "headline": self.name,
+                    "text" : self.description
+                }
+            }
+            
+    @classmethod
+    def get_by_id(cls, id):
+        travel = cls.query.get(id)
+        return travel
+
 class Activity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
-    #travel_id = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    travel_id = db.Column(db.Integer, db.ForeignKey('travel.id'), nullable=False)
     location = db.Column(db.String(), unique=False)
     latitude = db.Column(db.String(), unique=False, nullable=True)
     longitude = db.Column(db.String(), unique=False, nullable=True)
@@ -63,6 +102,7 @@ class Activity(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     category = db.relationship('Category', backref=db.backref('activity', lazy=True))
     user = db.relationship('User', backref=db.backref('activity', lazy=True))
+    travel = db.relationship('Travel', backref=db.backref('activity', lazy=True))
     def __repr__(self):
         return '<Activity %r>' % self.name
         
@@ -92,7 +132,7 @@ class Activity(db.Model):
         
                 "media" : {
                     "url": current_url,
-                    "caption" : self.location
+                    "caption" : self.category.name
                 },
                 "start_date": {
                     "minute" : self.begin_date.strftime("%M"),
@@ -110,7 +150,7 @@ class Activity(db.Model):
                 },                
                 "text" : {
                     "headline": self.name,
-                    "text" : self.category.name
+                    "text" : self.location
                 }
             }
             

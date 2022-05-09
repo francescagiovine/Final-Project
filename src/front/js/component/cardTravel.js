@@ -61,7 +61,6 @@ const editTravel = (id) => {
 
 const CardTravel = (props) => {
   const link = "/edit-travel/".concat(props.travel.id);
-  const CategoryName = [];
   return (
     <tbody>
       <tr>
