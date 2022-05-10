@@ -18,6 +18,8 @@ export default function CreateActivity(props) {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
   const [files, setFiles] = useState(null);
+  const travel_id = sessionStorage.getItem("travel")
+
   //   EN PRINCIPIO NO NECESITAMOS NINGUN ERROR EN TEMA REGISTRO VIAJE
 
   const getCategory = () => {
@@ -100,6 +102,7 @@ export default function CreateActivity(props) {
       body.append("end_date", end_date);
       body.append("end_date", end_date);
       body.append("category_id", selectedCategory);
+      body.append("travel_id", travel_id);
       if (files) {
         body.append("media", files[0]);
       }
@@ -180,6 +183,7 @@ export default function CreateActivity(props) {
           <div className="App form pt-2 pb-2 rounded">
             <div>
               <h1 className="title">New Activity</h1>
+              <h2>{travel_id}</h2>
             </div>
 
             {/* Calling to the methods */}

@@ -6,6 +6,7 @@ import logo from "../../img/logo.png";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
+
   useEffect(() => {
     actions.getUser();
   }, [store.name]);
@@ -27,16 +28,6 @@ export const Navbar = () => {
                 <div className="loginPadre"></div>
               ) : (
                 <div className="loginPadre">
-                  <Link to="/create-activity">
-                    <button className="btn1 btn btn-secundary btn-user px-3">
-                      <i className="fas fa-plus"></i>
-                    </button>
-                  </Link>
-                  <Link to="/activities">
-                    <button className="btn1 btn btn-secundary btn-user px-3">
-                      <i className="fas fa-clipboard-list"></i>
-                    </button>
-                  </Link>
                 </div>
               )}
             </div>

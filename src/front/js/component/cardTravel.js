@@ -3,9 +3,13 @@ import propTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import moment from "moment";
+import { useHistory } from "react-router-dom";
 
 const Travels = () => {
   const token = sessionStorage.getItem("token");
+  const history = useHistory();
+  const {store, actions} = useContext(Context)
+
   fetch(process.env.BACKEND_URL + "/api/getTravels", {
     method: "GET",
     headers: {
@@ -20,6 +24,13 @@ const Travels = () => {
       //this.setState({ totalReactPackages: data.total })
     });
 };
+
+const goToTravel = (id) => {
+  sessionStorage.setItem("travel", id);
+  console.log(id)
+};
+
+
 
 const deleteTravel = (travelid, listTravels) => {
   fetch(process.env.BACKEND_URL + "/api/delete-travel", {
@@ -64,17 +75,22 @@ const CardTravel = (props) => {
   return (
     <tbody>
       <tr>
-        <th scope="row "><h5 className="title cardname">{props.travel.name}</h5></th>
+        <th scope="row "><h5 className="title cardname">           
+          <Link to="/activities">
+            <button onClick={() => goToTravel(props.travel.id)} className="btn1 btn btn-secundary btn-user px-3">
+              <h2>{props.travel.name} </h2>
+            </button>
+          </Link></h5></th>
         <td className="image ">
           <img className="rounded border border-bottom" height="100" src={props.travel.media}></img>
         </td>
         <td className="information">
-          <b>Description: </b> {props.travel.location} <br></br>
+          <b>Location: </b> {props.travel.location} <br></br>
           <b> Start date: </b>
           {moment(props.travel.begin_date).format("DD/MM/YYYY hh:mm")} <br></br>
           <b> End date: </b>
           {moment(props.travel.end_date).format("DD/MM/YYYY hh:mm")} <br></br>
-          <b> Category: </b> {props.travel.category} <br></br>
+          <b>Description: </b> {props.travel.description} <br></br>
         </td>
 
         <td>

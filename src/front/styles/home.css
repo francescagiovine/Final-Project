@@ -42,9 +42,8 @@ body {
 
 .App {
   text-align: center;
-  width: 80%;
+  width: 90%;
   margin: auto;
-  border-width: 1rem;
   border: #069a8e;
   background-color: rgba(252, 252, 252, 0.728);
 }
@@ -52,8 +51,6 @@ body {
 .App2 {
   text-align: center;
   width: 100%;
-  margin: auto;
-  border-width: 1rem;
   border: #069a8e;
   background-color: rgba(252, 252, 252, 0.728);
 }
@@ -82,8 +79,6 @@ body {
   background-color: #ffffff;
   font-size: 25px;
   border-radius: 5px;
-  display: block;
-  padding: 5px;
   margin: 10px auto;
 }
 
@@ -189,5 +184,33 @@ body {
 @media (max-width: 650px) {
   .girl {
     display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .App {
+    width: 100%;
+    
+  }
+  .App2 {
+    width: 100%;
+    
+  }
+  .col{
+    width: 100%;
+    
+  }
+  .iframe {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+  }
+  .container {
+    width: 100%;
+    padding: 0px;
+    
+  }
+  body {
+    width: 100%;
   }
 }

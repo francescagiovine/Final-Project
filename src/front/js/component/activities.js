@@ -6,11 +6,12 @@ import CardActivity from "./cardActivity";
 export default function Activities() {
   const [activities, setActivities] = useState([""]);
   const token = sessionStorage.getItem("token");
+  const travel = sessionStorage.getItem("travel")
   const { store, actions } = useContext(Context);
 
   function ListActivities() {
     console.log("receiving list of activities");
-    fetch(process.env.BACKEND_URL + "/api/getActivities", {
+    fetch(process.env.BACKEND_URL + "/api/getActivitiesByTravel/" + travel, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +42,24 @@ export default function Activities() {
     <div className="container">
   <div className="row App pt-2 pb-2 rounded">
     <div className="col">
-      <div className="row col-12 mx-auto">
+      <div className="row col-12">
+        <div className="row">
+          <div className="col-5">
+            <Link to="/private" className="text-decoration-none">
+              <button className="btn1 btn btn-secundary btn-user">
+                <h3><i className="fas fa-angle-double-left"></i> Back to Travels</h3>
+              </button>
+            </Link>
+          </div>
+          <div className="col-2"></div>
+          <div className="col-5">
+            <Link to="/create-activity" className="text-decoration-none">
+              <button className="btn1 btn btn-secundary btn-user">
+                <h3><i className="fas fa-plus"></i> New Activity</h3>
+              </button>
+            </Link>
+          </div>
+        </div>
         <iframe
           src={generateTimelineUrl()}
           width="100%"
@@ -74,6 +92,13 @@ export default function Activities() {
             );
           })}
         </table>
+          <div className="col-5 align-self-start">
+          <Link to="/create-activity" className="text-decoration-none">
+              <button className="btn1 btn btn-secundary btn-user px-3">
+                <h3><i className="fas fa-plus"></i> New Activity</h3>
+              </button>
+          </Link>
+        </div>
       </div>
 
     </div>

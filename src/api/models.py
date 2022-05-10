@@ -109,6 +109,7 @@ class Activity(db.Model):
     def serialize(self):
         return {
             "name": self.name,
+            "travel_id":self.travel_id,
             "location": self.location,
             "begin_date": self.begin_date.strftime("%Y-%m-%dT%H:%M"),           
             "end_date": self.end_date.strftime("%Y-%m-%dT%H:%M"),  
@@ -116,7 +117,7 @@ class Activity(db.Model):
             "category_id":self.category.id,
             "id": self.id,
             "latitude": self.latitude,
-            "media": self.media
+            "media": self.media,
 
         }
         

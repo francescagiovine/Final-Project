@@ -2,15 +2,12 @@ import React, { useEffect, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import CardTravel from "../component/cardTravel";
 import { Context } from "../store/appContext";
-import widetravel from "../../img/widetravel.png";
-import roadtrip from "../../img/roadtrip.png";
 
 
 export const Private = () => {
   const { store, actions } = useContext(Context);
   const forms = [""];
   const token = sessionStorage.getItem("token");
-  const name = sessionStorage.getItem("name");
   const [travels, setTravels] = useState([""]);
 
   function ListTravels() {
@@ -46,28 +43,19 @@ export const Private = () => {
 
   return (
     <div className="container">
-      <div className="row">
+      <div className="row align-self-start justify-content-start mb-3">
+        <div className="col-5">
+          <Link to="/create-travel" className="text-decoration-none">
+            <button className="btn1 btn btn-secundary btn-user">
+              <h3><i className="fas fa-plus"></i> New Travel </h3>
+            </button>
+          </Link>
+        </div>   
+      </div>
+
+      <div className="row App2 form rounded">
         <div className="col">
-          <div className="ml-auto App2 form rounded">
-            {!store.token ? (
-              <div>
-                <h1 className="corporative">You're not logged yet</h1>
-                <Link to="/login">
-                  <button className="login btn btn-primary">Login</button>
-                </Link>
-                <Link to="/signup">
-                  {" "}
-                  <button className="signup btn btn-secundary">Sign Up</button>
-                </Link>
-              </div>
-            ) : (
-              <div className="App">
-                {" "}
-                <h1 className="corporative">
-                  Welcome {name}, here you can see everything about your
-                  travels.
-                </h1>
-                <iframe
+                <iframe className="iframe"
                   src={generateTimelineUrl()}
                   width="100%"
                   height="500"
@@ -76,20 +64,12 @@ export const Private = () => {
                   allowfullscreen
                   frameborder="0"
                 ></iframe>
-              </div>
-            )}
-          </div>
         </div>
-        <Link to="/create-travel">
-                    <button className="btn1 btn btn-secundary btn-user px-3">
-                      <i className="fas fa-plus"></i>
-                    </button>
-                  </Link>
       </div>
 
-      <div className="row App pt-2 pb-2 rounded">
+      <div className="row App2 form rounded mt-3">
         <div className="col">
-          <div className="row mx-auto">
+          <div className="row ">
             <span className="h1 title">My Travels</span>
             <table className="table table-striped mt-2 border">
               <thead>
@@ -111,9 +91,18 @@ export const Private = () => {
               })}
             </table>
           </div>
-    </div>
+        </div>
+      </div>
 
-  </div>
+      <div className="row align-self-start justify-content-start mt-3">
+      <div className="col-5">
+            <Link to="/create-travel" className="text-decoration-none">
+              <button className="btn1 btn btn-secundary btn-user">
+                <h3><i className="fas fa-plus"></i> New Travel </h3>
+              </button>
+            </Link>
+          </div>   
+      </div>
     </div>
   );
 };

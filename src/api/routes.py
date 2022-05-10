@@ -21,25 +21,6 @@ cloudinary.config(
 #   secure = true
 )
 
-
-#api 1 - login, here i create the login service
-@api.route('/login', methods=['POST'])
-def login():
-    email = request.json.get('email') 
-    password = request.json.get('password') 
-    user = User.query.filter_by(email=email, password=password).first()
-    if not user:
-        return jsonify({"message":"El usuario o contraseña incorrectos"}), 401
-    token = create_access_token(identity = user.id)
-    data_response = {
-        "token" : token,
-        "email": user.email,
-        "name": user.name,
-        "id": user.id
-    }
-    return jsonify(data_response), 200
-# end of api 1 - login
-#api 2 - signup, here we create the signup service
 @api.route('/signup', methods=['POST'])
 def sign_up():
     name = request.json.get('name')
@@ -52,7 +33,23 @@ def sign_up():
     db.session.add(user)
     db.session.commit()
     return jsonify({'response': "Usuario creado con éxito"}), 200
-  # end of api 2 - signup  
+
+@api.route('/login', methods=['POST'])
+def login():
+    email = request.json.get('email') 
+    password = request.json.get('password') 
+    user = User.query.filter_by(email=email, password=password).first()
+    if not user:
+        return jsonify({"message":"El usuario o contraseña incorrectos"}), 401
+    token = create_access_token(identity = user.id)
+    data_response = {
+        "token" : token,
+        "email": user.email,
+        "name": user.name,
+        "id": user.id,
+    }
+    return jsonify(data_response), 200
+
 
 @api.route('/users', methods=['GET'])
 def list_users():
@@ -110,7 +107,7 @@ def get_travel(id):
 @api.route('/createTravel', methods=['POST'])
 @jwt_required()
 def create_travel():
-    print("hello")
+
     name = request.form.get('name')
     location = request.form.get('location')
     description = request.form.get('description')
@@ -166,7 +163,75 @@ def delete_travel():
 #@jwt_required()
 def timelineTravel(id):
     travels = Travel.query.filter_by(user_id = id).all() 
-    response = {  
+    
+    if not travels:
+        response = {  
+
+    "title": {
+        "media": {
+          "url": "https://drive.google.com/file/d/1JgY6MID8KckT6zueiKCcv8rTSPwaDEy2/view?usp=sharing",
+          "caption": "This is an example of media URL, you can add maps from Google maps, images or pdf's like tickets or entries",
+          "credit": "flickr/<a href='http://www.flickr.com/photos/tm_10001/'>tm_10001</a>"
+        },
+        "text": {
+          "headline": "Welcome<br/> ",
+          "text": "<p>Here you will see everything about your travels. Click to the arrow at the right to learn how it's work or start crating a new Travel in the button below</p>"
+        }
+    },
+    "events": [
+      {
+        "media": {
+          "url": "{{ static_url }}/img/examples/houston/family.jpg",
+          "caption": "This is an example of media URL, you can add maps from Google maps, images or pdf's like tickets or entries",
+          "credit": "Cissy Houston photo:<a href='http://www.flickr.com/photos/11447043@N00/418180903/'>Tom Marcello</a><br/><a href='http://commons.wikimedia.org/wiki/File%3ADionne_Warwick_television_special_1969.JPG'>Dionne Warwick: CBS Television via Wikimedia Commons</a>"
+        },
+        "start_date": {
+          "month": "",
+          "day": "",
+          "year": ""
+        },
+        "text": {
+          "headline": "A Little Tutorial",
+          "text": "<p>You don't have any travel yet, start creating your first one.</p>"
+        }
+      },
+      {
+        "media": {
+          "url": "{{ static_url }}/img/examples/houston/family.jpg",
+          "caption": "This is an example of media URL, you can add maps from Google maps, images or pdf's like tickets or entries",
+          "credit": "Cissy Houston photo:<a href='http://www.flickr.com/photos/11447043@N00/418180903/'>Tom Marcello</a><br/><a href='http://commons.wikimedia.org/wiki/File%3ADionne_Warwick_television_special_1969.JPG'>Dionne Warwick: CBS Television via Wikimedia Commons</a>"
+        },
+        "start_date": {
+          "month": "",
+          "day": "",
+          "year": ""
+        },
+        "text": {
+          "headline": "Creating and modifying travels",
+          "text": "<p>You don't have any travel yet, start creating your first one.</p>"
+        }
+      },
+      {
+        "media": {
+          "url": "{{ static_url }}/img/examples/houston/family.jpg",
+          "caption": "This is an example of media URL, you can add maps from Google maps, images or pdf's like tickets or entries",
+          "credit": "Cissy Houston photo:<a href='http://www.flickr.com/photos/11447043@N00/418180903/'>Tom Marcello</a><br/><a href='http://commons.wikimedia.org/wiki/File%3ADionne_Warwick_television_special_1969.JPG'>Dionne Warwick: CBS Television via Wikimedia Commons</a>"
+        },
+        "start_date": {
+          "month": "",
+          "day": "",
+          "year": ""
+        },
+        "text": {
+          "headline": "Creating and modifying activities",
+          "text": "<p>You don't have any travel yet, start creating your first one.</p>"
+        }
+      }
+    ]
+    }
+
+    else:
+        response = {  
     'title': {
         'text': {
             'headline' : 'My Travels',
@@ -181,12 +246,44 @@ def timelineTravel(id):
     ]
     }
     return jsonify(response), 200
+ 
   
 @api.route('/timeline-activity/<int:id>', methods=['GET'])
 #@jwt_required()
 def timelineActivity(id):
-    activities = Activity.query.filter_by(user_id = id).all() 
-    response = {  
+    activities = Activity.query.filter_by(user_id = id).all()
+    if not activities:
+        response = {  
+
+    "title": {
+        "media": {
+          "url": "https://i.pinimg.com/originals/5a/65/ee/5a65ee278cd557143f05a4ba91abbfa8.gif",
+        },
+        "text": {
+          "headline": "No Activities ",
+          "text": "<p>Your activities will be shown here</p>"
+        },
+        "background": {
+            "color": "#7f1105"
+        }
+    },
+    "events": [
+      {
+        "start_date": {
+          "month": "",
+          "day": "",
+          "year": ""
+        },
+        "text": {
+          "headline": "Adding a new activity", 
+          "text": "<a href='https://3000-francescagiovin-finalpro-k48xhblu4u0.ws-eu44.gitpod.io/create-activity'>click here</a>",
+        }
+      }
+    ]
+    }
+
+    else:
+        response = {  
     'title': {
         'text': {
             'headline' : 'My Activities',
@@ -223,6 +320,16 @@ def list_activities():
         response.append(activity.serialize())            
     return jsonify(response), 200
 
+@api.route('/getActivitiesByTravel/<int:id>', methods=['GET'])
+@jwt_required()
+def list_activities_by_travel(id):
+    user_id = get_jwt_identity()   
+    activities = Activity.query.filter_by(travel_id = id).all()
+    response = []
+    for activity in activities:
+        response.append(activity.serialize())            
+    return jsonify(response), 200
+
 @api.route('/activity/<int:id>', methods=['GET'])
 def get_activity(id):
     activity = Activity.get_by_id(id)
@@ -233,14 +340,16 @@ def get_activity(id):
 @api.route('/createActivity', methods=['POST'])
 @jwt_required()
 def create_activity():
-    print("hola")
     name = request.form.get('name')
+    user_id = get_jwt_identity()
+    travel_id = request.form.get('travel_id')
     location = request.form.get('location')
     location_url = request.form.get('location_url')
-    endDate = datetime.strptime(request.form.get('end_date'), '%Y-%m-%dT%H:%M')
     beginDate = datetime.strptime(request.form.get('begin_date'), '%Y-%m-%dT%H:%M')
+    endDate = datetime.strptime(request.form.get('end_date'), '%Y-%m-%dT%H:%M')
     category_id = request.form.get('category_id')
-    user_id = get_jwt_identity()
+    
+
 
         # validate that the front-end request was built correctly
     if 'media' in request.files:
@@ -251,7 +360,7 @@ def create_activity():
         # raise APIException('Missing media on the FormData')
         image_url = "https://res.cloudinary.com/dycp5engp/image/upload/v1651147412/qfwgk92acqqnkoqdbraj.png"
 
-    activity = Activity( name=name, user_id=user_id, location=location, latitude=location_url, begin_date=beginDate, end_date=endDate, category_id=category_id, media=image_url)
+    activity = Activity( name=name, user_id=user_id, location=location, latitude=location_url, begin_date=beginDate, end_date=endDate, category_id=category_id, media=image_url, travel_id = travel_id)
     db.session.add(activity)
     db.session.commit()
     return jsonify({'response': "Created succesfully"}), 200

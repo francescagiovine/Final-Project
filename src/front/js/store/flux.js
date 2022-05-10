@@ -81,8 +81,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         );
       },
 
-      getSingleActivity: (id) => {
-        fetch(process.env.BACKEND_URL + "/activity/".concat(id)).then(
+      getTravelActivities: (id) => {
+        fetch(process.env.BACKEND_URL + "/getActivitiesByTravel/".concat(id)).then(
           (response) => {
             if (response.ok) {
               return response.json();
@@ -92,6 +92,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
         );
       },
+
 
       syncTokenSessionStore: () => {
         const token = sessionStorage.getItem("token");
@@ -104,10 +105,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("name");
         sessionStorage.removeItem("email");
+        sessionStorage.removeItem("id");
+        sessionStorage.removeItem("travel");
         console.log("log out");
         setStore({ token: null });
         setStore({ name: null });
         setStore({ email: null });
+        setStore({ id: null });
+        setStore({ travel: null });
       },
       //fetch para timeline
 
@@ -116,6 +121,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       //const data = await response.json();
       //setStore({timeline : data})
       //},
+
+
+
 
       //traer el fetch del login aqui (como hice antes)
       login: async (email, password) => {
