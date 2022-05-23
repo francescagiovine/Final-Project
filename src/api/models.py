@@ -80,6 +80,9 @@ class Travel(db.Model):
                 "text" : {
                     "headline": self.name,
                     "text" : self.description
+                },
+                "background": {
+                    "color": "#42B2C9"
                 }
             }
             
@@ -152,6 +155,9 @@ class Activity(db.Model):
                 "text" : {
                     "headline": self.name,
                     "text" : self.location
+                },
+                "background": {
+                    "color": "#42B2C9"
                 }
             }
             

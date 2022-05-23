@@ -139,6 +139,7 @@ def edit_travel():
     travel.name = request.json.get('name')
     travel.location = request.json.get('location')
     travel.description = request.json.get('description')
+    travel.latitude = request.json.get('latitude')
     travel.end_date = datetime.strptime(request.json.get('end_date'), "%Y-%m-%dT%H:%M")
     travel.begin_date = datetime.strptime(request.json.get('begin_date'), "%Y-%m-%dT%H:%M")
     user_id = get_jwt_identity()
@@ -169,62 +170,51 @@ def timelineTravel(id):
 
     "title": {
         "media": {
-          "url": "https://drive.google.com/file/d/1JgY6MID8KckT6zueiKCcv8rTSPwaDEy2/view?usp=sharing",
-          "caption": "This is an example of media URL, you can add maps from Google maps, images or pdf's like tickets or entries",
-          "credit": "flickr/<a href='http://www.flickr.com/photos/tm_10001/'>tm_10001</a>"
+          "url": "https://i.pinimg.com/originals/5a/65/ee/5a65ee278cd557143f05a4ba91abbfa8.gif",
+          "caption": "You can add maps, videos, pictures or pdf's like tickets or entries",
+          "credit": "pinterest /<a href='www.behance.net/galitsky'> Elena Galitsky</a>"
         },
         "text": {
-          "headline": "Welcome<br/> ",
-          "text": "<p>Here you will see everything about your travels. Click to the arrow at the right to learn how it's work or start crating a new Travel in the button below</p>"
+          "headline": "Welcome to Wide Travel<br/> ",
+          "text": '<p> Please take one minute to watch our tutorial, clicking to the arrow at the right or start creating a new travel in the button "+ new Travel"</p>'
+        },
+        "background": {
+            "color": "#7f1105"
         }
     },
     "events": [
       {
         "media": {
-          "url": "{{ static_url }}/img/examples/houston/family.jpg",
-          "caption": "This is an example of media URL, you can add maps from Google maps, images or pdf's like tickets or entries",
-          "credit": "Cissy Houston photo:<a href='http://www.flickr.com/photos/11447043@N00/418180903/'>Tom Marcello</a><br/><a href='http://commons.wikimedia.org/wiki/File%3ADionne_Warwick_television_special_1969.JPG'>Dionne Warwick: CBS Television via Wikimedia Commons</a>"
+          "url": "https://www.youtube.com/watch?v=z9R8pbbhO_c",
+          "caption": "",
+          "credit": ""
         },
         "start_date": {
-          "month": "",
-          "day": "",
-          "year": ""
+          "day": "1"
         },
         "text": {
           "headline": "A Little Tutorial",
-          "text": "<p>You don't have any travel yet, start creating your first one.</p>"
+          "text": "<p>AQUI VIENE UN VIDEO TUTORIAL SUBIDO A YOUTUBE (SE ESTÁ PRODUCIENDO)</p>"
+        },
+        "background": {
+            "color": "#054398"
         }
+
       },
       {
+        "text": {
+          "headline": "Let's Begin!",
+          "text": "<p>That's everything, now you can start planning your next adventure!</p>"
+        },
         "media": {
-          "url": "{{ static_url }}/img/examples/houston/family.jpg",
-          "caption": "This is an example of media URL, you can add maps from Google maps, images or pdf's like tickets or entries",
-          "credit": "Cissy Houston photo:<a href='http://www.flickr.com/photos/11447043@N00/418180903/'>Tom Marcello</a><br/><a href='http://commons.wikimedia.org/wiki/File%3ADionne_Warwick_television_special_1969.JPG'>Dionne Warwick: CBS Television via Wikimedia Commons</a>"
+          "url": "https://i.pinimg.com/originals/d0/d7/39/d0d739c791767eed5b525701de37150a.gif",
+          "caption": "",
+          "credit": ""
         },
         "start_date": {
           "month": "",
-          "day": "",
+          "day": "2",
           "year": ""
-        },
-        "text": {
-          "headline": "Creating and modifying travels",
-          "text": "<p>You don't have any travel yet, start creating your first one.</p>"
-        }
-      },
-      {
-        "media": {
-          "url": "{{ static_url }}/img/examples/houston/family.jpg",
-          "caption": "This is an example of media URL, you can add maps from Google maps, images or pdf's like tickets or entries",
-          "credit": "Cissy Houston photo:<a href='http://www.flickr.com/photos/11447043@N00/418180903/'>Tom Marcello</a><br/><a href='http://commons.wikimedia.org/wiki/File%3ADionne_Warwick_television_special_1969.JPG'>Dionne Warwick: CBS Television via Wikimedia Commons</a>"
-        },
-        "start_date": {
-          "month": "",
-          "day": "",
-          "year": ""
-        },
-        "text": {
-          "headline": "Creating and modifying activities",
-          "text": "<p>You don't have any travel yet, start creating your first one.</p>"
         }
       }
     ]
@@ -275,8 +265,59 @@ def timelineActivity(id):
           "year": ""
         },
         "text": {
-          "headline": "Adding a new activity", 
-          "text": "<a href='https://3000-francescagiovin-finalpro-k48xhblu4u0.ws-eu44.gitpod.io/create-activity'>click here</a>",
+          "headline": "Create a new activity and it will be shown here", 
+          "text": "",
+        }
+      }
+    ]
+    }
+
+    else:
+        response = {  
+    'title': {
+        'text': {
+            'headline' : 'My Activities',
+            'text' : 'Swipe to see your activities'
+            },
+        "media": {
+          "url": "",
+        },
+    },
+    'events': [
+        activity.serializeTimeline() for activity in activities
+    ]
+    }
+    return jsonify(response), 200
+
+@api.route('/timeline-activity-by-travel/<int:id>', methods=['GET'])
+#@jwt_required()
+def timelineActivitybyTravel(id):
+    activities = Activity.query.filter_by(travel_id = id).all()
+    if not activities:
+        response = {  
+
+    "title": {
+        "media": {
+          "url": "https://i.pinimg.com/originals/5a/65/ee/5a65ee278cd557143f05a4ba91abbfa8.gif",
+        },
+        "text": {
+          "headline": "No Activities ",
+          "text": "<p>Your activities will be shown here</p>"
+        },
+        "background": {
+            "color": "#7f1105"
+        }
+    },
+    "events": [
+      {
+        "start_date": {
+          "month": "",
+          "day": "",
+          "year": ""
+        },
+        "text": {
+          "headline": "Create a new activity and it will be shown here", 
+          "text": "",
         }
       }
     ]

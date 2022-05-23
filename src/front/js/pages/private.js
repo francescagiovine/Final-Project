@@ -53,7 +53,7 @@ export const Private = () => {
         </div>   
       </div>
 
-      <div className="row App2 form rounded">
+      <div className="row App2 pt-2 pb-1 form rounded">
         <div className="col">
                 <iframe className="iframe"
                   src={generateTimelineUrl()}

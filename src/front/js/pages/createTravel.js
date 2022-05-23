@@ -94,7 +94,7 @@ export default function CreateTravel(props) {
         .then((data) => {
           setSubmitted(true);
           setError(false);
-          history.push("/travels");
+          history.push("/private");
         })
         .catch((error) => {
           // setError(error);

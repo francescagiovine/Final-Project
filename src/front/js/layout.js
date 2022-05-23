@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import SignUp from "./pages/signup";
 import CreateTravel from "./pages/createTravel";
-import Travels from "./component/travels";
 import EditTravel from "./component/editTravel";
 import CreateActivity from "./pages/createActivity";
 import Activities from "./component/activities";
@@ -45,9 +44,6 @@ const Layout = () => {
             </Route>
             <Route exact path="/create-travel">
               <CreateTravel />
-            </Route>
-            <Route exact path="/travels">
-              <Travels />
             </Route>
             <Route exact path="/edit-travel/:id">
               <EditTravel />

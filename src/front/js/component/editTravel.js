@@ -97,6 +97,7 @@ export default function EditTravel() {
           id: id,
           name: name,
           location: location,
+          description: description,
           begin_date: begin_date,
           end_date: end_date,
           latitude: locationUrl,
@@ -128,7 +129,7 @@ export default function EditTravel() {
           You edited your travel to {name} successfully
         </h1>
         <h1 className="corporative">
-          <Link to="/travels">Back to Activities</Link>
+          <Link to="/private">Back to Travels</Link>
         </h1>
       </div>
     );

@@ -13,7 +13,7 @@ body {
 }
 .title {
   text-align: center;
-  color: #7f1105;
+  color: #CE511F;
 }
 .name {
   text-align: center;
@@ -42,7 +42,7 @@ body {
 
 .App {
   text-align: center;
-  width: 90%;
+  width: 100%;
   margin: auto;
   border: #069a8e;
   background-color: rgba(252, 252, 252, 0.728);
@@ -55,14 +55,14 @@ body {
   background-color: rgba(252, 252, 252, 0.728);
 }
 .btn-actions {
-  font-size: 18px;
+  font-size: 25px;
   color: #214a82;
 }
 
 .label {
   display: block;
   font-size: larger;
-  color: #7f1105;
+  color: #CE511F;
   padding: 5px;
 }
 
@@ -75,7 +75,7 @@ body {
 }
 
 .btn-user {
-  color: #214a82;
+  color: #CE511F;
   background-color: #ffffff;
   font-size: 25px;
   border-radius: 5px;
@@ -114,11 +114,6 @@ body {
   padding: 5px;
 }
 
-.col {
-  display: inline-block;
-  margin: auto;
-  padding: 20px;
-}
 
 .card {
   height: 150px;

@@ -33,45 +33,45 @@ export default function Activities() {
   function generateTimelineUrl() {
     return `https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=${
       process.env.BACKEND_URL
-    }/api/timeline-activity/${sessionStorage.getItem(
-      "id"
+    }/api/timeline-activity-by-travel/${sessionStorage.getItem(
+      "travel"
     )}&font=Default&lang=en&initial_zoom=1&height=500`;
   }
 
   return (
     <div className="container">
-  <div className="row App pt-2 pb-2 rounded">
-    <div className="col">
-      <div className="row col-12">
-        <div className="row">
-          <div className="col-5">
-            <Link to="/private" className="text-decoration-none">
-              <button className="btn1 btn btn-secundary btn-user">
-                <h3><i className="fas fa-angle-double-left"></i> Back to Travels</h3>
-              </button>
-            </Link>
-          </div>
-          <div className="col-2"></div>
-          <div className="col-5">
-            <Link to="/create-activity" className="text-decoration-none">
-              <button className="btn1 btn btn-secundary btn-user">
-                <h3><i className="fas fa-plus"></i> New Activity</h3>
-              </button>
-            </Link>
-          </div>
+      <div className="row align-self-start justify-content-start mb-3 ">
+        <div className="col-5">
+          <Link to="/private" className="text-decoration-none">
+            <button className="btn1 btn btn-secundary btn-user">
+              <h3><i className="fas fa-angle-double-left"></i> Back to Travels</h3>
+            </button>
+          </Link>
         </div>
-        <iframe
-          src={generateTimelineUrl()}
-          width="100%"
-          height="500"
-          webkitallowfullscreen
-          mozallowfullscreen
-          allowfullscreen
-          frameborder="0"
-        ></iframe>
+        <div className="col-2"></div>
+        <div className="col-5">
+          <Link to="/create-activity" className="text-decoration-none">
+            <button className="btn1 btn btn-secundary btn-user">
+              <h3><i className="fas fa-plus"></i> New Activity</h3>
+            </button>
+          </Link>
+        </div>
       </div>
-
-      <div className="row mx-auto">
+      <div className="row App2 pt-2 pb-1 rounded">
+        <div className="col">
+          <iframe
+            src={generateTimelineUrl()}
+            width="100%"
+            height="500"
+            webkitallowfullscreen
+            mozallowfullscreen
+            allowfullscreen
+            frameborder="0"
+          ></iframe>
+        </div>
+    </div>
+      <div className="row App2 form rounded mt-3">
+        <div className="col">
         <span className="h1 title">My Activities</span>
         <table className="table table-striped mt-2 border">
           <thead>
@@ -92,19 +92,18 @@ export default function Activities() {
             );
           })}
         </table>
-          <div className="col-5 align-self-start">
-          <Link to="/create-activity" className="text-decoration-none">
-              <button className="btn1 btn btn-secundary btn-user px-3">
-                <h3><i className="fas fa-plus"></i> New Activity</h3>
-              </button>
-          </Link>
-        </div>
       </div>
-
     </div>
-
+    <div className="row">
+      <div className="col-5 align-self-start">
+        <Link to="/create-activity" className="text-decoration-none">
+            <button className="btn1 btn btn-secundary btn-user px-3">
+              <h3><i className="fas fa-plus"></i> New Activity</h3>
+            </button>
+        </Link>
+      </div>
+    </div>
   </div>
-</div>
 
   );
 }

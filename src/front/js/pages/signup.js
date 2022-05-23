@@ -129,11 +129,10 @@ export default function SignUp() {
           value={password}
           type="password"
         />
-
-        <button onClick={handleSubmit} className="btn btn-user" type="submit">
+      </form>
+      <button onClick={handleSubmit} className="btn btn-login" type="submit">
           Submit
         </button>
-      </form>
     </div>
     </div>
   </div>
