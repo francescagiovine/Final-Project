@@ -13,7 +13,7 @@ body {
 }
 .title {
   text-align: center;
-  color: #CE511F;
+  color: #ce511f;
 }
 .name {
   text-align: center;
@@ -42,7 +42,7 @@ body {
 
 .App {
   text-align: center;
-  width: 100%;
+  width: 40em;
   margin: auto;
   border: #069a8e;
   background-color: rgba(252, 252, 252, 0.728);
@@ -62,7 +62,7 @@ body {
 .label {
   display: block;
   font-size: larger;
-  color: #CE511F;
+  color: #ce511f;
   padding: 5px;
 }
 
@@ -75,7 +75,7 @@ body {
 }
 
 .btn-user {
-  color: #CE511F;
+  color: #ce511f;
   background-color: #ffffff;
   font-size: 25px;
   border-radius: 5px;
@@ -113,7 +113,6 @@ body {
   width: fit-content;
   padding: 5px;
 }
-
 
 .card {
   height: 150px;
@@ -185,15 +184,12 @@ body {
 @media (max-width: 800px) {
   .App {
     width: 100%;
-    
   }
   .App2 {
     width: 100%;
-    
   }
-  .col{
+  .col {
     width: 100%;
-    
   }
   .iframe {
     width: 100%;
@@ -203,7 +199,6 @@ body {
   .container {
     width: 100%;
     padding: 0px;
-    
   }
   body {
     width: 100%;
