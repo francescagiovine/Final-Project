@@ -124,7 +124,8 @@ class Activity(db.Model):
 
         }
         
-    def serializeTimeline(self): 
+    def serializeTimeline(self):
+         
         if self.latitude is not None:
             current_url = self.latitude
         elif self.media is not None:

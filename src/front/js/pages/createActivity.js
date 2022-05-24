@@ -89,10 +89,11 @@ export default function CreateActivity(props) {
     if (
       name === "" ||
       location === "" ||
+      selectedCategory === "" ||
       begin_date === "" ||
       end_date === ""
     ) {
-      setError("Please enter all the fields");
+      setError("Please enter all mandatory fields (*)");
     } else {
       let body = new FormData();
       body.append("name", name);
@@ -183,7 +184,6 @@ export default function CreateActivity(props) {
           <div className="App form pt-2 pb-2 rounded">
             <div>
               <h1 className="title">New Activity</h1>
-              <h2>{travel_id}</h2>
             </div>
 
             {/* Calling to the methods */}
@@ -194,7 +194,7 @@ export default function CreateActivity(props) {
 
             <form onSubmit={handleSubmit}>
               {/* Labels and inputs for form data */}
-              <label className="label">Name</label>
+              <label className="label">Name *</label>
               <input
                 onChange={handleName}
                 className="input"
@@ -203,7 +203,7 @@ export default function CreateActivity(props) {
                 type="text"
               />
 
-              <label className="label">Description</label>
+              <label className="label">Description *</label>
               <textarea
                 onChange={handleLocation}
                 className="input"
@@ -211,7 +211,7 @@ export default function CreateActivity(props) {
                 type="text"
               />
 
-              <label className="label">Begin Date</label>
+              <label className="label">Begin Date *</label>
               <input
                 onChange={handleBeginDate}
                 className="input"
@@ -219,7 +219,7 @@ export default function CreateActivity(props) {
                 type="datetime-local"
               />
 
-              <label className="label">End Date</label>
+              <label className="label">End Date *</label>
               <input
                 onChange={handleEndDate}
                 className="input"
@@ -227,9 +227,9 @@ export default function CreateActivity(props) {
                 type="datetime-local"
               />
 
-              <label className="label">Category</label>
+              <label className="label">Category *</label>
               <select onChange={handleCategory} className="input">
-                <option selected disabled>
+                <option defaultValue>
                   Select an option
                 </option>
                 {category.map((value, index) => (
@@ -240,12 +240,16 @@ export default function CreateActivity(props) {
               </select>
 
               <label className="label">URL</label>
+              <small className="form-text text-muted">You can insert pdf, pictures or videos</small>  
+              <br></br>
               <input
                 onChange={handleLocationUrl}
                 className="input"
                 value={locationUrl}
                 type="text"
+                placeholder="http://example.jpg"
               />
+
 
               <label className="label">Upload File</label>
               <input
@@ -253,7 +257,7 @@ export default function CreateActivity(props) {
                 className="btn"
                 onChange={(e) => setFiles(e.target.files)}
               />
-
+              <br></br>
               <button className="btn btn-user" type="submit">
                 Submit
               </button>

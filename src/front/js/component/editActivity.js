@@ -231,7 +231,7 @@ export default function EditActivity() {
                 defaultValue={selectedCategory}
                 className="input"
               >
-                <option selected disabled>
+                <option defaultValue disabled>
                   Select an option
                 </option>
                 {category.map((value, index) => (
