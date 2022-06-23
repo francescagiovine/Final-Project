@@ -27,17 +27,16 @@ export const Navbar = () => {
               {!store.token ? (
                 <div className="loginPadre"></div>
               ) : (
-                <div className="loginPadre">
-                </div>
+                <div className="col flex ">
+                <Link to="/profile" className="text-decoration-none">
+                  <h2 className="pe-3 name text-white">{store.name} <i className="fas fa-solid fa-user"></i></h2>
+                </Link>
+              </div>
               )}
             </div>
           </div>
 
-          <div className="col flex ">
-            <Link to="/profile" className="text-decoration-none">
-              <h2 className="pe-3 name text-white">{store.name}</h2>
-            </Link>
-          </div>
+
           <div>
             <button
               className="navbar-toggler"

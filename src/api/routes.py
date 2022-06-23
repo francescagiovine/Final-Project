@@ -194,7 +194,7 @@ def timelineTravel(id):
         },
         "text": {
           "headline": "A Little Tutorial",
-          "text": "<p>AQUI VIENE UN VIDEO TUTORIAL SUBIDO A YOUTUBE (SE ESTÁ PRODUCIENDO)</p>"
+          "text": "<p>Take 2 minutes and watch this video</p>"
         },
         "background": {
             "color": "#054398"
